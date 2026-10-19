@@ -81,6 +81,7 @@
 :global(body):has(.shell) :global(.rail) {
   top: 19vh;
   height: 66vh;
+  left: clamp(16px, 2.5vw, 40px);
 }
 :global(body):has(.shell) :global(.rail__line) {
   width: 1px;
