@@ -9,7 +9,7 @@ describe("portfolio v2 non-case content", () => {
     expect(content.process).toHaveLength(5);
     expect(content.work.status).toBe(PROJECT_STATUSES.building);
     expect(content.work.items.map(({ slug }) => slug)).toEqual(["relay", "basis", "signalroom"]);
-    expect(content.links.github).toMatch(/^https:\/\/github\.com\/brenosampaio-dev/);
+    expect(content.links.github).toBe("https://github.com/sampayobreno-spec");
   });
 
   it.each([

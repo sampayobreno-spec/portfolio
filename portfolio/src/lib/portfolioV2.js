@@ -9,7 +9,7 @@ export const PROJECT_STATUSES = Object.freeze({
 
 export const portfolioProfileFacts = Object.freeze({
   links: {
-    github: "https://github.com/brenosampaio-dev",
+    github: "https://github.com/sampayobreno-spec",
     linkedin: "https://www.linkedin.com/in/brenosampaio",
     email: "sampayobreno@gmail.com",
   },

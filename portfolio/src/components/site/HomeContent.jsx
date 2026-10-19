@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CapabilitiesExplorer } from "@/components/site/CapabilitiesExplorer";
 import { ContactForm } from "@/components/site/ContactForm";
+import { FeaturedCaseCard } from "@/components/site/FeaturedCaseCard";
 import { HeroSkills } from "@/components/site/HeroSkills";
 import { LocationTime } from "@/components/site/LocationTime";
 import { Reveal } from "@/components/site/Reveal";
@@ -101,84 +102,7 @@ export function HomeContent({ lang = "en" }) {
           <p className={styles.sectionCaption}>{c.work.caption}</p>
         </Reveal>
 
-        <Reveal as="article" className={styles.projectCard} delay={80} aria-labelledby="featured-project-title">
-          <figure className={styles.projectMedia}>
-            <div className={styles.interfaceStage} aria-hidden="true">
-              <div className={styles.desktopUi}>
-                <div className={styles.windowTop}><i /><i /><i /><span /></div>
-                <div className={styles.workspace}>
-                  <div className={styles.uiSidebar}>
-                    <div className={styles.brandGlyph}>/</div>
-                    <b /><b /><b /><b /><b />
-                    <div className={styles.sidebarBottom} />
-                  </div>
-                  <div className={styles.workspaceMain}>
-                    <div className={styles.workspaceToolbar}><span /><i /><i /></div>
-                    <div className={styles.contentHeading}><span /><b /></div>
-                    <div className={styles.introLine} />
-                    <div className={styles.contentColumns}>
-                      <div className={styles.mainColumn}>
-                        <div className={styles.summaryBlock}>
-                          <div className={styles.summaryIcon}>↗</div>
-                          <div><b /><span /><span /></div>
-                          <i />
-                        </div>
-                        <div className={styles.listHeader}><b /><span /></div>
-                        <div className={styles.dataRow}><i /><div><b /><span /></div><em /></div>
-                        <div className={styles.dataRow}><i /><div><b /><span /></div><em /></div>
-                        <div className={styles.dataRow}><i /><div><b /><span /></div><em /></div>
-                      </div>
-                      <div className={styles.detailColumn}>
-                        <div className={styles.detailMark} />
-                        <b /><span /><span />
-                        <div className={styles.detailRule} />
-                        <b /><span />
-                        <div className={styles.detailAction} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.mobileUi}>
-                <div className={styles.phoneSpeaker} />
-                <div className={styles.mobileToolbar}><b /><i /></div>
-                <div className={styles.mobileTitle} />
-                <div className={styles.mobileLine} />
-                <div className={styles.mobileSummary}><span>↗</span><b /><i /></div>
-                <div className={styles.mobileRow}><i /><b /></div>
-                <div className={styles.mobileRow}><i /><b /></div>
-                <div className={styles.mobileRow}><i /><b /></div>
-                <div className={styles.mobileBottom}><b /><b /><b /></div>
-              </div>
-            </div>
-            <figcaption>{c.work.stageCaption}</figcaption>
-          </figure>
-
-          <div className={styles.projectCopy}>
-            <p className={styles.projectMeta}>{c.work.meta}</p>
-            <h3 className={styles.projectHeading} id="featured-project-title">
-              {c.work.projectTitle}<br />
-              <span>{c.work.projectTitleEmphasis}</span>
-            </h3>
-            <p className={styles.projectDescription}>{c.work.description}</p>
-            <dl className={styles.projectFacts}>
-              {c.work.facts.map((fact) => (
-                <div key={fact.label}>
-                  <dt>{fact.label}</dt>
-                  <dd>{fact.value}</dd>
-                </div>
-              ))}
-            </dl>
-            <Link href={`${prefix}/work`} className={styles.projectLink}>
-              <span>{c.work.cta}</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                <path d="M5 19 19 5M5 5h14v14" />
-              </svg>
-            </Link>
-          </div>
-        </Reveal>
-        <p className={styles.studyNote}>{c.work.note}</p>
+        <FeaturedCaseCard copy={c.work} lang={lang} />
       </section>
 
       {/* ====================================================================
@@ -192,6 +116,9 @@ export function HomeContent({ lang = "en" }) {
         </Reveal>
         <Reveal delay={80}>
           <CapabilitiesExplorer copy={c.capabilities} />
+          <Link href={`${prefix}/work/relay#prototype`} className={styles.projectLink} style={{ maxWidth: "340px" }}>
+            <span>{c.capabilities.proofCta}</span><span aria-hidden="true">↗</span>
+          </Link>
         </Reveal>
       </section>
 
@@ -204,6 +131,9 @@ export function HomeContent({ lang = "en" }) {
             <p className={styles.eyebrow}>{c.approach.eyebrow}</p>
             <h2 className={styles.sansH2} id="approach-title">{c.approach.title}</h2>
             <p className={styles.lead}>{c.approach.lead}</p>
+            <Link href={`${prefix}/work/relay#decisions`} className={styles.projectLink} style={{ maxWidth: "340px" }}>
+              <span>{c.approach.proofCta}</span><span aria-hidden="true">↗</span>
+            </Link>
           </Reveal>
           <div className={styles.questions}>
             {c.approach.items.map((item, idx) => (

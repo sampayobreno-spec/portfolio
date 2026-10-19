@@ -48,7 +48,7 @@ export function HeroSkills({ skills, lang = "en" }) {
   const hintText = lang === "fr" ? "Glisser ou toucher les onglets" : "Swipe or tap tabs to switch";
 
   return (
-    <div className={styles.skillsRoot} aria-label="Core skills and domain capabilities">
+    <div className={styles.skillsRoot} role="region" aria-label={lang === "fr" ? "Compétences et domaines clés" : "Core skills and domain capabilities"}>
       {/* ── DESKTOP & TABLET VIEW: DOTTED LEADER SPEC (OPTION 8) ── */}
       <div className={styles.desktopSpec} aria-hidden="true">
         {tracks.map((track) => (

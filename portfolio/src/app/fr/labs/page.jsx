@@ -3,6 +3,7 @@ import { LabsContent } from "@/components/site/LabsContent";
 export const metadata = {
   title: "Systems Lab — Expériences d’interface produit",
   description: "Des expériences de systèmes d’interface autour des produits denses, de l’accessibilité et de l’implémentation.",
+  robots: { index: false, follow: false },
   alternates: { canonical: "/fr/labs", languages: { "en-CA": "/labs", "fr-CA": "/fr/labs" } },
 };
 
