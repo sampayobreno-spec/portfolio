@@ -21,7 +21,7 @@ export function HomeContent({ lang = "en" }) {
   return (
     <div className={styles.shell}>
       {/* ====================================================================
-          01 · HERO (Option 1 Approved: Mineral pigment & organic line)
+          01 · HERO
           ==================================================================== */}
       <section className={`container ${styles.hero}`} id="top" data-label={c.labels.top} aria-labelledby="hero-title">
         <div className={styles.heroGrid}>
@@ -48,40 +48,15 @@ export function HomeContent({ lang = "en" }) {
           </div>
 
           <Reveal className={styles.heroSupporting} delay={140}>
-            <figure className={`hero__media--art ${styles.mineralCanvas}`} aria-hidden="true">
-              <svg viewBox="0 0 420 240" className={styles.artSvg}>
-                <defs>
-                  <filter id="hero-soft-wash" x="-15%" y="-15%" width="130%" height="130%">
-                    <feGaussianBlur stdDeviation="8" />
-                  </filter>
-                </defs>
-                <path
-                  className={styles.washShape1}
-                  d="M195 36 C255 22, 315 52, 322 112 C328 170, 275 212, 212 204 C152 196, 134 146, 146 90 C156 46, 165 43, 195 36 Z"
-                  fill="var(--wash-sage)"
-                  filter="url(#hero-soft-wash)"
-                />
-                <path
-                  className={styles.washShape2}
-                  d="M108 118 C154 96, 212 122, 216 168 C220 210, 168 234, 118 224 C72 214, 58 174, 74 142 C84 124, 92 125, 108 118 Z"
-                  fill="var(--wash-blue)"
-                  filter="url(#hero-soft-wash)"
-                />
-                <path
-                  className={styles.washShape3}
-                  d="M268 78 C318 66, 366 102, 358 156 C350 206, 294 226, 252 204 C214 184, 212 132, 236 98 C248 82, 254 81, 268 78 Z"
-                  fill="var(--wash-clay)"
-                  filter="url(#hero-soft-wash)"
-                />
-                <path
-                  className={styles.gestureLine}
-                  d="M56 196 C104 82, 174 54, 224 138 C264 204, 316 186, 366 68"
-                  fill="none"
-                  stroke="var(--ink)"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                />
-              </svg>
+            <figure className={styles.heroPortrait}>
+              <Image
+                src="/images/breno-hero-portrait.jpeg"
+                alt="Breno Sampaio"
+                fill
+                priority
+                sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 960px) 40vw, 486px"
+                className={styles.heroPortraitImg}
+              />
             </figure>
             <p className={styles.heroLead}>{c.hero.lead}</p>
             <p className={styles.practice}>{c.hero.practice}</p>
