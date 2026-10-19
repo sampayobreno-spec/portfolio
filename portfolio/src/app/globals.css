@@ -1206,11 +1206,10 @@ html {
   --reveal-dur: var(--duration-reveal);
 }
 
-/* Fluid type — scale the headline sizes down on small screens. Overrides the
-   design-system fixed tokens (the DS file stays canonical); each clamp reaches
-   its max well before desktop widths, so desktop sizes are unchanged. */
+/* Fluid type — scale headlines down on small screens while keeping the
+   design-system ceilings. Body and supporting text keep their fixed scale. */
 :root {
-  --text-display:     clamp(40px, calc(20px + 5.2vw), 72px);
+  --text-display:     clamp(40px, calc(20px + 5.2vw), 64px);
   --text-h1:          clamp(33px, calc(18px + 4vw), 52px);
   --text-h2:          clamp(27px, calc(16px + 2.8vw), 36px);
   --text-h3:          clamp(20px, calc(14px + 1.6vw), 24px);

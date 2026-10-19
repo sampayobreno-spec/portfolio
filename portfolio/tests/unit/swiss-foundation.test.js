@@ -70,14 +70,20 @@ describe("portfolio visual foundation", () => {
     expect(screen.getByTestId("serif-display")).toHaveStyle({ fontFamily: "var(--font-serif)" });
   });
 
-  it("restores the original type scale and rhythm", () => {
+  it("keeps the refined type scale and rhythm", () => {
     const typography = read("design-system/tokens/typography.css");
-    expect(typography).toContain("--text-display:      72px");
+    expect(typography).toContain("--text-display:      64px");
     expect(typography).toContain("--text-h1:           52px");
     expect(typography).toContain("--text-h2:           36px");
+    expect(typography).toContain("--text-body:         16px");
+    expect(typography).toContain("--text-small:        14px");
     expect(typography).toContain("--leading-display:  0.95");
     expect(typography).toContain("--leading-body:     1.68");
     expect(typography).toContain("--tracking-display: -0.04em");
+    const manifest = JSON.parse(read("design-system/_ds_manifest.json"));
+    const token = (name) => manifest.tokens.find((item) => item.name === name)?.value;
+    expect(token("--text-display")).toBe("64px");
+    expect(token("--radius-lg")).toBe("16px");
   });
 
   it("defines the approved light and dark semantic palette", () => {

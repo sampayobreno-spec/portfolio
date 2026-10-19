@@ -2,7 +2,7 @@
 
 Personal brand design system for Breno Sampaio's technical-functional portfolio.
 
-**Aesthetic:** Japanese structural discipline (間 ma, 簡 kanso, 渋 shibui) combined with Apple-like product clarity and editorial precision.
+**Aesthetic:** restrained editorial structure, clear product hierarchy, and consistent component roles.
 
 ---
 
@@ -21,24 +21,28 @@ Personal brand design system for Breno Sampaio's technical-functional portfolio.
 
 | Name | Token | Value | Use |
 |---|---|---|---|
-| Paper | `--paper` | `#F9F7F3` | Page background |
-| Silk | `--silk` | `#F0EDE7` | Card / input surfaces |
-| Mist | `--mist` | `#DDD9D4` | Borders, hairlines |
-| Pebble | `--pebble` | `#BCB8B3` | Disabled, placeholders |
-| Stone | `--stone` | `#857F79` | Secondary text |
-| Graphite | `--graphite` | `#3D3B38` | Strong surface text |
-| Ink | `--ink` | `#1C1A18` | Primary text |
-| Clay | `--clay` | `#8A6A4E` | Accent — the only tint |
-| Clay Dark | `--clay-dark` | `#6A5038` | Hover / pressed |
-| Alert | `--alert` | `#C44A31` | Errors only |
+| Paper | `--paper` | `#FFFFFF` | Page background |
+| Silk | `--silk` | `#F3F2EE` | Card / input surfaces |
+| Mist | `--mist` | `#DEDCD6` | Borders, hairlines |
+| Pebble | `--pebble` | `#77736D` | Muted labels |
+| Stone | `--stone` | `#5F5B56` | Secondary text |
+| Graphite | `--graphite` | `#36322F` | Strong surface text |
+| Ink | `--ink` | `#1F1C1B` | Primary text |
+| Accent | `--vermilion` | `#C74624` | Accent in shared components |
+| Accent hover | `--vermilion-dark` | `#A93618` | Hover / pressed |
+| Alert | `--alert` | `#B4232C` | Errors only |
 
-All old names (`--moss`, `--warm-grey`, `--ivory`, `--charcoal`, etc.) remain as backwards-compatible aliases.
+The editorial site shell uses its own warm-paper neutral palette. Check `src/components/site/EditorialShell.module.css` for those overrides before adding a component. Old names such as `--moss` and `--clay` remain compatibility aliases in the shared foundation.
+
+The CSS token files are authoritative. Some static specimen cards are historical examples and may show an earlier palette.
 
 ### Typography
 
 - **Primary:** DM Sans, weights 300 / 400 / 500 / 600
 - **Editorial accent:** Cormorant Garamond italic — pull quotes, case study openers, select editorial moments **only**. Never for body text or UI.
 - **Mono:** System stack (SF Mono, Menlo) — technical labels, eyebrows, metadata
+- **Scale:** 64px display ceiling, 52px H1, 36px H2, 16px body, 14px supporting text. Reserve 12–13px for short metadata only.
+- **Corners:** 16px major surfaces, 10px nested cards, 6px form controls, fully rounded pills for primary editorial actions. Keep the same role at the same radius on desktop and mobile.
 
 ---
 
