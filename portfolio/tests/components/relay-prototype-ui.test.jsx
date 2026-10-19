@@ -71,4 +71,60 @@ describe("RelayPrototype exception index", () => {
     render(<RelayPrototype />);
     expect(screen.getByTestId("relay-prototype")).toHaveStyle({ minWidth: "0" });
   });
+
+  it("lets a specialist inspect evidence, assign ownership and escalate with an audit trail", () => {
+    render(<RelayPrototype initialCaseId="SYN-REL-2401" />);
+    const dossier = screen.getByRole("region", { name: "Selected exception" });
+
+    expect(within(dossier).getByRole("heading", { name: "Evidence ledger" })).toBeVisible();
+    expect(within(dossier).getByText("Promised delivery date passed")).toBeVisible();
+
+    fireEvent.click(within(dossier).getByRole("button", { name: "Assign to me" }));
+    expect(within(dossier).getAllByText("Mira")[0]).toBeVisible();
+    expect(within(dossier).getByText("Assigned to Mira")).toBeVisible();
+
+    fireEvent.click(within(dossier).getByRole("button", { name: "Escalate for review" }));
+    expect(within(dossier).getByText("Escalated")).toBeVisible();
+    expect(within(dossier).getByText("Evidence conflict requires review")).toBeVisible();
+  });
+
+  it("blocks a specialist refund and explains the missing authority", () => {
+    render(<RelayPrototype initialCaseId="SYN-REL-2401" />);
+    const dossier = screen.getByRole("region", { name: "Selected exception" });
+
+    fireEvent.change(within(dossier).getByRole("combobox", { name: "Resolution" }), {
+      target: { value: "refund" },
+    });
+    fireEvent.click(within(dossier).getByRole("button", { name: "Submit resolution" }));
+
+    expect(within(dossier).getByText("Approval required")).toBeVisible();
+    expect(within(dossier).getByText(/only a manager can approve this refund/i)).toBeVisible();
+    expect(within(dossier).queryByRole("button", { name: "Approve refund" })).not.toBeInTheDocument();
+  });
+
+  it("allows a manager to approve a blocked resolution and records the decision", () => {
+    render(
+      <RelayPrototype
+        initialRole={RELAY_ROLES.manager}
+        initialCaseId="SYN-REL-2403"
+      />,
+    );
+    const dossier = screen.getByRole("region", { name: "Selected exception" });
+
+    fireEvent.click(within(dossier).getByRole("button", { name: "Approve refund" }));
+
+    expect(within(dossier).getByText("Resolved")).toBeVisible();
+    expect(within(dossier).getByText("Resolution approved: refund")).toBeVisible();
+  });
+
+  it("closes a resolved exception and keeps chronological audit entries", () => {
+    render(<RelayPrototype initialCaseId="SYN-REL-2404" />);
+    const dossier = screen.getByRole("region", { name: "Selected exception" });
+
+    fireEvent.click(within(dossier).getByRole("button", { name: "Close exception" }));
+
+    expect(within(dossier).getByText("Closed")).toBeVisible();
+    const auditItems = within(dossier).getAllByRole("listitem");
+    expect(auditItems.at(-1)).toHaveTextContent("Exception closed with audit record");
+  });
 });

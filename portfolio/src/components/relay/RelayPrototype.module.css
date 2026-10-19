@@ -101,7 +101,9 @@
 }
 
 .controls select:focus-visible,
-.caseButton:focus-visible {
+.caseButton:focus-visible,
+.actions button:focus-visible,
+.resolutionControl select:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
@@ -267,6 +269,109 @@
   font-size: var(--text-small);
 }
 
+.evidenceLedger,
+.actions {
+  grid-column: 1 / -1;
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--mist);
+}
+
+.evidenceLedger h4 {
+  margin: 0 0 var(--space-6);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+}
+
+.evidenceLedger ol {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.evidenceLedger li {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) minmax(5rem, auto);
+  gap: var(--space-4);
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--mist);
+  color: var(--graphite);
+  font-size: var(--text-small);
+}
+
+.evidenceLedger time,
+.evidenceLedger small {
+  color: var(--stone);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+}
+
+.evidenceLedger small {
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--space-3);
+}
+
+.actions button,
+.resolutionControl select {
+  min-height: 44px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+
+.actions button {
+  padding: 0 var(--space-5);
+  cursor: pointer;
+}
+
+.actions button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.actions button:active {
+  background: var(--silk);
+  color: var(--accent-hover);
+}
+
+.actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.resolutionControl {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) auto;
+  gap: var(--space-2) var(--space-3);
+  width: min(100%, 34rem);
+}
+
+.resolutionControl label {
+  grid-column: 1 / -1;
+  color: var(--stone);
+  font-size: var(--text-micro);
+}
+
+.resolutionControl select {
+  min-width: 0;
+  padding-inline: var(--space-3);
+}
+
+.authorityNote {
+  width: 100%;
+  margin: 0;
+  color: var(--alert);
+  font-size: var(--text-small);
+}
+
 @media (max-width: 700px) {
   .dossier {
     grid-template-columns: minmax(0, 1fr);
@@ -362,5 +467,26 @@
 
   .facts {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .evidenceLedger li {
+    grid-template-columns: 3rem minmax(0, 1fr);
+  }
+
+  .evidenceLedger small {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .actions,
+  .resolutionControl {
+    align-items: stretch;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .actions button,
+  .resolutionControl select,
+  .resolutionControl button {
+    width: 100%;
   }
 }

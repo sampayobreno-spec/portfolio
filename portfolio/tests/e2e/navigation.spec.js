@@ -272,12 +272,20 @@ test("every exposed non-case route has one localized H1 and stable sections", as
 });
 
 
-test("new presentation excludes previous projects and keeps Labs out of primary navigation", async ({ page }) => {
-  for (const path of ["/", "/work", "/about", "/fr", "/fr/work", "/fr/about"]) {
+test("Home and Work lead to the honest Relay case without promoting future projects", async ({ page }) => {
+  for (const { path, casePath } of [
+    { path: "/", casePath: "/work/relay" },
+    { path: "/work", casePath: "/work/relay" },
+    { path: "/fr", casePath: "/fr/work/relay" },
+    { path: "/fr/work", casePath: "/fr/work/relay" },
+  ]) {
     await page.goto(path);
-    await expect(page.locator("main")).not.toContainText(/Relay|Basis|Signalroom/);
-    await expect(page.locator('main a[href*="/work/"]')).toHaveCount(0);
+    await expect(page.locator(`main a[href="${casePath}"]`)).toBeVisible();
+    await expect(page.locator("main")).not.toContainText(/Basis|Signalroom|Project title|Titre du projet/);
     await expect(page.locator('.site-header a[href$="/labs"], .site-footer a[href$="/labs"]')).toHaveCount(0);
+    await page.locator(`main a[href="${casePath}"]`).first().click();
+    await expect(page).toHaveURL(new RegExp(`${casePath}$`));
+    await expect(page.locator("main")).toContainText(/synthetic|synthétiques/i);
   }
 });
 
@@ -399,7 +407,7 @@ test("non-case metadata is localized, reciprocal and truthful", async ({ page })
 
     const schema = JSON.parse(await page.locator("#person-schema").textContent());
     expect(schema.jobTitle).toBe("Product Designer");
-    expect(schema.sameAs).toContain("https://github.com/brenosampaio-dev");
+    expect(schema.sameAs).toContain("https://github.com/sampayobreno-spec");
     expect(schema.sameAs).toContain("https://www.linkedin.com/in/brenosampaio");
   }
 });

@@ -1,4 +1,4 @@
-export const GITHUB_URL = "https://github.com/brenosampaio-dev";
+export const GITHUB_URL = "https://github.com/sampayobreno-spec";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/brenosampaio";
 
 export function navigationFor(lang) {

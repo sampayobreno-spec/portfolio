@@ -5,9 +5,18 @@ import styles from "./RelayPrototype.module.css";
 import {
   RELAY_ROLES,
   RELAY_STATES,
+  applyRelayAction,
   getPrioritizedCases,
+  getVisibleActions,
   relaySyntheticCases,
 } from "@/lib/relayPrototype";
+
+const actors = {
+  [RELAY_ROLES.specialist]: { role: RELAY_ROLES.specialist, name: "Mira" },
+  [RELAY_ROLES.operationsLead]: { role: RELAY_ROLES.operationsLead, name: "Noa" },
+  [RELAY_ROLES.complianceReviewer]: { role: RELAY_ROLES.complianceReviewer, name: "Elise" },
+  [RELAY_ROLES.manager]: { role: RELAY_ROLES.manager, name: "Jonas" },
+};
 
 const copy = {
   en: {
@@ -39,6 +48,26 @@ const copy = {
       [RELAY_STATES.closed]: "Closed",
     },
     fields: { owner: "Owner", status: "Current state", completeness: "Evidence completeness", route: "Route" },
+    evidenceLedger: "Evidence ledger",
+    resolution: "Resolution",
+    resolutions: {
+      "request-carrier-update": "Request carrier update",
+      replacement: "Send replacement",
+      refund: "Refund",
+    },
+    actions: {
+      assign: "Assign to me",
+      escalate: "Escalate for review",
+      submit: "Submit resolution",
+      approve: "Approve refund",
+      reject: "Reject refund",
+      close: "Close exception",
+    },
+    approvalNote: "Only a manager can approve this refund.",
+    audit: {
+      "resolution-approved": (detail) => `Resolution approved: ${detail}`,
+      "resolution-rejected": (detail) => `Resolution rejected: ${detail}`,
+    },
     loading: "Loading exceptions",
     empty: "No exceptions match this view",
     error: "Exceptions could not be loaded",
@@ -73,6 +102,26 @@ const copy = {
       [RELAY_STATES.closed]: "Clôturée",
     },
     fields: { owner: "Responsable", status: "État actuel", completeness: "Complétude des preuves", route: "Trajet" },
+    evidenceLedger: "Journal des preuves",
+    resolution: "Résolution",
+    resolutions: {
+      "request-carrier-update": "Demander une mise à jour au transporteur",
+      replacement: "Envoyer un remplacement",
+      refund: "Remboursement",
+    },
+    actions: {
+      assign: "Me l’attribuer",
+      escalate: "Transmettre pour examen",
+      submit: "Soumettre la résolution",
+      approve: "Approuver le remboursement",
+      reject: "Refuser le remboursement",
+      close: "Clôturer l’exception",
+    },
+    approvalNote: "Seul un manager peut approuver ce remboursement.",
+    audit: {
+      "resolution-approved": (detail) => `Résolution approuvée : ${detail}`,
+      "resolution-rejected": (detail) => `Résolution refusée : ${detail}`,
+    },
     loading: "Chargement des exceptions",
     empty: "Aucune exception ne correspond à cette vue",
     error: "Impossible de charger les exceptions",
@@ -106,6 +155,10 @@ function slaFor(exception, lang) {
   return localizedSla[lang]?.[exception.id] || exception.sla.label;
 }
 
+function auditDetailFor(entry, t) {
+  return t.audit[entry.action]?.(entry.detail) || entry.detail;
+}
+
 function filterCases(exceptions, view) {
   if (view === "overdue") return exceptions.filter(({ sla }) => sla.overdue);
   if (view === "blocked") return exceptions.filter(({ state }) => state === RELAY_STATES.blocked);
@@ -132,9 +185,19 @@ export function RelayPrototype({
   const t = copy[locale];
   const [view, setView] = useState("all");
   const [selectedId, setSelectedId] = useState(initialCaseId);
-  const prioritized = useMemo(() => getPrioritizedCases(), []);
+  const [exceptions, setExceptions] = useState(() => relaySyntheticCases.map((exception) => ({
+    ...exception,
+    audit: exception.audit.map((entry) => ({ ...entry })),
+  })));
+  const [resolution, setResolution] = useState("request-carrier-update");
+  const prioritized = useMemo(() => getPrioritizedCases(exceptions), [exceptions]);
   const visibleCases = useMemo(() => filterCases(prioritized, view), [prioritized, view]);
-  const selected = visibleCases.find(({ id }) => id === selectedId) || visibleCases[0] || null;
+  const selectedInAllCases = prioritized.find(({ id }) => id === selectedId);
+  const selected = selectedInAllCases?.state === RELAY_STATES.closed
+    ? selectedInAllCases
+    : visibleCases.find(({ id }) => id === selectedId) || visibleCases[0] || null;
+  const actor = actors[initialRole];
+  const visibleActions = getVisibleActions(initialRole, selected);
 
   const choose = (exception) => setSelectedId(exception.id);
   const chooseWithKeyboard = (event, exception) => {
@@ -142,6 +205,14 @@ export function RelayPrototype({
       event.preventDefault();
       choose(exception);
     }
+  };
+
+  const applyAction = (action) => {
+    if (!selected) return;
+    const updated = applyRelayAction(selected, action, actor);
+    setExceptions((current) => current.map((exception) => (
+      exception.id === updated.id ? updated : exception
+    )));
   };
 
   return (
@@ -228,6 +299,66 @@ export function RelayPrototype({
                 <div><dt>{t.fields.completeness}</dt><dd>{selected.evidence.completeness}%</dd></div>
                 <div><dt>{t.fields.route}</dt><dd>{selected.market}</dd></div>
               </dl>
+
+              <div className={styles.evidenceLedger}>
+                <h4>{t.evidenceLedger}</h4>
+                <ol>
+                  {selected.audit.map((entry) => (
+                    <li key={`${entry.at}-${entry.action}`}>
+                      <time dateTime={entry.at}>{entry.at.slice(11, 16)}</time>
+                      <span>{auditDetailFor(entry, t)}</span>
+                      <small>{entry.actor}</small>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              <div className={styles.actions} aria-label={locale === "fr" ? "Actions disponibles" : "Available actions"}>
+                {visibleActions.includes("assign") ? (
+                  <button type="button" onClick={() => applyAction({ type: "assign", assignee: actor.name })}>
+                    {t.actions.assign}
+                  </button>
+                ) : null}
+                {visibleActions.includes("escalate") ? (
+                  <button type="button" onClick={() => applyAction({ type: "escalate", reason: "Evidence conflict requires review" })}>
+                    {t.actions.escalate}
+                  </button>
+                ) : null}
+                {visibleActions.includes("propose-resolution") ? (
+                  <div className={styles.resolutionControl}>
+                    <label htmlFor={`relay-resolution-${selected.id}`}>{t.resolution}</label>
+                    <select
+                      id={`relay-resolution-${selected.id}`}
+                      value={resolution}
+                      onChange={(event) => setResolution(event.target.value)}
+                    >
+                      {Object.entries(t.resolutions).map(([value, label]) => (
+                        <option key={value} value={value}>{label}</option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      onClick={() => applyAction({
+                        type: "propose-resolution",
+                        resolution,
+                        sensitive: resolution === "refund",
+                      })}
+                    >
+                      {t.actions.submit}
+                    </button>
+                  </div>
+                ) : null}
+                {visibleActions.includes("view-approval") ? <p className={styles.authorityNote}>{t.approvalNote}</p> : null}
+                {visibleActions.includes("approve") ? (
+                  <button type="button" onClick={() => applyAction({ type: "approve" })}>{t.actions.approve}</button>
+                ) : null}
+                {visibleActions.includes("reject") ? (
+                  <button type="button" onClick={() => applyAction({ type: "reject", reason: "Refund needs revised evidence" })}>{t.actions.reject}</button>
+                ) : null}
+                {visibleActions.includes("close") ? (
+                  <button type="button" onClick={() => applyAction({ type: "close" })}>{t.actions.close}</button>
+                ) : null}
+              </div>
             </section>
           ) : null}
         </>
