@@ -58,6 +58,19 @@ test("@a11y home has no serious or critical axe findings", async ({ page }) => {
   )).toEqual([]);
 });
 
+test("@a11y Relay mobile navigation landmarks have distinct names", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 844 });
+  for (const route of ["/work/relay", "/fr/work/relay"]) {
+    await page.goto(route);
+    await expect(page.locator(".case-dock")).toBeVisible();
+    await expect(page.locator(".case-dock")).toHaveCSS("opacity", "1");
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations.filter((violation) =>
+      ["moderate", "serious", "critical"].includes(violation.impact)
+    ), `${route} mobile axe findings`).toEqual([]);
+  }
+});
+
 test("@a11y reduced motion leaves content visible", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
