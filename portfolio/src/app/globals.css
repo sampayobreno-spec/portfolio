@@ -177,8 +177,8 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   .rail__line { animation: none; transform: scaleY(1); }
-  .rail__dot,
-  .rail__label { animation: none; opacity: 1; }
+  .rail__dot { animation: none; opacity: 1; }
+  .rail__label { transition: none; }
 }
 
 /* ── Responsive section navigation ───────────────────────────
