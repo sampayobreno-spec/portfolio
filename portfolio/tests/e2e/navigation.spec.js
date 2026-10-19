@@ -361,8 +361,9 @@ test("editorial rail stays beside the reading column on wide screens", async ({ 
         const label = document.querySelector(".rail__label").getBoundingClientRect();
         return { gap: content.left - rail.left, labelRight: label.right, railLeft: rail.left, contentLeft: content.left };
       });
-      expect(geometry.gap, `${route} at ${width}px`).toBeGreaterThanOrEqual(52);
-      expect(geometry.gap, `${route} at ${width}px`).toBeLessThanOrEqual(76);
+      expect(geometry.gap, `${route} at ${width}px`).toBeGreaterThanOrEqual(90);
+      expect(geometry.railLeft / geometry.contentLeft, `${route} at ${width}px`).toBeGreaterThan(0.35);
+      expect(geometry.railLeft / geometry.contentLeft, `${route} at ${width}px`).toBeLessThan(0.55);
       expect(geometry.labelRight, `${route} label and dot at ${width}px`).toBeLessThanOrEqual(geometry.railLeft - 8);
       expect(geometry.labelRight, `${route} label at ${width}px`).toBeLessThan(geometry.contentLeft - 12);
     }

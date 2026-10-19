@@ -144,18 +144,19 @@
 }
 @media (min-width: 1400px) {
   :global(body):has(.shell) :global(.rail) {
-    --rail-half-content: 540px;
-    left: calc(50vw - var(--rail-half-content) - var(--space-16));
+    /* Midway between the former viewport-edge rail and the content gutter. */
+    --rail-quarter-content: 270px;
+    left: calc(25vw - var(--rail-quarter-content) - 12px);
   }
   :global(body):has(.shell) :global(.rail__label) {
     left: auto;
     right: 36px;
-    max-width: min(140px, calc(50vw - var(--rail-half-content) - var(--space-16) - 12px));
+    max-width: min(140px, calc(25vw - var(--rail-quarter-content) - 24px));
   }
 }
 @media (min-width: 1680px) {
   :global(body):has(.shell) :global(.rail) {
-    --rail-half-content: 620px;
+    --rail-quarter-content: 310px;
   }
 }
 :global(html[data-theme="dark"] body):has(.shell) :global(.rail__label) {
