@@ -7,6 +7,7 @@ import { CaseSection } from "@/components/site/CaseSection";
 import { CaseSnapshot } from "@/components/site/CaseSnapshot";
 import { getPortfolioCase } from "@/lib/portfolioCases";
 import styles from "./RelayCaseContent.module.css";
+import editorialStyles from "./EditorialShell.module.css";
 
 const details = {
   en: {
@@ -70,7 +71,7 @@ export function RelayCaseContent({ lang = "en" }) {
   ];
 
   return (
-    <article>
+    <article className={editorialStyles.shell}>
       <CaseHero
         backHref={fr ? "/fr/work" : "/work"}
         backLabel={fr ? "Retour aux projets" : "Back to work"}

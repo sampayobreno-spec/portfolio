@@ -346,6 +346,27 @@ test("desktop rail follows the current section after real scrolling", async ({ p
   });
   await expect(page.locator(".rail__label")).toHaveText("How I work");
   await expect(page.locator('.rail__dot.is-active[href="#approach"]')).toHaveCount(1);
+  await expect(page.locator(".case-dock")).toBeHidden();
+});
+
+test("desktop and tablet show vertical rail and hide bottom dock on case studies", async ({ page }) => {
+  // Desktop
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/work/relay");
+  await expect(page.locator(".rail")).toBeVisible();
+  await expect(page.locator(".case-dock")).toBeHidden();
+
+  // Tablet (iPad)
+  await page.setViewportSize({ width: 820, height: 1180 });
+  await page.goto("/work/relay");
+  await expect(page.locator(".rail")).toBeVisible();
+  await expect(page.locator(".case-dock")).toBeHidden();
+
+  // Mobile
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/work/relay");
+  await expect(page.locator(".case-dock")).toBeVisible();
+  await expect(page.locator(".rail")).toBeHidden();
 });
 
 test("mobile dock keeps current-section orientation with reduced motion", async ({ page }) => {

@@ -45,10 +45,10 @@ html {
 /* ── Rail — vertical timeline that draws in on load ─────────── */
 .rail {
   position: fixed;
-  left: 52px;
-  top: 14vh;
-  height: 72vh;
-  width: 140px;
+  left: clamp(16px, 2.5vw, 40px);
+  top: 19vh;
+  height: 66vh;
+  width: 24px;
   z-index: 40;
   pointer-events: none;
 }
@@ -178,9 +178,24 @@ html {
   .rail__label { animation: none; opacity: 1; }
 }
 
-@media (max-width: 1360px) {
-  .rail { display: none; }
-  .rail-mini { display: flex; }
+/* ── Responsive section navigation ───────────────────────────
+   Desktop & Tablet (> 768px):
+     Vertical guide rail on the left (.rail) is visible.
+     Bottom floating dock (.case-dock) is hidden.
+   Mobile (<= 768px):
+     Bottom floating dock (.case-dock) is visible.
+     Vertical rail (.rail) and mini indicator (.rail-mini) are hidden.
+   ──────────────────────────────────────────────────────────── */
+@media (min-width: 769px) {
+  .rail { display: flex !important; }
+  .case-dock { display: none !important; }
+  .rail-mini { display: none !important; }
+}
+
+@media (max-width: 768px) {
+  .rail { display: none !important; }
+  .case-dock { display: block !important; }
+  .rail-mini { display: none !important; }
 }
 
 /* ── Case dock — touch-only section nav (macOS-style) ────────
@@ -244,23 +259,24 @@ html {
 }
 .case-dock__dot {
   position: relative;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.case-dock__dot::before {
+  content: "";
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: var(--pebble);
-  flex: 0 0 auto;
   transition:
     background 0.35s var(--ease),
     transform 0.45s cubic-bezier(0.34, 1.5, 0.5, 1);
 }
-/* Generous invisible hit area (~36px) so the small dot is easy to tap. */
-.case-dock__dot::before {
-  content: "";
-  position: absolute;
-  inset: -13px;
-  border-radius: 50%;
-}
-.case-dock__dot.is-active {
+.case-dock__dot.is-active::before {
   background: var(--clay);
   transform: scale(1.5);
 }
@@ -278,20 +294,10 @@ html {
   border-color: rgba(255, 255, 255, 0.14);
   color: #fff;
 }
-.case-dock--dark .case-dock__dot { background: rgba(255, 255, 255, 0.4); }
-.case-dock--dark .case-dock__dot.is-active { background: var(--clay-light); }
+.case-dock--dark .case-dock__dot::before { background: rgba(255, 255, 255, 0.4); }
+.case-dock--dark .case-dock__dot.is-active::before { background: var(--clay-light); }
 
-/* Touch devices: the dock takes over from the rail + mini indicator */
-@media (hover: none) {
-  .rail { display: none; }
-  .rail-mini { display: none; }
-  .case-dock { display: block; }
-}
 
-/* Case study pages — dock shows on all devices (rail is hidden via inline style in ScrollProgress) */
-.case-dock--case {
-  display: block;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .case-dock {
