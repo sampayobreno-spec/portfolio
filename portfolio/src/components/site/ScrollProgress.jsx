@@ -198,7 +198,7 @@ export function ScrollProgress() {
 
       <nav
         className={`case-dock${entered ? " is-in" : ""}${dark ? " case-dock--dark" : ""}`}
-        aria-label={t.a11y.sections}
+        aria-label={t.a11y.onThisPage}
       >
         <div className="case-dock__pill" ref={pillRef}>
           <span className="case-dock__name" ref={nameRef}>

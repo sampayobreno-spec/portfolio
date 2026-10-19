@@ -132,9 +132,9 @@ html {
   border-radius: var(--radius-full);
   padding: 3px 10px;
   opacity: 0;
-  animation: rail-fade 0.6s var(--ease-out) 1.6s forwards;
-  transition: top var(--duration-lg) var(--ease);
+  transition: top var(--duration-lg) var(--ease), opacity var(--duration-sm) var(--ease);
 }
+.rail:hover .rail__label { opacity: 1; }
 
 /* ── Mini indicator — single pulsing dot + label (mobile) ───── */
 .rail-mini {

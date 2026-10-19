@@ -356,6 +356,13 @@ test("desktop and tablet show vertical rail and hide bottom dock on case studies
   await expect(page.locator(".rail")).toBeVisible();
   await expect(page.locator(".case-dock")).toBeHidden();
 
+  // Keep the section label out of the case text until the rail is explored.
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await page.goto("/work/relay");
+  await expect(page.locator(".rail__label")).toHaveCSS("opacity", "0");
+  await page.locator(".rail__dot").first().hover();
+  await expect(page.locator(".rail__label")).toHaveCSS("opacity", "1");
+
   // Tablet (iPad)
   await page.setViewportSize({ width: 820, height: 1180 });
   await page.goto("/work/relay");
