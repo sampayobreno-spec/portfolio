@@ -142,6 +142,22 @@
     background-color 240ms ease,
     border-color 240ms ease;
 }
+@media (min-width: 1400px) {
+  :global(body):has(.shell) :global(.rail) {
+    --rail-half-content: 540px;
+    left: calc(50vw - var(--rail-half-content) - var(--space-16));
+  }
+  :global(body):has(.shell) :global(.rail__label) {
+    left: auto;
+    right: 36px;
+    max-width: min(140px, calc(50vw - var(--rail-half-content) - var(--space-16) - 12px));
+  }
+}
+@media (min-width: 1680px) {
+  :global(body):has(.shell) :global(.rail) {
+    --rail-half-content: 620px;
+  }
+}
 :global(html[data-theme="dark"] body):has(.shell) :global(.rail__label) {
   background: color-mix(in srgb, var(--surface) 82%, transparent);
   box-shadow:

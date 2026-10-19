@@ -349,6 +349,26 @@ test("desktop rail follows the current section after real scrolling", async ({ p
   await expect(page.locator(".case-dock")).toBeHidden();
 });
 
+test("editorial rail stays beside the reading column on wide screens", async ({ page }) => {
+  for (const route of ["/", "/work/relay"]) {
+    for (const width of [1440, 1680, 1920]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(route);
+      await expect(page.locator(".rail")).toBeVisible();
+      const geometry = await page.evaluate(() => {
+        const rail = document.querySelector(".rail").getBoundingClientRect();
+        const content = document.querySelector("main .container").getBoundingClientRect();
+        const label = document.querySelector(".rail__label").getBoundingClientRect();
+        return { gap: content.left - rail.left, labelRight: label.right, railLeft: rail.left, contentLeft: content.left };
+      });
+      expect(geometry.gap, `${route} at ${width}px`).toBeGreaterThanOrEqual(52);
+      expect(geometry.gap, `${route} at ${width}px`).toBeLessThanOrEqual(76);
+      expect(geometry.labelRight, `${route} label and dot at ${width}px`).toBeLessThanOrEqual(geometry.railLeft - 8);
+      expect(geometry.labelRight, `${route} label at ${width}px`).toBeLessThan(geometry.contentLeft - 12);
+    }
+  }
+});
+
 test("desktop and tablet show vertical rail and hide bottom dock on case studies", async ({ page }) => {
   // Desktop
   await page.setViewportSize({ width: 1440, height: 900 });
