@@ -105,7 +105,7 @@ export function RelayCaseContent({ lang = "en" }) {
           id={section.id}
           number={`${String(index + 1).padStart(2, "0")} — ${section.title}`}
           heading={section.title}
-          label={section.title}
+          label={section.label || section.title}
           defaultOpen
         >
           <div className="prose">

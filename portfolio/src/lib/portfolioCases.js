@@ -30,31 +30,37 @@ const sections = {
   en: [
     {
       id: "problem",
+      label: "01 · Context",
       title: "Exceptions become customer failures when evidence has no owner.",
       body: "Order, payment, fulfillment, carrier, customer-service and compliance signals can disagree. Relay frames the work around the next defensible decision rather than another disconnected dashboard.",
     },
     {
       id: "constraints",
+      label: "02 · Scope",
       title: "The product must make uncertainty visible.",
       body: "The prototype uses synthetic records, explicit permissions and source-labelled evidence. It does not replace an ERP, decide legal compliance or claim live integrations.",
     },
     {
       id: "workflow",
+      label: "03 · Workflow",
       title: "One path from queue to auditable closure.",
       body: "Prioritize the exception, investigate its evidence, assign ownership, choose a permitted resolution, obtain approval when required and close with an audit record.",
     },
     {
       id: "decisions",
+      label: "04 · Decisions",
       title: "Design decisions reduce ambiguity before they add speed.",
       body: "Relay treats ownership, deadline risk, evidence completeness and authority as first-class product states. The interface exposes why an action is available or blocked.",
     },
     {
       id: "prototype",
+      label: "05 · Prototype",
       title: "The evidence is a working React prototype.",
       body: "The implemented flow demonstrates queue prioritization, investigation, assignment, sensitive-resolution approval and chronological audit history with entirely synthetic data.",
     },
     {
       id: "validation",
+      label: "06 · Validation",
       title: "Participant validation is planned, not implied.",
       body: "Desk research currently informs the workflow. Operator interviews and task-based usability sessions remain planned work; no business impact is claimed.",
     },
@@ -62,31 +68,37 @@ const sections = {
   fr: [
     {
       id: "problem",
+      label: "01 · Contexte",
       title: "Une exception devient un échec client lorsque les preuves n’ont pas de responsable.",
       body: "Les signaux de commande, paiement, traitement, transport, service client et conformité peuvent se contredire. Relay organise le travail autour de la prochaine décision défendable, pas d’un tableau de bord supplémentaire.",
     },
     {
       id: "constraints",
+      label: "02 · Périmètre",
       title: "Le produit doit rendre l’incertitude visible.",
       body: "Le prototype utilise des dossiers synthétiques, des permissions explicites et des preuves dont la source est indiquée. Il ne remplace pas un ERP, ne décide pas de la conformité juridique et ne prétend pas disposer d’intégrations en direct.",
     },
     {
       id: "workflow",
+      label: "03 · Parcours",
       title: "Un seul parcours, de la file à une clôture vérifiable.",
       body: "Prioriser l’exception, examiner les preuves, attribuer la responsabilité, choisir une résolution autorisée, obtenir une approbation si nécessaire et clôturer avec une piste d’audit.",
     },
     {
       id: "decisions",
+      label: "04 · Décisions",
       title: "Les décisions de design réduisent l’ambiguïté avant d’accélérer le travail.",
       body: "Relay traite la responsabilité, le risque d’échéance, la complétude des preuves et l’autorité comme des états produit essentiels. L’interface explique pourquoi une action est disponible ou bloquée.",
     },
     {
       id: "prototype",
+      label: "05 · Prototype",
       title: "La preuve est un prototype React fonctionnel.",
       body: "Le parcours implémenté démontre la priorisation, l’analyse, l’attribution, l’approbation d’une résolution sensible et l’historique chronologique avec des données entièrement synthétiques.",
     },
     {
       id: "validation",
+      label: "06 · Validation",
       title: "La validation avec des participants est prévue, pas sous-entendue.",
       body: "La recherche documentaire guide actuellement le parcours. Les entretiens opérateurs et les tests d’utilisabilité restent prévus ; aucun impact commercial n’est revendiqué.",
     },
