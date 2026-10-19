@@ -392,7 +392,7 @@
 }
 .heroPortrait {
   position: relative;
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 2;
   background: var(--surface);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-surface);
@@ -404,9 +404,7 @@
 }
 .heroPortraitImg {
   object-fit: cover;
-  object-position: center 50%;
-  transform: scale(1.25);
-  transform-origin: right center;
+  object-position: center 48%;
 }
 
 .shell .heroLead {
@@ -1949,7 +1947,7 @@
     gap: 1.5rem;
   }
   .heroPortrait {
-    aspect-ratio: 1;
+    aspect-ratio: 4 / 3;
     margin-bottom: 1.25rem;
     border-radius: var(--radius-surface);
   }
