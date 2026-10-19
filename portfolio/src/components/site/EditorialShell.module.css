@@ -2,9 +2,9 @@
 :global(html):has(.shell),
 .shell {
   --section-space: clamp(5.25rem, 8.5vw, 7.75rem);
-  --radius-control: 999px;
-  --radius-surface: 16px;
-  --radius-subcard: 10px;
+  --radius-control: var(--radius-full);
+  --radius-surface: var(--radius-lg);
+  --radius-subcard: var(--radius-md);
   --card-border: color-mix(in srgb, var(--rule) 65%, transparent);
   --subcard-border: color-mix(in srgb, var(--rule) 50%, transparent);
   --paper: #f7f6f2;
@@ -120,7 +120,7 @@
 :global(body):has(.shell) :global(.rail__label) {
   left: 16px;
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: var(--text-mono);
   font-weight: 500;
   letter-spacing: 0.1em;
   color: var(--ink);
@@ -226,7 +226,7 @@
 }
 
 .shell :where(h3) {
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.4;
   letter-spacing: -0.015em;
@@ -235,12 +235,12 @@
 
 .shell :where(p) {
   color: var(--muted);
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   line-height: 1.68;
 }
 
 .shell .eyebrow {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
@@ -257,7 +257,7 @@
 }
 
 .shell .subLead {
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   line-height: 1.68;
   color: var(--muted);
   max-width: 52ch;
@@ -297,7 +297,7 @@
 }
 .shell .heroTitle {
   font-family: var(--font-sans);
-  font-size: clamp(2.625rem, 4.8vw, 3.875rem);
+  font-size: clamp(2.625rem, 4.4vw, 3.75rem);
   font-weight: 500;
   line-height: 1.04;
   letter-spacing: -0.042em;
@@ -447,13 +447,13 @@
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid color-mix(in srgb, var(--rule) 72%, transparent);
-  font-size: 0.8125rem;
+  font-size: var(--text-small);
   line-height: 1.55;
   color: var(--muted);
 }
 .location {
   margin-top: 0.5rem;
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   color: var(--muted);
 }
 
@@ -466,7 +466,7 @@
   margin-bottom: 3rem;
 }
 .sectionCaption {
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   line-height: 1.65;
   color: var(--muted);
   padding-bottom: 0.125rem;
@@ -880,7 +880,7 @@
   border-radius: 2px;
 }
 .projectMedia figcaption {
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   line-height: 1.5;
   letter-spacing: 0.02em;
   color: var(--muted);
@@ -897,7 +897,7 @@
   min-width: 0;
 }
 .projectMeta {
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   line-height: 1.6;
   letter-spacing: 0.04em;
   color: var(--muted);
@@ -910,7 +910,7 @@
   color: var(--ink);
 }
 .projectDescription {
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   line-height: 1.66;
   color: var(--muted);
   max-width: 34ch;
@@ -921,7 +921,7 @@
   margin-top: 1.75rem;
   padding-top: 1.375rem;
   border-top: 1px solid color-mix(in srgb, var(--rule) 75%, transparent);
-  font-size: 0.8125rem;
+  font-size: var(--text-small);
   line-height: 1.55;
 }
 .projectFacts dt {
@@ -959,7 +959,7 @@
 }
 .studyNote {
   color: var(--muted);
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   line-height: 1.6;
   margin-top: 1.5rem;
 }
@@ -971,7 +971,7 @@
 }
 .capIntro {
   margin-top: 1.25rem;
-  font-size: 1.0625rem;
+  font-size: var(--text-body-lg);
   line-height: 1.66;
   color: var(--muted);
   max-width: 58ch;
@@ -1025,7 +1025,7 @@
 .capTabDescription {
   display: block;
   margin-top: 0.625rem;
-  font-size: 0.875rem;
+  font-size: var(--text-body);
   line-height: 1.55;
   max-width: 30ch;
 }
@@ -1104,7 +1104,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   line-height: 1.4;
   color: var(--muted);
   margin-bottom: 1.5rem;
@@ -1115,7 +1115,7 @@
 }
 .artifactType {
   margin-left: auto;
-  font-size: 0.75rem;
+  font-size: var(--text-small);
 }
 .shell .artifactHeading {
   font: 500 clamp(1.625rem, 2.5vw, 2.125rem)/1.08 var(--font-sans);
@@ -1158,7 +1158,7 @@
   margin-bottom: 0.35rem;
 }
 .pureFlowCol p {
-  font-size: 0.8125rem;
+  font-size: var(--text-small);
   line-height: 1.6;
   color: var(--muted);
 }
@@ -1167,7 +1167,7 @@
   align-items: center;
   gap: 1rem;
   margin-top: 1.25rem;
-  font-size: 0.6875rem;
+  font-size: 0.8125rem;
   font-family: var(--font-mono), monospace;
   color: var(--muted);
   text-transform: uppercase;
@@ -1183,7 +1183,7 @@
   justify-content: space-between;
   gap: 1rem;
   margin-top: 1.25rem;
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   color: var(--muted);
 }
 .panelCaption > span:last-child {
@@ -1196,7 +1196,7 @@
   gap: 1.125rem;
   flex-wrap: wrap;
   margin-top: 1.25rem;
-  font-size: 0.6875rem;
+  font-size: 0.8125rem;
   font-family: var(--font-mono), monospace;
   color: var(--muted);
   text-transform: uppercase;
@@ -1242,7 +1242,7 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   color: var(--muted);
   margin-bottom: 0.875rem;
 }
@@ -1260,7 +1260,7 @@
   min-height: 48px;
   cursor: pointer;
   list-style: none;
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   font-weight: 500;
   color: var(--ink);
   border-block: 1px solid var(--rule);
@@ -1279,12 +1279,12 @@
 }
 .demoDetails p {
   margin-block: 0.875rem;
-  font-size: 0.875rem;
+  font-size: var(--text-body);
   color: var(--muted);
 }
 .demoFootnote {
   margin-top: 1rem;
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   color: var(--muted);
 }
 
@@ -1337,7 +1337,7 @@
 }
 .questions p {
   margin-top: 0.25rem;
-  font-size: 0.875rem;
+  font-size: var(--text-body);
   color: var(--muted);
   line-height: 1.6;
   max-width: 52ch;
@@ -1404,7 +1404,7 @@
   color: var(--ink);
 }
 .openPortraitMeta span {
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   color: var(--muted);
 }
 .openPortraitLangs {
@@ -1432,14 +1432,14 @@
   border-top: 1px solid var(--rule);
 }
 .contactFacts dt {
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
   margin-bottom: 0.375rem;
 }
 .contactFacts dd {
-  font-size: 0.9375rem;
+  font-size: var(--text-body);
   color: var(--ink);
 }
 .email {
@@ -1481,6 +1481,7 @@
 }
 .formPanel :global(.contact-form__submit) {
   width: 100%;
+  border-radius: var(--radius-control);
 }
 
 /* ── ABOUT & WORK INDEPENDENT PAGES ──────────────────────────────────────── */
@@ -1489,7 +1490,7 @@
 }
 .shell .pageTitle {
   font-family: var(--font-sans);
-  font-size: clamp(2.625rem, 4.8vw, 3.875rem);
+  font-size: clamp(2.625rem, 4.4vw, 3.75rem);
   font-weight: 500;
   line-height: 1.04;
   letter-spacing: -0.042em;
@@ -1537,7 +1538,7 @@
   padding: 1rem 0.25rem 0.125rem;
   display: grid;
   gap: 0.625rem;
-  font-size: 0.75rem;
+  font-size: var(--text-small);
 }
 .portraitCardMeta div {
   display: flex;
@@ -1611,7 +1612,7 @@
   padding-top: 0;
 }
 .edLabel {
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   color: var(--muted);
   line-height: 1.5;
 }
@@ -1634,7 +1635,7 @@
 .languages dd {
   margin-top: 0.25rem;
   color: var(--muted);
-  font-size: 0.875rem;
+  font-size: var(--text-body);
 }
 
 /* Work Page */
@@ -1722,7 +1723,7 @@
   flex-wrap: wrap;
   gap: 0.5rem 1.25rem;
   margin-top: 0.75rem;
-  font-size: 0.75rem;
+  font-size: var(--text-small);
   color: var(--muted);
 }
 .compactTags strong {
@@ -1978,7 +1979,7 @@
   .mineralCanvas {
     padding: 0.875rem;
     margin-bottom: 1.25rem;
-    border-radius: 14px;
+    border-radius: var(--radius-surface);
   }
   .artSvg {
     max-height: 156px;
@@ -1994,7 +1995,7 @@
   }
   .projectCard {
     min-height: 0;
-    border-radius: 14px;
+    border-radius: var(--radius-surface);
     gap: 0;
   }
   .projectMedia {
@@ -2026,7 +2027,7 @@
     flex-direction: row;
     background: var(--surface);
     padding: 4px;
-    border-radius: 12px;
+    border-radius: var(--radius-surface);
     gap: 4px;
     margin-bottom: 1.25rem;
   }
@@ -2034,7 +2035,7 @@
     flex: 1;
     padding: 0.625rem 0.5rem;
     min-height: 44px;
-    border-radius: 8px;
+    border-radius: var(--radius-subcard);
     text-align: center;
   }
   .capTab[aria-selected="true"] {
@@ -2042,7 +2043,7 @@
     box-shadow: 0 1px 3px #00000014;
   }
   .capTabTop {
-    font-size: 0.8125rem;
+    font-size: var(--text-small);
     justify-content: center;
     gap: 0;
     white-space: nowrap;
@@ -2054,7 +2055,7 @@
   .artifact {
     min-height: 0;
     padding: 1.25rem 1rem;
-    border-radius: 14px;
+    border-radius: var(--radius-surface);
   }
   .pureFlowGrid {
     grid-template-columns: 1fr;
@@ -2070,13 +2071,13 @@
     gap: 0.875rem;
     align-items: center;
     padding: 0.75rem;
-    border-radius: 14px;
+    border-radius: var(--radius-surface);
   }
   .openPortraitImg {
     width: 76px;
     height: 88px;
     aspect-ratio: auto;
-    border-radius: 10px;
+    border-radius: var(--radius-subcard);
   }
   .openPortraitMeta {
     padding: 0;
@@ -2093,7 +2094,7 @@
     width: 88px;
     height: 104px;
     aspect-ratio: auto;
-    border-radius: 10px;
+    border-radius: var(--radius-subcard);
   }
   .portraitCardMeta {
     padding: 0;
@@ -2104,7 +2105,7 @@
   .formPanel,
   .pausedBanner {
     padding: 1.25rem 1rem;
-    border-radius: 14px;
+    border-radius: var(--radius-surface);
   }
 }
 

@@ -370,6 +370,35 @@ test("editorial rail stays beside the reading column on wide screens", async ({ 
   }
 });
 
+test("editorial surfaces and meaningful text use the shared design scale", async ({ page }) => {
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    const design = await page.evaluate(() => {
+      const style = (part) => getComputedStyle(document.querySelector(`[class*="${part}"]`));
+      const rect = (part) => document.querySelector(`[class*="${part}"]`).getBoundingClientRect();
+      return {
+        heroTitle: parseFloat(style("heroTitle").fontSize),
+        projectDescription: parseFloat(style("projectDescription").fontSize),
+        projectCardRadius: style("projectCard").borderTopLeftRadius,
+        heroCanvasRadius: style("mineralCanvas").borderTopLeftRadius,
+        skillsDescription: parseFloat(style("cardDesc").fontSize),
+        skillsCardRadius: style("activeCard").borderTopLeftRadius,
+        skillsTabHeight: rect("segBtn").height,
+      };
+    });
+    expect(design.heroTitle).toBeLessThanOrEqual(60);
+    expect(design.projectDescription).toBeGreaterThanOrEqual(16);
+    expect(design.projectCardRadius).toBe("16px");
+    expect(design.heroCanvasRadius).toBe("16px");
+    if (width === 390) {
+      expect(design.skillsDescription).toBeGreaterThanOrEqual(14);
+      expect(design.skillsCardRadius).toBe("16px");
+      expect(design.skillsTabHeight).toBeGreaterThanOrEqual(44);
+    }
+  }
+});
+
 test("desktop and tablet show vertical rail and hide bottom dock on case studies", async ({ page }) => {
   // Desktop
   await page.setViewportSize({ width: 1440, height: 900 });
