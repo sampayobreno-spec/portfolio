@@ -284,7 +284,7 @@
   }
 }
 
-/* ── 01 · HERO (Option 1: Mineral Pigment & Gesture Line) ────────────────── */
+/* ── 01 · HERO ────────────────────────────────────────────────────────────── */
 .hero {
   padding-block: clamp(5.75rem, 9vw, 8rem) clamp(5rem, 8vw, 7rem);
   scroll-margin-top: 7.5rem;
@@ -390,51 +390,21 @@
   display: flex;
   flex-direction: column;
 }
-.mineralCanvas {
+.heroPortrait {
+  position: relative;
+  aspect-ratio: 3 / 2;
   background: var(--surface);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-surface);
-  padding: 1.375rem;
   margin-bottom: 1.75rem;
   overflow: hidden;
   transition:
     border-color 360ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 360ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.artSvg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.gestureLine {
-  stroke-dasharray: 460;
-  stroke-dashoffset: 460;
-  animation: drawGesture 1.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
-}
-.washShape1 {
-  transform-origin: center;
-  animation: floatWash 10s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
-}
-.washShape2 {
-  transform-origin: center;
-  animation: floatWash 12.5s cubic-bezier(0.45, 0, 0.55, 1) 1.2s infinite alternate-reverse;
-}
-.washShape3 {
-  transform-origin: center;
-  animation: floatWash 11s cubic-bezier(0.45, 0, 0.55, 1) 0.6s infinite alternate;
-}
-@keyframes drawGesture {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes floatWash {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(5px, -4px, 0) scale(1.024);
-  }
+.heroPortraitImg {
+  object-fit: cover;
+  object-position: center 35%;
 }
 
 .shell .heroLead {
@@ -1747,7 +1717,7 @@
   .textLink:hover span {
     transform: translateX(3px);
   }
-  .mineralCanvas:hover {
+  .heroPortrait:hover {
     border-color: color-mix(in srgb, var(--ink) 18%, transparent);
     box-shadow: 0 16px 36px -24px rgba(24, 24, 20, 0.14);
   }
@@ -1976,13 +1946,10 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  .mineralCanvas {
-    padding: 0.875rem;
+  .heroPortrait {
+    aspect-ratio: 4 / 3;
     margin-bottom: 1.25rem;
     border-radius: var(--radius-surface);
-  }
-  .artSvg {
-    max-height: 156px;
   }
   .sectionHeading,
   .workHeader {
@@ -2144,10 +2111,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gestureLine,
-  .washShape1,
-  .washShape2,
-  .washShape3,
   .artifact {
     animation: none !important;
     stroke-dashoffset: 0 !important;
@@ -2221,7 +2184,7 @@
     white-space: normal;
     padding-inline: 0.5rem;
   }
-  .mineralCanvas,
+  .heroPortrait,
   .interfaceStage,
   .projectStage,
   .capStage,
