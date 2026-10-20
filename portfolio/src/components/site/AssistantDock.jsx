@@ -51,6 +51,23 @@ function ActionIcon({ type }) {
   );
 }
 
+function sanitizeHref(raw) {
+  if (!raw || typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (trimmed.startsWith("/") || trimmed.startsWith("#")) {
+    return trimmed;
+  }
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.protocol === "https:" || parsed.protocol === "http:" || parsed.protocol === "mailto:") {
+      return parsed.href;
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
 function renderFormattedMessage(text) {
   if (!text) return null;
   const lines = text.split("\n");
@@ -74,12 +91,22 @@ function renderFormattedMessage(text) {
       } else if (token.startsWith("[") && token.includes("](")) {
         const splitIdx = token.indexOf("](");
         const linkText = token.slice(1, splitIdx);
-        const href = token.slice(splitIdx + 2, -1);
-        parts.push(
-          <a key={match.index} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
-            {linkText}
-          </a>
-        );
+        const rawHref = token.slice(splitIdx + 2, -1);
+        const safeHref = sanitizeHref(rawHref);
+        if (safeHref) {
+          parts.push(
+            <a
+              key={match.index}
+              href={safeHref}
+              target={safeHref.startsWith("http") ? "_blank" : undefined}
+              rel="noopener noreferrer"
+            >
+              {linkText}
+            </a>
+          );
+        } else {
+          parts.push(linkText);
+        }
       }
       lastIndex = regex.lastIndex;
     }
@@ -380,7 +407,7 @@ export function AssistantDock() {
                           msg.sender === "user" ? styles.userBubble : styles.assistantBubble
                         }`}
                       >
-                        {renderFormattedMessage(msg.text)}
+                        {msg.sender === "user" ? <p>{msg.text}</p> : renderFormattedMessage(msg.text)}
 
                         {/* Interactive Navigation Action Pills */}
                         {msg.actions && msg.actions.length > 0 && (
