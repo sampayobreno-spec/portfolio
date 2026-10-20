@@ -165,12 +165,32 @@ describe("assistantKnowledge base and intelligence", () => {
     expect(result.reply).not.toContain("I'm Breno, a Product Designer");
   });
 
-  it("answers 'quais principios voce gosta mais' with core principles rather than generic greeting", () => {
-    const result = getAssistantKnowledgeResult("quais principios voce gosta mais");
-    expect(result.reply).not.toContain("Sou o Breno, **Product Designer & Frontend Prototyper** baseado em Valência, Espanha, com 8 anos de estrada em operações multilíngues.");
-    expect(result.reply).toContain("Dieter Rams");
-    expect(result.reply).toContain("Apple HIG");
-    expect(result.reply).toContain("Don Norman");
+  it("answers 'quais principios voce gosta mais' and 'que conceitos de design' in Portuguese with core principles", () => {
+    const result1 = getAssistantKnowledgeResult("quais principios voce gosta mais");
+    expect(result1.detectedLang).toBe("pt");
+    expect(result1.reply).toContain("Dieter Rams");
+    expect(result1.reply).toContain("Apple HIG");
+    expect(result1.reply).toContain("Don Norman");
+
+    const result2 = getAssistantKnowledgeResult("que conceitos de design", "en");
+    expect(result2.detectedLang).toBe("pt");
+    expect(result2.reply).toContain("Dieter Rams");
+    expect(result2.reply).toContain("Apple HIG");
+    expect(result2.reply).toContain("Don Norman");
+  });
+
+  it("answers English queries in English without false French or Portuguese detection", () => {
+    const r1 = getAssistantKnowledgeResult("approach to design", "en");
+    expect(r1.detectedLang).toBe("en");
+    expect(r1.reply).toContain("frontline multilingual operations");
+
+    const r2 = getAssistantKnowledgeResult("do you speak french", "en");
+    expect(r2.detectedLang).toBe("en");
+    expect(r2.reply).toContain("4 languages");
+
+    const r3 = getAssistantKnowledgeResult("what are your design concepts", "en");
+    expect(r3.detectedLang).toBe("en");
+    expect(r3.reply).toContain("Dieter Rams");
   });
 
   it("synthesizes thoughtful answers for open-ended questions without falling back to robotic greeting", () => {

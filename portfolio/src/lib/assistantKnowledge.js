@@ -202,7 +202,10 @@ const INTENTS = [
       "principios favoritos", "principios que voce gosta", "principios que você gosta",
       "gosta mais", "quais principios", "quais princípios", "principios de design",
       "regras de ouro", "fundamentos", "valores de design", "design philosophy", "core principles",
-      "meus principios", "seus principios", "sua filosofia", "que principios", "que princípios"
+      "meus principios", "seus principios", "sua filosofia", "que principios", "que princípios",
+      "conceito", "conceitos", "conceitos de design", "que conceitos", "conceito de design",
+      "design concepts", "conceptos de diseno", "conceptos de diseño", "concepts de design",
+      "notions de design", "ideias de design"
     ],
     en: "The core design principles that guide everything I build come from fusing classic design theory with 8 years in the trenches of frontline operations:\n\n1. **'Weniger, aber besser' (Dieter Rams)**: Good design ruthlessly cuts operational clutter. In enterprise systems, every vanity metric or redundant button invites critical human error.\n2. **Clarity & Deference (Steve Jobs & Apple HIG)**: The interface yields to the content. Visual layers, translucency, and motion physics exist to orient the operator's mental model, never to show off empty decoration.\n3. **Signifiers & Mental Models (Don Norman)**: If a button needs an explanation to be used, or if the system exposes raw database jargon to users, the design has failed.\n4. **Immediate Feedback (<400ms Doherty Threshold & UX Laws)**: Human working memory holds 7 ± 2 chunks (Miller's Law). I chunk complex operations into clear, defensible steps with immediate tactile feedback.\n5. **Prototype Where the Doubt Lives**: Less time polishing static illusions in Figma, and more time coding living React 19 prototypes to prove real keyboard accessibility, network drops, and error rollbacks.",
     fr: "Les principes fondamentaux qui guident toutes mes interfaces naissent de la rencontre entre le design classique et la réalité du terrain après 8 ans en opérations :\n\n1. **'Weniger, aber besser' (Dieter Rams)** : Le bon design élimine sans pitié le superflu. En logiciel d'entreprise, chaque champ inutile est un risque d'erreur humaine.\n2. **Clarté et Déférence (Steve Jobs & Apple HIG)** : L'interface s'efface devant le contenu. Le verre et la cinématique structurent la hiérarchie mentale sans voler la vedette à la tâche.\n3. **Signifiants et Modèles Mentaux (Don Norman)** : Si un élément nécessite un mode d'emploi pour être compris, ou si le système impose son jargon technique, le design a échoué.\n4. **Feedback Immédiat (<400ms Seuil de Doherty & Lois de l'UX)** : Découper la complexité en étapes digestes (Loi de Miller) avec des cibles de clic ergonomiques (Loi de Fitts).\n5. **Prototyper là où réside le doute** : Moins d'écrans figés dans Figma, et plus de code fonctionnel en React 19 pour éprouver les cas limites et l'accessibilité réelle.",
@@ -620,7 +623,12 @@ const INTENTS = [
   },
   {
     id: "languages",
-    keywords: ["language", "languages", "idioma", "idiomas", "linguas", "français", "ingles", "english", "portugues", "espanol", "español", "langues"],
+    keywords: [
+      "language", "languages", "idioma", "idiomas", "linguas", "línguas", "français", "french", "ingles",
+      "english", "portugues", "português", "espanol", "español", "langues", "speak", "speaks", "do you speak",
+      "what languages", "quais linguas", "quais línguas", "quais idiomas", "que idiomas", "que línguas",
+      "fala ingles", "fala francês", "fala frances", "hablas inglés", "hablas ingles", "parlez français"
+    ],
     en: "I work across **4 languages** fluently:\n\n• **Portuguese**: Native\n• **Spanish**: Fluent\n• **French**: Fluent / Professional\n• **English**: Professional working\n\nThis comes from years of frontline international operations, which helps me design software that naturally accommodates localization and diverse operational cultures.",
     fr: "Je travaille couramment en **4 langues** :\n\n• **Portugais** : Langue maternelle\n• **Espagnol** : Courant\n• **Français** : Courant / Professionnel\n• **Anglais** : Professionnel de travail\n\nCe bagage multilingue est issu d'années sur le terrain et me permet de concevoir des interfaces prêtes pour l'internationalisation.",
     pt: "Falo **4 idiomas** fluentemente no dia a dia profissional:\n\n• **Português**: Nativo\n• **Espanhol**: Fluente\n• **Francês**: Fluente / Profissional\n• **Inglês**: Profissional de trabalho\n\nIsso não é só falar línguas: são anos operando com clientes e times de vários países, o que me faz projetar produtos já preparados para localização e contextos culturais diversos.",
@@ -709,15 +717,17 @@ function normalizeForLanguageDetection(text) {
 }
 
 const PT_PHRASES = [
+  " que conceitos ", " conceitos de ", " conceitos de design ", " que principios ", " principios de ",
   " bom dia ", " boa tarde ", " boa noite ", " tudo bem ", " tudo bom ", " como vai ",
   " e ai ", " e aí ", " fala ai ", " fala aí ", " fala breno ", " ola breno ", " oi breno ", " opa breno ",
-  " me ajuda ", " me explica ", " me conta ", " o que voce ", " o que vc ",
+  " me ajuda ", " me explica ", " me conta ", " me diga ", " me conte ", " o que voce ", " o que vc ",
   " quem e voce ", " quem e vc ", " quais principios ", " como voce ", " como vc ",
   " voce mora ", " vc mora ", " qual e sua ", " qual e o seu ", " fale sobre ",
   " me fale ", " conta mais ", " fale mais ", " me tira uma ", " falar com ",
   " falar contigo ", " trocar uma ideia ", " o que voce acha ", " o que vc acha ",
   " como funciona ", " me mostra ", " voce pode ", " voce faz ", " vc faz ",
-  " por favor ", " valeu ", " beleza ", " blz ", " opa ", " eae ", " salve "
+  " por favor ", " valeu ", " beleza ", " blz ", " opa ", " eae ", " salve ",
+  " quero ver ", " me mostre ", " me fala sobre "
 ];
 
 const ES_PHRASES = [
@@ -725,7 +735,7 @@ const ES_PHRASES = [
   " que tal ", " como estas ", " como te va ", " muchas gracias ", " por favor ",
   " cuentame ", " explicame ", " dime ", " que haces ", " quien eres ", " cuales son ",
   " en que trabajas ", " donde vives ", " hablame ", " hablemos ", " que opinas ",
-  " como funciona "
+  " como funciona ", " que conceptos ", " conceptos de "
 ];
 
 const FR_PHRASES = [
@@ -733,49 +743,59 @@ const FR_PHRASES = [
   " comment vas tu ", " comment ca va ", " comment allez vous ", " merci beaucoup ",
   " s il vous plait ", " s il te plait ", " qui es tu ", " qui etes vous ",
   " que fais tu ", " que faites vous ", " parle moi ", " dis moi ", " explique moi ",
-  " parlez moi ", " qu est ce que "
+  " parlez moi ", " qu est ce que ", " quels concepts "
 ];
 
 const EN_PHRASES = [
   " good morning ", " good afternoon ", " good evening ", " how are you ",
   " what s up ", " whats up ", " how s it going ", " hows it going ",
   " nice to meet you ", " who are you ", " what do you do ", " tell me about ",
-  " let s talk ", " talk to you "
+  " let s talk ", " talk to you ", " design concepts ", " how do you ", " can you "
 ];
 
-const PT_UNIQUE_TOKENS = new Set([
+const PT_EXCLUSIVE = new Set([
   "voce", "voces", "vc", "vcs", "nao", "obrigado", "obrigada", "valeu", "bora", "beleza",
   "blz", "opa", "eae", "salve", "tambem", "estao", "acha", "acho", "achas", "acham",
   "gosta", "gosto", "gostas", "gostam", "meu", "minha", "meus", "minhas", "teu", "tua",
   "teus", "tuas", "seu", "sua", "seus", "suas", "nosso", "nossa", "nossos", "nossas",
-  "pra", "pro", "pras", "pros", "pelo", "pela", "pelos", "pelas", "sao", "da", "do",
-  "das", "dos", "no", "na", "nos", "nas", "dele", "dela", "deles", "delas", "nele", "nela",
-  "portugues", "to", "ta", "ne", "sou", "estou", "curriculo", "trabalha", "trabalho",
-  "faz", "fazer", "fazendo", "fiz", "conhece", "conhecer", "ajuda", "ajudar"
+  "pra", "pro", "pras", "pros", "pelo", "pela", "pelos", "pelas", "sao", "da", "das",
+  "dos", "na", "nas", "dele", "dela", "deles", "delas", "nele", "nela", "portugues",
+  "sou", "estou", "curriculo", "trabalha", "trabalho", "faz", "fazer", "fazendo", "fiz",
+  "conhece", "conhecer", "ajuda", "ajudar", "fala", "falar", "diz", "dizer", "quais",
+  "qual", "onde", "quando", "porque", "conceitos", "conceito", "trajetoria", "bucha",
+  "estrada", "conte", "diga", "quero", "quer", "ferramentas", "carreira", "sobre"
 ]);
 
-const ES_UNIQUE_TOKENS = new Set([
+const ES_EXCLUSIVE = new Set([
   "usted", "ustedes", "cual", "cuales", "quien", "quienes", "donde", "porque", "hola",
   "gracias", "saludos", "espanol", "del", "al", "haces", "hace", "hacer", "haciendo",
   "hizo", "hecho", "eres", "estas", "estoy", "estamos", "estan", "dime", "cuentame",
   "explicame", "aqui", "alli", "despues", "tu", "tus", "mi", "mis", "nuestro", "nuestra",
-  "nuestros", "nuestras", "bueno", "buena", "buenos", "buenas"
+  "nuestros", "nuestras", "bueno", "buena", "buenos", "buenas", "hablas", "habla", "hablar"
 ]);
 
-const FR_UNIQUE_TOKENS = new Set([
+const FR_EXCLUSIVE = new Set([
   "comment", "pourquoi", "quand", "qui", "quel", "quelle", "quels", "quelles", "quoi",
   "bonjour", "bonsoir", "salut", "merci", "beaucoup", "demarche", "vous", "nous", "c est",
-  "j ai", "qu est", "n est", "francais", "suis", "es", "est", "sommes", "etes", "sont",
-  "fais", "fait", "faire", "vas", "vais", "va", "plait", "coucou", "mon", "ma", "mes",
-  "ton", "ta", "tes", "son", "sa", "ses", "notre", "votre", "vos", "leur", "leurs", "ce",
-  "cet", "cette", "ces"
+  "j ai", "qu est", "n est", "francais", "suis", "sommes", "etes", "sont", "fais",
+  "fait", "faire", "vas", "vais", "va", "plait", "coucou", "votre", "vos", "leur",
+  "leurs", "cette", "parle", "parlez", "travailles", "travaillez"
 ]);
 
-const EN_UNIQUE_TOKENS = new Set([
+const EN_EXCLUSIVE = new Set([
   "how", "what", "where", "who", "when", "why", "which", "whose", "whom", "hello", "hi",
   "hey", "thanks", "thank", "you", "your", "yours", "the", "should", "would", "could",
-  "about", "english", "please", "working", "works"
+  "about", "english", "please", "working", "works", "think", "thinks", "thought", "like",
+  "likes", "prefer", "prefers", "show", "shows", "tell", "tells", "explain", "explains",
+  "know", "knows", "is", "are", "was", "were", "have", "has", "had", "with", "from",
+  "they", "them", "their", "this", "that", "these", "those", "much", "many", "any",
+  "some", "good", "better", "best"
 ]);
+
+const PT_PARTICLES = new Set(["que", "de", "do", "da", "em", "no", "na", "para", "pra", "com", "por", "mais", "como", "sobre", "seus", "suas", "meu", "minha", "um", "uma"]);
+const ES_PARTICLES = new Set(["que", "de", "del", "al", "en", "para", "por", "con", "mas", "como", "sobre", "sus", "mi", "mis", "un", "una"]);
+const FR_PARTICLES = new Set(["que", "de", "du", "des", "en", "dans", "pour", "par", "avec", "plus", "comme", "sur", "un", "une"]);
+const EN_PARTICLES = new Set(["of", "in", "to", "for", "with", "on", "at", "from", "by", "about", "as", "into", "and", "or", "so", "a", "an"]);
 
 export function detectQueryLanguage(text, defaultLang = "en", history = []) {
   const clean = (text || "").trim();
@@ -791,29 +811,34 @@ export function detectQueryLanguage(text, defaultLang = "en", history = []) {
   let enScore = 0;
 
   // 1. Explicit language switch requests have top priority
-  if (/\b(em\s+portugu[êe]s|fale?\s+em\s+portugu[êe]s|no\s+portugu[êe]s)\b/i.test(rawLower)) ptScore += 25;
-  if (/\b(en\s+fran[çc]ais|parle?\s+en\s+fran[çc]ais)\b/i.test(rawLower)) frScore += 25;
-  if (/\b(en\s+espa[ñn]ol|habla\s+en\s+espa[ñn]ol)\b/i.test(rawLower)) esScore += 25;
-  if (/\b(in\s+english|speak\s+in\s+english)\b/i.test(rawLower)) enScore += 25;
+  if (/\b(em\s+portugu[êe]s|fale?\s+em\s+portugu[êe]s|no\s+portugu[êe]s)\b/i.test(rawLower)) ptScore += 30;
+  if (/\b(en\s+fran[çc]ais|parle?\s+en\s+fran[çc]ais)\b/i.test(rawLower)) frScore += 30;
+  if (/\b(en\s+espa[ñn]ol|habla\s+en\s+espa[ñn]ol)\b/i.test(rawLower)) esScore += 30;
+  if (/\b(in\s+english|speak\s+in\s+english)\b/i.test(rawLower)) enScore += 30;
 
   // 2. Multi-word phrase matches (high confidence)
-  PT_PHRASES.forEach((p) => { if (norm.includes(p)) ptScore += 12; });
-  ES_PHRASES.forEach((p) => { if (norm.includes(p)) esScore += 12; });
-  FR_PHRASES.forEach((p) => { if (norm.includes(p)) frScore += 12; });
-  EN_PHRASES.forEach((p) => { if (norm.includes(p)) enScore += 12; });
+  PT_PHRASES.forEach((p) => { if (norm.includes(p)) ptScore += 15; });
+  ES_PHRASES.forEach((p) => { if (norm.includes(p)) esScore += 15; });
+  FR_PHRASES.forEach((p) => { if (norm.includes(p)) frScore += 15; });
+  EN_PHRASES.forEach((p) => { if (norm.includes(p)) enScore += 15; });
 
-  // 3. Unique token matches
+  // 3. Exclusive and grammatical token matches
   tokens.forEach((t) => {
-    if (PT_UNIQUE_TOKENS.has(t)) ptScore += 5;
-    if (ES_UNIQUE_TOKENS.has(t)) esScore += 5;
-    if (FR_UNIQUE_TOKENS.has(t)) frScore += 5;
-    if (EN_UNIQUE_TOKENS.has(t)) enScore += 5;
+    if (PT_EXCLUSIVE.has(t)) ptScore += 6;
+    if (ES_EXCLUSIVE.has(t)) esScore += 6;
+    if (FR_EXCLUSIVE.has(t)) frScore += 6;
+    if (EN_EXCLUSIVE.has(t)) enScore += 6;
+
+    if (PT_PARTICLES.has(t)) ptScore += 2;
+    if (ES_PARTICLES.has(t)) esScore += 2;
+    if (FR_PARTICLES.has(t)) frScore += 2;
+    if (EN_PARTICLES.has(t)) enScore += 2;
   });
 
   // 4. Language-specific character indicators
-  if (/[¿¡ñ]/.test(rawLower)) esScore += 6;
-  if (/[ãõ]/.test(rawLower)) ptScore += 6;
-  if (/[œæ]/.test(rawLower)) frScore += 6;
+  if (/[¿¡ñ]/.test(rawLower)) esScore += 8;
+  if (/[ãõ]/.test(rawLower)) ptScore += 8;
+  if (/[œæ]/.test(rawLower)) frScore += 8;
 
   const scores = [
     { lang: "pt", score: ptScore },
