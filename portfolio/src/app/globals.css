@@ -361,9 +361,13 @@ html {
 @media (max-width: 640px) {
   .to-top {
     right: max(16px, env(safe-area-inset-right, 16px));
-    bottom: calc(max(16px, env(safe-area-inset-bottom, 16px)) + 58px);
-    width: 44px;
-    height: 44px;
+    bottom: max(14px, env(safe-area-inset-bottom, 14px));
+    width: 38px;
+    height: 38px;
+  }
+  .to-top svg {
+    width: 16px;
+    height: 16px;
   }
 }
 

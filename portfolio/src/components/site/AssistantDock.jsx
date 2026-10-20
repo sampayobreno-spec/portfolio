@@ -97,7 +97,11 @@ const LOCALIZED_ASSISTANT_STRINGS = {
     modalTitle: "Breno Sampaio",
     modalSubtitle: "Direct from my verified experience, case studies and systems prototyping.",
     dockBadge: "Direct",
+    dockAria: "Chat directly with Breno",
+    dockPlaceholder: "Ask me anything...",
+    dockMobilePlaceholder: "Ask me anything",
     inputPlaceholder: "Ask me anything... (e.g. 'How do you work?' or 'Tell me about Relay')",
+    inputPlaceholderMobile: "Ask me anything...",
     newQuestion: "New question",
     suggestedFollowUps: "Continue exploring",
     suggestedHeading: "Topics to explore with me",
@@ -115,7 +119,11 @@ const LOCALIZED_ASSISTANT_STRINGS = {
     modalTitle: "Breno Sampaio",
     modalSubtitle: "Direto da minha experiência real, estudos de caso e prototipagem de sistemas.",
     dockBadge: "Direto",
+    dockAria: "Conversar direto com o Breno",
+    dockPlaceholder: "Pergunte algo...",
+    dockMobilePlaceholder: "Pergunte algo",
     inputPlaceholder: "Me pergunte qualquer coisa... (ex.: 'Como você trabalha?' ou 'Me conte sobre o Relay')",
+    inputPlaceholderMobile: "Me pergunte qualquer coisa...",
     newQuestion: "Nova pergunta",
     suggestedFollowUps: "Continuar explorando",
     suggestedHeading: "Temas para explorar comigo",
@@ -133,7 +141,11 @@ const LOCALIZED_ASSISTANT_STRINGS = {
     modalTitle: "Breno Sampaio",
     modalSubtitle: "En direct de mon expérience vérifiée, mes études de cas et prototypes.",
     dockBadge: "Direct",
+    dockAria: "Échanger directement avec Breno",
+    dockPlaceholder: "Posez-moi une question...",
+    dockMobilePlaceholder: "Poser une question",
     inputPlaceholder: "Pose-moi une question... (ex. « Comment travailles-tu ? » ou « Parle-moi de Relay »)",
+    inputPlaceholderMobile: "Pose-moi une question...",
     newQuestion: "Nouvelle question",
     suggestedFollowUps: "Poursuivre l'exploration",
     suggestedHeading: "Sujets à explorer avec moi",
@@ -151,7 +163,11 @@ const LOCALIZED_ASSISTANT_STRINGS = {
     modalTitle: "Breno Sampaio",
     modalSubtitle: "Directo de mi experiencia real, casos de estudio y prototipos funcionales.",
     dockBadge: "Directo",
+    dockAria: "Hablar directamente con Breno",
+    dockPlaceholder: "Pregúntame algo...",
+    dockMobilePlaceholder: "Pregúntame algo",
     inputPlaceholder: "Pregúntame lo que quieras... (ej. '¿Cómo trabajas?' o 'Háblame de Relay')",
+    inputPlaceholderMobile: "Pregúntame cualquier cosa...",
     newQuestion: "Nueva pregunta",
     suggestedFollowUps: "Continuar explorando",
     suggestedHeading: "Temas para explorar conmigo",
@@ -176,8 +192,31 @@ export function AssistantDock() {
   const strings = t.assistant || {};
 
   const [conversationLang, setConversationLang] = useState(lang);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (lang === "fr") {
+      setConversationLang("fr");
+      return;
+    }
+    if (typeof window !== "undefined" && window.navigator) {
+      const navLang = window.navigator.language?.toLowerCase() || "";
+      if (navLang.startsWith("pt")) {
+        setConversationLang("pt");
+        return;
+      }
+      if (navLang.startsWith("es")) {
+        setConversationLang("es");
+        return;
+      }
+    }
     setConversationLang(lang);
   }, [lang]);
 
@@ -757,8 +796,16 @@ export function AssistantDock() {
                     className={styles.textInput}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder={currentStrings.inputPlaceholder}
-                    aria-label={currentStrings.inputPlaceholder}
+                    placeholder={
+                      isMobile
+                        ? (currentStrings.inputPlaceholderMobile || currentStrings.inputPlaceholder)
+                        : currentStrings.inputPlaceholder
+                    }
+                    aria-label={
+                      isMobile
+                        ? (currentStrings.inputPlaceholderMobile || currentStrings.inputPlaceholder)
+                        : currentStrings.inputPlaceholder
+                    }
                   />
                   <button
                     type="submit"
@@ -785,15 +832,17 @@ export function AssistantDock() {
         className={`${styles.dockPill} ${isDark ? styles.dockPillDark : ""} ${isOpen ? styles.dockPillHidden : ""}`}
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
-        aria-label={strings.dockAria}
+        aria-label={currentStrings.dockAria || strings.dockAria || "Chat with Breno"}
       >
         <div className={styles.iconWrapper}>
           <SparkleIcon className={styles.sparkleIcon} />
         </div>
         <span className={styles.placeholderText}>
-          {strings.dockPlaceholder}
+          {isMobile
+            ? (currentStrings.dockMobilePlaceholder || currentStrings.dockPlaceholder || "Ask me anything")
+            : (currentStrings.dockPlaceholder || "Ask me anything...")}
         </span>
-        <span className={styles.shortcutBadge}>{strings.shortcutHint}</span>
+        <span className={styles.shortcutBadge}>{strings.shortcutHint || "⌘K"}</span>
       </button>
     </>
   );
