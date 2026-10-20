@@ -191,6 +191,45 @@ const INTENTS = [
     }
   },
   {
+    id: "design_principles",
+    keywords: [
+      "principio", "principios", "princípio", "princípios", "principles", "principes",
+      "filosofia", "filosofias", "filosofia de design", "valores", "o que guia",
+      "principios favoritos", "principios que voce gosta", "principios que você gosta",
+      "gosta mais", "quais principios", "quais princípios", "principios de design",
+      "regras de ouro", "fundamentos", "valores de design", "design philosophy", "core principles",
+      "meus principios", "seus principios", "sua filosofia", "que principios", "que princípios"
+    ],
+    en: "The core design principles that guide everything I build come from fusing classic design theory with 8 years in the trenches of frontline operations:\n\n1. **'Weniger, aber besser' (Dieter Rams)**: Good design ruthlessly cuts operational clutter. In enterprise systems, every vanity metric or redundant button invites critical human error.\n2. **Clarity & Deference (Steve Jobs & Apple HIG)**: The interface yields to the content. Visual layers, translucency, and motion physics exist to orient the operator's mental model, never to show off empty decoration.\n3. **Signifiers & Mental Models (Don Norman)**: If a button needs an explanation to be used, or if the system exposes raw database jargon to users, the design has failed.\n4. **Immediate Feedback (<400ms Doherty Threshold & UX Laws)**: Human working memory holds 7 ± 2 chunks (Miller's Law). I chunk complex operations into clear, defensible steps with immediate tactile feedback.\n5. **Prototype Where the Doubt Lives**: Less time polishing static illusions in Figma, and more time coding living React 19 prototypes to prove real keyboard accessibility, network drops, and error rollbacks.",
+    fr: "Les principes fondamentaux qui guident toutes mes interfaces naissent de la rencontre entre le design classique et la réalité du terrain après 8 ans en opérations :\n\n1. **'Weniger, aber besser' (Dieter Rams)** : Le bon design élimine sans pitié le superflu. En logiciel d'entreprise, chaque champ inutile est un risque d'erreur humaine.\n2. **Clarté et Déférence (Steve Jobs & Apple HIG)** : L'interface s'efface devant le contenu. Le verre et la cinématique structurent la hiérarchie mentale sans voler la vedette à la tâche.\n3. **Signifiants et Modèles Mentaux (Don Norman)** : Si un élément nécessite un mode d'emploi pour être compris, ou si le système impose son jargon technique, le design a échoué.\n4. **Feedback Immédiat (<400ms Seuil de Doherty & Lois de l'UX)** : Découper la complexité en étapes digestes (Loi de Miller) avec des cibles de clic ergonomiques (Loi de Fitts).\n5. **Prototyper là où réside le doute** : Moins d'écrans figés dans Figma, et plus de code fonctionnel en React 19 pour éprouver les cas limites et l'accessibilité réelle.",
+    pt: "Os princípios que guiam tudo o que eu projeto nascem da fusão entre a melhor literatura clássica de design e a realidade crua de 8 anos na linha de frente de operações:\n\n1. **'Weniger, aber besser' (Dieter Rams)**: O bom design é a eliminação impiedosa do entulho operacional. Em software crítico, cada métrica vaidosa ou formulário inchado é um convite ao erro humano.\n2. **Clareza e Deferência (Steve Jobs & Apple HIG)**: A interface sai do caminho para o conteúdo ser o protagonista. Vidro, física e profundidade existem para orientar o operador, nunca para ostentar efeito cosmético.\n3. **Signifiers e Modelos Mentais (Don Norman)**: Se um botão precisa de manual de instruções para ser usado, ou se a tela cospe termos técnicos de banco de dados na cara da pessoa, o design falhou.\n4. **Feedback Imediato (<400ms Doherty Threshold & Leis de UX)**: Respostas sob 400ms para manter o fluxo de pensamento, organizando a informação em blocos digestíveis (Lei de Miller) e alvos generosos (Lei de Fitts).\n5. **Prototipar onde mora a dúvida**: Menos tempo polindo ilusões estáticas no Figma e mais código funcional em React 19 para testar falhas de rede, dados reais e acessibilidade WCAG na prática.",
+    es: "Los principios esenciales que guían todo lo que diseño surgen de unir la literatura clásica del diseño con la experiencia real de 8 años en operaciones:\n\n1. **'Weniger, aber besser' (Dieter Rams)**: El buen diseño es la eliminación implacable del ruido operativo. En software de empresa, cada campo superfluo provoca errores evitables.\n2. **Claridad y Deferencia (Steve Jobs & Apple HIG)**: La interfaz se aparta para que el contenido sea el protagonista. El vidrio, la física y la profundidad orientan mentalmente al operador, sin adornos vacíos.\n3. **Significantes y Modelos Mentales (Don Norman)**: Si un botón necesita una explicación para interactuar con él, o el sistema arroja jerga técnica, el diseño ha fallado.\n4. **Feedback Inmediato (<400ms Umbral Doherty & Leyes de UX)**: Respuestas rápidas para no romper el flujo mental, dividiendo los datos en fragmentos asimilables (Ley de Miller) y áreas táctiles ergonómicas (Ley de Fitts).\n5. **Prototipar donde reside la duda**: Menos maquetas estáticas en Figma y más prototipos vivos en React 19 para verificar fallos de red, datos sintéticos y accesibilidad real.",
+    actions: {
+      en: [
+        { label: "View Relay Prototype", href: "/work/relay", type: "navigate" },
+        { label: "My Way of Working", href: "#approach", type: "anchor" }
+      ],
+      fr: [
+        { label: "Voir le prototype Relay", href: "/fr/work/relay", type: "navigate" },
+        { label: "Ma démarche de travail", href: "#approach", type: "anchor" }
+      ],
+      pt: [
+        { label: "Ver protótipo do Relay", href: "/work/relay", type: "navigate" },
+        { label: "Como eu trabalho", href: "#approach", type: "anchor" }
+      ],
+      es: [
+        { label: "Ver prototipo Relay", href: "/work/relay", type: "navigate" },
+        { label: "Cómo trabajo", href: "#approach", type: "anchor" }
+      ]
+    },
+    followUps: {
+      en: ["What is your take on Steve Jobs & Apple HIG?", "Explain Nielsen heuristics in your work", "Why build prototypes in React?"],
+      fr: ["Quelle est ta vision de Steve Jobs & Apple ?", "Comment appliques-tu les heuristiques de Nielsen ?", "Pourquoi prototyper en React ?"],
+      pt: ["O que pensa sobre Steve Jobs e Apple HIG?", "Como aplica as heurísticas de Nielsen?", "Por que prototipar em React?"],
+      es: ["¿Qué opinas sobre Steve Jobs y Apple HIG?", "¿Cómo aplicas las heurísticas de Nielsen?", "¿Por qué prototipar en React?"]
+    }
+  },
+  {
     id: "dieter_rams",
     keywords: [
       "dieter rams", "rams", "10 principios", "10 principes", "less but better", "menos mas melhor",
@@ -824,114 +863,202 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
   const lower = clean.toLowerCase();
   const queryTokens = new Set(lower.match(/[\p{L}\p{M}'-]+/gu) || []);
 
+  // Multi-feature relevance scoring across all knowledge intents
+  let bestIntent = null;
+  let highestScore = 0;
+
   for (const item of INTENTS) {
-    const match = item.keywords.some((k) => {
+    let score = 0;
+    for (const k of item.keywords) {
       if (k.includes(" ")) {
-        return lower.includes(k);
-      }
-      return queryTokens.has(k) || (k.length > 4 && lower.includes(k));
-    });
-    if (match) {
-      const actionsForLang = item.actions
-        ? (item.actions[targetLang] || item.actions[lang] || item.actions.en || [])
-        : [];
-      let followUpsForLang = item.followUps
-        ? (item.followUps[targetLang] || item.followUps[lang] || item.followUps.en || [])
-        : [];
-
-      // Evolving conversation: filter out follow-up questions that were already asked in history
-      if (Array.isArray(history) && history.length > 0) {
-        const historyTexts = history.map((h) => (h.text || "").toLowerCase());
-        followUpsForLang = followUpsForLang.filter((f) => {
-          const fLower = f.toLowerCase();
-          return !historyTexts.some((ht) => ht.includes(fLower) || fLower.includes(ht));
-        });
-
-        // Ensure we always have at least 2 engaging follow-up suggestions
-        if (followUpsForLang.length < 2) {
-          const genericPool = {
-            fr: ["Comment travailles-tu ?", "Parle-moi du prototype Relay", "Quelle est ta vision de Steve Jobs & Apple ?"],
-            pt: ["Como você trabalha? (Approach)", "Me conta sobre o case Relay", "O que pensa sobre Steve Jobs e Apple HIG?"],
-            es: ["¿Cómo trabajas? (Metodología)", "Cuéntame sobre el caso Relay", "¿Qué opinas sobre Steve Jobs y Apple HIG?"],
-            en: ["Explain your Way of Working", "Tell me about Relay prototype", "What is your take on Steve Jobs & Apple HIG?"]
-          };
-          const pool = genericPool[targetLang] || genericPool.en;
-          pool.forEach((p) => {
-            if (!followUpsForLang.includes(p) && followUpsForLang.length < 3) {
-              followUpsForLang.push(p);
-            }
-          });
+        if (lower.includes(k)) {
+          score += 6; // Exact multi-word phrase match
+        }
+      } else {
+        if (queryTokens.has(k)) {
+          score += k.length >= 4 ? 4 : 2;
+        } else if (k.length > 4 && lower.includes(k)) {
+          score += 2;
         }
       }
-
-      return {
-        reply: item[targetLang] || item[lang] || item.en,
-        actions: actionsForLang,
-        followUps: followUpsForLang
-      };
+    }
+    if (score > highestScore) {
+      highestScore = score;
+      bestIntent = item;
     }
   }
 
-  // Fallbacks if no specific intent keyword matched
-  if (targetLang === "fr") {
+  if (bestIntent && highestScore >= 2) {
+    const item = bestIntent;
+    const actionsForLang = item.actions
+      ? (item.actions[targetLang] || item.actions[lang] || item.actions.en || [])
+      : [];
+    let followUpsForLang = item.followUps
+      ? (item.followUps[targetLang] || item.followUps[lang] || item.followUps.en || [])
+      : [];
+
+    // Evolving conversation: filter out follow-up questions that were already asked in history
+    if (Array.isArray(history) && history.length > 0) {
+      const historyTexts = history.map((h) => (h.text || "").toLowerCase());
+      followUpsForLang = followUpsForLang.filter((f) => {
+        const fLower = f.toLowerCase();
+        return !historyTexts.some((ht) => ht.includes(fLower) || fLower.includes(ht));
+      });
+
+      // Ensure we always have at least 2 engaging follow-up suggestions
+      if (followUpsForLang.length < 2) {
+        const genericPool = {
+          fr: ["Comment travailles-tu ?", "Parle-moi du prototype Relay", "Quelle est ta vision de Steve Jobs & Apple ?"],
+          pt: ["Como você trabalha? (Approach)", "Me conta sobre o case Relay", "O que pensa sobre Steve Jobs e Apple HIG?"],
+          es: ["¿Cómo trabajas? (Metodología)", "Cuéntame sobre el caso Relay", "¿Qué opinas sobre Steve Jobs y Apple HIG?"],
+          en: ["Explain your Way of Working", "Tell me about Relay prototype", "What is your take on Steve Jobs & Apple HIG?"]
+        };
+        const pool = genericPool[targetLang] || genericPool.en;
+        pool.forEach((p) => {
+          if (!followUpsForLang.includes(p) && followUpsForLang.length < 3) {
+            followUpsForLang.push(p);
+          }
+        });
+      }
+    }
+
     return {
-      reply: `Je suis Breno, **Product Designer & Frontend Prototyper** basé à Valence, en Espagne, avec 8 ans d'expérience sur le terrain en opérations multilingues. J'unis le design d'interaction exigeant (inspiré d'Apple HIG, Dieter Rams et Don Norman) avec des prototypes fonctionnels en React.\n\nDemande-moi **comment je travaille**, mes **projets (comme Relay)**, ma **vision du Design Engineering** ou de t'**orienter vers une section** !`,
+      reply: item[targetLang] || item[lang] || item.en,
+      actions: actionsForLang,
+      followUps: followUpsForLang
+    };
+  }
+
+  // Determine if user input is an initial greeting or an open question
+  const isGreeting =
+    clean.length < 28 &&
+    /\b(oi|ola|olá|bom dia|boa tarde|boa noite|e aí|e ai|fala|opa|hello|hi|hey|howdy|bonjour|salut|coucou|hola|buenas|buenos d[ií]as)\b/i.test(lower);
+
+  // If initial greeting, welcome the visitor
+  if (isGreeting && (!history || history.length === 0)) {
+    if (targetLang === "fr") {
+      return {
+        reply: `Salut ! Je suis Breno, **Product Designer & Frontend Prototyper** basé à Valence, en Espagne, avec 8 ans d'expérience sur le terrain en opérations multilingues. J'unis le design d'interaction exigeant (Apple HIG, Dieter Rams et Don Norman) avec des prototypes fonctionnels en React.\n\nDemande-moi **comment je travaille**, mes **projets (comme Relay)**, ma **vision du Design Engineering** ou de t'**orienter vers une section** !`,
+        actions: [
+          { label: "Ma démarche", href: "#approach", type: "anchor" },
+          { label: "Prototype Relay", href: "/fr/work/relay", type: "navigate" },
+          { label: "Me contacter", href: "#contact", type: "anchor" }
+        ],
+        followUps: [
+          "Comment travailles-tu ? (Démarche)",
+          "Quelle est ta vision de Steve Jobs & Apple ?",
+          "Quelles sont tes compétences clés ?"
+        ]
+      };
+    }
+
+    if (targetLang === "pt") {
+      return {
+        reply: `E aí! Sou o Breno, **Product Designer & Frontend Prototyper** baseado em Valência, Espanha, com 8 anos de estrada em operações multilíngues. Eu uno o rigor clássico de UX (inspirado em Apple HIG, Dieter Rams e Don Norman) com protótipos funcionais reais em React.\n\nPode me perguntar sobre **como eu trabalho**, meus **cases (como o Relay)**, minha **visão de Design Engineering** ou pedir para eu te **levar a qualquer seção**!`,
+        actions: [
+          { label: "Como eu trabalho", href: "#approach", type: "anchor" },
+          { label: "Ver case Relay", href: "/work/relay", type: "navigate" },
+          { label: "Bora conversar", href: "#contact", type: "anchor" }
+        ],
+        followUps: [
+          "Como você trabalha? (Way of Working)",
+          "O que pensa sobre Steve Jobs e Apple HIG?",
+          "Quais são suas principais habilidades?"
+        ]
+      };
+    }
+
+    if (targetLang === "es") {
+      return {
+        reply: `¡Hola! Soy Breno, **Product Designer & Frontend Prototyper** afincado en Valencia, España, con 8 años de experiencia en primera línea de operaciones multilingües. Uno el rigor clásico de UX (Apple HIG, Dieter Rams y Don Norman) con prototipos funcionales reales en React.\n\n¡Pregúntame sobre **cómo trabajo**, mis **proyectos (como Relay)**, mi **visión de Design Engineering** o cómo **contactar conmigo**!`,
+        actions: [
+          { label: "Cómo trabajo", href: "#approach", type: "anchor" },
+          { label: "Prototipo Relay", href: "/work/relay", type: "navigate" },
+          { label: "Hablemos", href: "#contact", type: "anchor" }
+        ],
+        followUps: [
+          "¿Cómo trabajas? (Metodología)",
+          "¿Qué opinas sobre Steve Jobs y Apple HIG?",
+          "¿Cuáles son tus habilidades clave?"
+        ]
+      };
+    }
+
+    return {
+      reply: `Hey! I'm Breno, a **Product Designer & Frontend Prototyper** based in Valencia, Spain, with 8 years in frontline operations. I combine classic UX rigor (Apple HIG, Dieter Rams, Don Norman) with living React prototypes.\n\nAsk me about **how I work**, my **case studies (like Relay)**, my **take on Design Engineering**, or ask me to **jump to any section**!`,
       actions: [
-        { label: "Ma démarche", href: "#approach", type: "anchor" },
-        { label: "Prototype Relay", href: "/fr/work/relay", type: "navigate" },
-        { label: "Me contacter", href: "#contact", type: "anchor" }
+        { label: "How I work", href: "#approach", type: "anchor" },
+        { label: "Relay prototype", href: "/work/relay", type: "navigate" },
+        { label: "Let's talk", href: "#contact", type: "anchor" }
       ],
       followUps: [
-        "Comment travailles-tu ? (Démarche)",
+        "How do you work? (Way of Working)",
+        "What is your take on Steve Jobs & Apple HIG?",
+        "What are your core skills?"
+      ]
+    };
+  }
+
+  // Thoughtful synthesis for open-ended or nuanced design questions
+  if (targetLang === "fr") {
+    return {
+      reply: `C'est une excellente question sur la conception de produit et l'ergonomie. Dans mon travail quotidien de **Product Designer & Frontend Prototyper**, mon rôle est de dissiper l'ambiguïté opérationnelle pour concevoir des décisions claires et vérifiées en code réel.\n\nJ'associe la rigueur du design classique (**Apple HIG, Dieter Rams et Don Norman**) à l'ingénierie frontend (en codant des prototypes en **React 19 / Next.js 16** pour éprouver l'accessibilité WCAG, la latence et les cas d'erreur avant toute mise en production).\n\nTu peux me poser des questions sur mes **principes de design**, explorer le **prototype Relay** ou découvrir **ma démarche de travail** !`,
+      actions: [
+        { label: "Principes de design", href: "#approach", type: "anchor" },
+        { label: "Explorer le prototype Relay", href: "/fr/work/relay", type: "navigate" },
+        { label: "Ma démarche", href: "#approach", type: "anchor" }
+      ],
+      followUps: [
+        "Quels sont tes principes de design préférés ?",
         "Quelle est ta vision de Steve Jobs & Apple ?",
-        "Quelles sont tes compétences clés ?"
+        "Pourquoi prototyper en React ?"
       ]
     };
   }
 
   if (targetLang === "pt") {
     return {
-      reply: `Sou o Breno, **Product Designer & Frontend Prototyper** baseado em Valência, Espanha, com 8 anos de estrada em operações multilíngues. Eu uno o rigor clássico de UX (inspirado em Apple HIG, Dieter Rams e Don Norman) com protótipos funcionais reais em React.\n\nPode me perguntar sobre **como eu trabalho**, meus **cases (como o Relay)**, minha **visão de Design Engineering** ou pedir para eu te **levar a qualquer seção**!`,
+      reply: `Essa é uma provocação direta sobre como eu penso produto, design e engenharia. No meu trabalho diário como **Product Designer & Frontend Prototyper**, o meu foco é eliminar a névoa operacional: transformar problemas ambíguos em decisões claras, defensáveis e testadas em código real.\n\nEu uno o melhor da literatura clássica de UX (**Apple HIG, Dieter Rams e Don Norman**) com a realidade da engenharia frontend (prototipando em **React 19 / Next.js 16** para estressar acessibilidade WCAG, latência e cenários de falha antes de qualquer código ir para produção).\n\nPode me perguntar sobre os meus **princípios de design**, como desenvolvi o **case do Relay**, ou como aplico essa abordagem no dia a dia!`,
       actions: [
-        { label: "Como eu trabalho", href: "#approach", type: "anchor" },
+        { label: "Princípios de design", href: "#approach", type: "anchor" },
         { label: "Ver case Relay", href: "/work/relay", type: "navigate" },
-        { label: "Bora conversar", href: "#contact", type: "anchor" }
+        { label: "Como eu trabalho", href: "#approach", type: "anchor" }
       ],
       followUps: [
-        "Como você trabalha? (Way of Working)",
+        "Quais princípios de design você mais gosta?",
         "O que pensa sobre Steve Jobs e Apple HIG?",
-        "Quais são suas principais habilidades?"
+        "Por que você prototipa em React?"
       ]
     };
   }
 
   if (targetLang === "es") {
     return {
-      reply: `Soy Breno, **Product Designer & Frontend Prototyper** afincado en Valencia, España, con 8 años de experiencia en primera línea de operaciones multilingües. Uno el rigor clásico de UX (Apple HIG, Dieter Rams y Don Norman) con prototipos funcionales reales en React.\n\n¡Pregúntame sobre **cómo trabajo**, mis **proyectos (como Relay)**, mi **visión de Design Engineering** o cómo **contactar conmigo**!`,
+      reply: `Es una excelente pregunta sobre diseño de producto e ingeniería. En mi trabajo diario como **Product Designer & Frontend Prototyper**, mi objetivo es despejar la ambigüedad operativa y transformar procesos complejos en decisiones claras y probadas en código real.\n\nUno el rigor del diseño clásico (**Apple HIG, Dieter Rams y Don Norman**) con la disciplina del frontend (desarrollando prototipos funcionales en **React 19 / Next.js 16** para poner a prueba la accesibilidad WCAG y la gestión de errores).\n\n¡Pregúntame sobre mis **principios de diseño**, explora el **prototipo Relay** o conoce **mi metodología de trabajo**!`,
       actions: [
-        { label: "Cómo trabajo", href: "#approach", type: "anchor" },
-        { label: "Prototipo Relay", href: "/work/relay", type: "navigate" },
-        { label: "Hablemos", href: "#contact", type: "anchor" }
+        { label: "Principios de diseño", href: "#approach", type: "anchor" },
+        { label: "Ver prototipo Relay", href: "/work/relay", type: "navigate" },
+        { label: "Cómo trabajo", href: "#approach", type: "anchor" }
       ],
       followUps: [
-        "¿Cómo trabajas? (Metodología)",
+        "¿Cuáles son tus principios de diseño favoritos?",
         "¿Qué opinas sobre Steve Jobs y Apple HIG?",
-        "¿Cuáles son tus habilidades clave?"
+        "¿Por qué prototipar en React?"
       ]
     };
   }
 
   return {
-    reply: `I'm Breno, a **Product Designer & Frontend Prototyper** based in Valencia, Spain, with 8 years in frontline operations. I combine classic UX rigor (Apple HIG, Dieter Rams, Don Norman) with living React prototypes.\n\nAsk me about **how I work**, my **case studies (like Relay)**, my **take on Design Engineering**, or ask me to **jump to any section**!`,
+    reply: `That's a thoughtful question about product design and software craft. In my day-to-day work as a **Product Designer & Frontend Prototyper**, my goal is to cut through operational ambiguity—turning fragmented requirements into clear, defensible decisions proved in live code.\n\nI combine classic UX rigor (**Apple HIG, Dieter Rams, and Don Norman**) with frontend engineering discipline (building functional **React 19 / Next.js 16** prototypes to stress-test error recovery, latency, and WCAG accessibility before production).\n\nFeel free to explore my **design principles**, dive into the **Relay prototype**, or ask about my **Way of Working**!`,
     actions: [
-      { label: "How I work", href: "#approach", type: "anchor" },
+      { label: "Design principles", href: "#approach", type: "anchor" },
       { label: "Relay prototype", href: "/work/relay", type: "navigate" },
-      { label: "Let's talk", href: "#contact", type: "anchor" }
+      { label: "Way of Working", href: "#approach", type: "anchor" }
     ],
     followUps: [
-      "How do you work? (Way of Working)",
+      "What are your core design principles?",
       "What is your take on Steve Jobs & Apple HIG?",
-      "What are your core skills?"
+      "Why build functional prototypes in React?"
     ]
   };
 }
