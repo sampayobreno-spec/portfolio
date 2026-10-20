@@ -36,6 +36,15 @@ function CloseIcon() {
   );
 }
 
+function ResetIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2.5 8a5.5 5.5 0 1 1 1.6 3.9L2 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M2 9.5V14h4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function ActionIcon({ type }) {
   if (type === "download") {
     return (
@@ -100,6 +109,7 @@ export function AssistantDock() {
   const pillRef = useRef(null);
   const inputRef = useRef(null);
   const bodyRef = useRef(null);
+  const streamIntervalRef = useRef(null);
 
   // Surface adaptation logic for the bottom dock pill
   useEffect(() => {
@@ -169,7 +179,16 @@ export function AssistantDock() {
     }
   }, [isOpen]);
 
-  // Scroll to bottom on new message
+  // Clean up streaming interval on unmount
+  useEffect(() => {
+    return () => {
+      if (streamIntervalRef.current) {
+        clearInterval(streamIntervalRef.current);
+      }
+    };
+  }, []);
+
+  // Scroll to bottom on new message or thinking
   useEffect(() => {
     if (bodyRef.current) {
       bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
@@ -183,7 +202,8 @@ export function AssistantDock() {
     if (action.type === "anchor") {
       const isHome = pathname === "/" || pathname === "/fr";
       if (isHome) {
-        const el = document.querySelector(action.href);
+        const targetId = action.href.startsWith("#") ? action.href.slice(1) : action.href;
+        const el = document.getElementById(targetId);
         if (el) {
           el.scrollIntoView({ behavior: "smooth" });
         }
@@ -220,9 +240,31 @@ export function AssistantDock() {
     }
   }, [pathname, lang, router, setIsOpen]);
 
+  // Complete any active streaming immediately (e.g. on click or submit)
+  const finishActiveStream = useCallback(() => {
+    if (streamIntervalRef.current) {
+      clearInterval(streamIntervalRef.current);
+      streamIntervalRef.current = null;
+    }
+    setMessages((prev) =>
+      prev.map((m) =>
+        m.isStreaming
+          ? {
+              ...m,
+              text: m.fullText || m.text,
+              isStreaming: false,
+            }
+          : m
+      )
+    );
+  }, []);
+
   const handleSubmit = useCallback(async (promptText) => {
     const textToSend = (promptText || query).trim();
     if (!textToSend || isThinking) return;
+
+    // Finish any ongoing stream before starting new request
+    finishActiveStream();
 
     const userMessage = {
       id: Date.now().toString(),
@@ -246,38 +288,119 @@ export function AssistantDock() {
       const localResult = getAssistantKnowledgeResult(textToSend, lang);
       const replyText = data.reply || localResult.reply;
       const actions = data.actions && data.actions.length > 0 ? data.actions : localResult.actions;
+      const followUps = data.followUps && data.followUps.length > 0 ? data.followUps : localResult.followUps;
 
+      setIsThinking(false);
+
+      // Add assistant message with streaming enabled
+      const assistantMsgId = (Date.now() + 1).toString();
       setMessages((prev) => [
         ...prev,
         {
-          id: (Date.now() + 1).toString(),
+          id: assistantMsgId,
           sender: "assistant",
-          text: replyText,
+          text: "",
+          fullText: replyText,
           actions: actions || [],
+          followUps: followUps || [],
+          isStreaming: true,
         },
       ]);
+
+      // Typewriter streaming loop (GPT/Claude-like)
+      let charIdx = 0;
+      const fullLen = replyText.length;
+      const step = fullLen > 400 ? 5 : fullLen > 200 ? 3 : 2;
+
+      if (streamIntervalRef.current) clearInterval(streamIntervalRef.current);
+
+      streamIntervalRef.current = setInterval(() => {
+        charIdx = Math.min(fullLen, charIdx + step);
+        const currentSlice = replyText.slice(0, charIdx);
+        const isDone = charIdx >= fullLen;
+
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantMsgId
+              ? {
+                  ...m,
+                  text: currentSlice,
+                  isStreaming: !isDone,
+                }
+              : m
+          )
+        );
+
+        if (bodyRef.current) {
+          bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+        }
+
+        if (isDone) {
+          clearInterval(streamIntervalRef.current);
+          streamIntervalRef.current = null;
+        }
+      }, 18);
     } catch {
       // Local fallback guarantee with action navigation
       const fallbackResult = getAssistantKnowledgeResult(textToSend, lang);
+      const replyText = fallbackResult.reply;
+      setIsThinking(false);
+
+      const assistantMsgId = (Date.now() + 1).toString();
       setMessages((prev) => [
         ...prev,
         {
-          id: (Date.now() + 1).toString(),
+          id: assistantMsgId,
           sender: "assistant",
-          text: fallbackResult.reply,
+          text: "",
+          fullText: replyText,
           actions: fallbackResult.actions || [],
+          followUps: fallbackResult.followUps || [],
+          isStreaming: true,
         },
       ]);
-    } finally {
-      setIsThinking(false);
+
+      let charIdx = 0;
+      const fullLen = replyText.length;
+      const step = fullLen > 400 ? 5 : fullLen > 200 ? 3 : 2;
+
+      if (streamIntervalRef.current) clearInterval(streamIntervalRef.current);
+
+      streamIntervalRef.current = setInterval(() => {
+        charIdx = Math.min(fullLen, charIdx + step);
+        const currentSlice = replyText.slice(0, charIdx);
+        const isDone = charIdx >= fullLen;
+
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantMsgId
+              ? {
+                  ...m,
+                  text: currentSlice,
+                  isStreaming: !isDone,
+                }
+              : m
+          )
+        );
+
+        if (bodyRef.current) {
+          bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+        }
+
+        if (isDone) {
+          clearInterval(streamIntervalRef.current);
+          streamIntervalRef.current = null;
+        }
+      }, 18);
     }
-  }, [query, isThinking, lang]);
+  }, [query, isThinking, lang, finishActiveStream]);
 
   const handleChipClick = (suggestion) => {
     handleSubmit(suggestion);
   };
 
   const handleClear = () => {
+    finishActiveStream();
     setMessages([]);
   };
 
@@ -302,6 +425,15 @@ export function AssistantDock() {
               aria-modal="true"
               aria-label={strings.modalTitle}
             >
+              {/* Mobile Sheet Grab Handle */}
+              <div
+                className={styles.sheetHandleBar}
+                onClick={() => setIsOpen(false)}
+                aria-label={strings.closeAria}
+              >
+                <div className={styles.sheetHandle} />
+              </div>
+
               {/* Header */}
               <div className={styles.panelHeader}>
                 <div className={styles.headerTitleGroup}>
@@ -316,10 +448,12 @@ export function AssistantDock() {
                   {messages.length > 0 && (
                     <button
                       type="button"
-                      className={styles.clearButton}
+                      className={styles.newQuestionButton}
                       onClick={handleClear}
+                      aria-label={strings.newQuestion || "New question"}
                     >
-                      {strings.clearChat}
+                      <ResetIcon />
+                      <span>{strings.newQuestion || "New question"}</span>
                     </button>
                   )}
                   <button
@@ -352,7 +486,8 @@ export function AssistantDock() {
                             className={styles.chipButton}
                             onClick={() => handleChipClick(sugg)}
                           >
-                            {sugg}
+                            <span className={styles.chipBullet}>✦</span>
+                            <span>{sugg}</span>
                           </button>
                         ))}
                       </div>
@@ -370,11 +505,21 @@ export function AssistantDock() {
                         className={`${styles.bubble} ${
                           msg.sender === "user" ? styles.userBubble : styles.assistantBubble
                         }`}
+                        onClick={msg.isStreaming ? finishActiveStream : undefined}
                       >
-                        {msg.sender === "user" ? <p>{msg.text}</p> : renderFormattedMessage(msg.text)}
+                        {msg.sender === "user" ? (
+                          <p>{msg.text}</p>
+                        ) : (
+                          <>
+                            {renderFormattedMessage(msg.text)}
+                            {msg.isStreaming && (
+                              <span className={styles.cursorCaret} aria-hidden="true" />
+                            )}
+                          </>
+                        )}
 
-                        {/* Interactive Navigation Action Pills */}
-                        {msg.actions && msg.actions.length > 0 && (
+                        {/* Interactive Navigation Action Pills (Revealed when typing is done) */}
+                        {!msg.isStreaming && msg.actions && msg.actions.length > 0 && (
                           <div className={styles.actionsRow}>
                             {msg.actions.map((act, actIdx) => (
                               <button
@@ -390,6 +535,29 @@ export function AssistantDock() {
                           </div>
                         )}
                       </div>
+
+                      {/* Suggested Follow-up Questions (Revealed when typing is done) */}
+                      {!msg.isStreaming && msg.followUps && msg.followUps.length > 0 && (
+                        <div className={styles.followUpsContainer}>
+                          <div className={styles.followUpsHeader}>
+                            <SparkleIcon className={styles.miniSparkle} />
+                            <span>{strings.suggestedFollowUps || "Continue exploring"}</span>
+                          </div>
+                          <div className={styles.followUpsRow}>
+                            {msg.followUps.map((prompt, pIdx) => (
+                              <button
+                                key={pIdx}
+                                type="button"
+                                className={styles.followUpChip}
+                                onClick={() => handleChipClick(prompt)}
+                              >
+                                <span className={styles.followUpArrow}>↳</span>
+                                <span>{prompt}</span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ))
                 )}
@@ -441,7 +609,7 @@ export function AssistantDock() {
         </>
       )}
 
-      {/* Floating Bottom Glass Pill */}
+      {/* Floating Bottom Glass Pill with Ambient Contrast Pulse */}
       <button
         ref={pillRef}
         type="button"

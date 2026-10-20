@@ -55,6 +55,9 @@ const en = {
       "How can I get in touch?"
     ],
     clearChat: "Clear conversation",
+    newQuestion: "New question",
+    suggestedFollowUps: "Continue exploring",
+    skipTyping: "Skip",
     thinking: "Consulting portfolio knowledge...",
     emptyState: "Ask about product design, React prototypes, operational background, or how to get in touch.",
     sourcesNote: "Answers are grounded strictly in Breno's real work — no hallucinated metrics.",
@@ -760,6 +763,9 @@ const fr = {
       "Comment contacter Breno ?"
     ],
     clearChat: "Effacer la discussion",
+    newQuestion: "Nouvelle question",
+    suggestedFollowUps: "Poursuivre l'exploration",
+    skipTyping: "Passer",
     thinking: "Consultation du portfolio en cours...",
     emptyState: "Posez vos questions sur le design produit, les prototypes React, le parcours opérationnel ou les coordonnées.",
     sourcesNote: "Réponses strictement fondées sur le travail réel de Breno — sans métriques inventées.",
