@@ -110,6 +110,7 @@ export function AssistantDock() {
   const inputRef = useRef(null);
   const bodyRef = useRef(null);
   const streamIntervalRef = useRef(null);
+  const userScrolledUpRef = useRef(false);
 
   // Surface adaptation logic for the bottom dock pill
   useEffect(() => {
@@ -171,11 +172,16 @@ export function AssistantDock() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
-  // Focus input when modal opens
+  // Focus input and lock document scroll when modal opens
   useEffect(() => {
     if (isOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
       const timer = setTimeout(() => inputRef.current?.focus(), 80);
-      return () => clearTimeout(timer);
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        clearTimeout(timer);
+      };
     }
   }, [isOpen]);
 
@@ -188,12 +194,24 @@ export function AssistantDock() {
     };
   }, []);
 
-  // Scroll to bottom on new message or thinking
+  // Track user manual scrolling inside dialog body
+  const handleBodyScroll = useCallback(() => {
+    if (!bodyRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = bodyRef.current;
+    // Scrolled up if user is more than 36px from bottom
+    const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+    userScrolledUpRef.current = distanceFromBottom > 36;
+  }, []);
+
+  // Smoothly reveal thinking state if user is at bottom
   useEffect(() => {
-    if (bodyRef.current) {
-      bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+    if (isThinking && bodyRef.current && !userScrolledUpRef.current) {
+      bodyRef.current.scrollTo({
+        top: bodyRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
-  }, [messages, isThinking]);
+  }, [isThinking]);
 
   // Navigation action handler
   const handleActionClick = useCallback((action) => {
@@ -275,6 +293,17 @@ export function AssistantDock() {
     setMessages((prev) => [...prev, userMessage]);
     setQuery("");
     setIsThinking(true);
+    userScrolledUpRef.current = false;
+
+    // Smoothly scroll down so user sees their new question
+    setTimeout(() => {
+      if (bodyRef.current) {
+        bodyRef.current.scrollTo({
+          top: bodyRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    }, 40);
 
     try {
       const res = await fetch("/api/assistant", {
@@ -331,8 +360,12 @@ export function AssistantDock() {
           )
         );
 
-        if (bodyRef.current) {
-          bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+        // Only auto-scroll down if user hasn't manually scrolled up to read
+        if (bodyRef.current && !userScrolledUpRef.current) {
+          const { scrollTop, scrollHeight, clientHeight } = bodyRef.current;
+          if (scrollHeight - scrollTop - clientHeight < 140) {
+            bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+          }
         }
 
         if (isDone) {
@@ -383,8 +416,12 @@ export function AssistantDock() {
           )
         );
 
-        if (bodyRef.current) {
-          bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+        // Only auto-scroll down if user hasn't manually scrolled up to read
+        if (bodyRef.current && !userScrolledUpRef.current) {
+          const { scrollTop, scrollHeight, clientHeight } = bodyRef.current;
+          if (scrollHeight - scrollTop - clientHeight < 140) {
+            bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+          }
         }
 
         if (isDone) {
@@ -468,7 +505,11 @@ export function AssistantDock() {
               </div>
 
               {/* Conversation Body */}
-              <div className={styles.panelBody} ref={bodyRef}>
+              <div
+                className={styles.panelBody}
+                ref={bodyRef}
+                onScroll={handleBodyScroll}
+              >
                 {messages.length === 0 ? (
                   <div className={styles.emptyState}>
                     <div className={styles.emptyStateIcon}>
