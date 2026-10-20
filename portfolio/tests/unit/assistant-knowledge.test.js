@@ -15,11 +15,65 @@ describe("assistantKnowledge base and intelligence", () => {
     expect(SYSTEM_KNOWLEDGE).toContain("DESIGN ENGINEERING & FUNCTIONAL PROTOTYPING");
   });
 
-  it("detects languages accurately from user input", () => {
+  it("detects languages accurately from user input and conversational greetings", () => {
+    // Portuguese
+    expect(detectQueryLanguage("bom dia")).toBe("pt");
+    expect(detectQueryLanguage("boa tarde")).toBe("pt");
+    expect(detectQueryLanguage("boa noite")).toBe("pt");
+    expect(detectQueryLanguage("tudo bem?")).toBe("pt");
+    expect(detectQueryLanguage("e aí")).toBe("pt");
+    expect(detectQueryLanguage("opa")).toBe("pt");
     expect(detectQueryLanguage("o que você acha do steve jobs?")).toBe("pt");
-    expect(detectQueryLanguage("what is your design philosophy?")).toBe("en");
-    expect(detectQueryLanguage("quelle est ta vision du design chez apple ?")).toBe("fr");
+
+    // Spanish
+    expect(detectQueryLanguage("buenos dias")).toBe("es");
+    expect(detectQueryLanguage("buenos días")).toBe("es");
+    expect(detectQueryLanguage("buenas tardes")).toBe("es");
+    expect(detectQueryLanguage("buenas noches")).toBe("es");
     expect(detectQueryLanguage("¿cuál es tu opinión sobre dieter rams y steve jobs?")).toBe("es");
+
+    // French
+    expect(detectQueryLanguage("bonjour")).toBe("fr");
+    expect(detectQueryLanguage("bonsoir")).toBe("fr");
+    expect(detectQueryLanguage("salut")).toBe("fr");
+    expect(detectQueryLanguage("ça va")).toBe("fr");
+    expect(detectQueryLanguage("quelle est ta vision du design chez apple ?")).toBe("fr");
+
+    // English
+    expect(detectQueryLanguage("good morning")).toBe("en");
+    expect(detectQueryLanguage("what is your design philosophy?")).toBe("en");
+  });
+
+  it("answers greetings directly in the caller language", () => {
+    const ptGreeting = getAssistantKnowledgeResult("bom dia", "en");
+    expect(ptGreeting.reply).toContain("E aí! Sou o Breno");
+    expect(ptGreeting.detectedLang).toBe("pt");
+    expect(ptGreeting.actions[0].label).toBe("Como eu trabalho");
+
+    const esGreeting = getAssistantKnowledgeResult("buenos dias", "en");
+    expect(esGreeting.reply).toContain("¡Hola! Soy Breno");
+    expect(esGreeting.detectedLang).toBe("es");
+    expect(esGreeting.actions[0].label).toBe("Cómo trabajo");
+
+    const frGreeting = getAssistantKnowledgeResult("bonjour", "en");
+    expect(frGreeting.reply).toContain("Salut ! Je suis Breno");
+    expect(frGreeting.detectedLang).toBe("fr");
+    expect(frGreeting.actions[0].label).toBe("Ma démarche");
+
+    const enGreeting = getAssistantKnowledgeResult("good morning", "en");
+    expect(enGreeting.reply).toContain("Hey! I'm Breno");
+    expect(enGreeting.detectedLang).toBe("en");
+  });
+
+  it("maintains conversational language across neutral follow-up turns", () => {
+    const historyPT = [
+      { sender: "user", text: "bom dia" },
+      { sender: "assistant", text: "E aí! Sou o Breno..." }
+    ];
+    const followUp = getAssistantKnowledgeResult("Dieter Rams?", "en", historyPT);
+    expect(followUp.detectedLang).toBe("pt");
+    expect(followUp.reply).toContain("Dieter Rams");
+    expect(followUp.reply).toContain("Weniger, aber besser");
   });
 
   it("answers Steve Jobs & Apple HIG inquiries in first person across languages", () => {
