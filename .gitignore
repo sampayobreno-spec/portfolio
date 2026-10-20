@@ -27,3 +27,4 @@ brand/
 
 # Portfolio case studies — each is its own git repo (see gh repo per case)
 portfolio-cases/
+.vercel
