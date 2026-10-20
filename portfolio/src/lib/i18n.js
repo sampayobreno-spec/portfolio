@@ -38,6 +38,7 @@ const en = {
   },
   assistant: {
     dockPlaceholder: "Ask me anything...",
+    dockMobilePlaceholder: "Ask me anything",
     dockAria: "Chat directly with Breno",
     dockBadge: "Direct",
     shortcutHint: "⌘K",
@@ -745,7 +746,8 @@ const fr = {
     collapse: "Réduire",
   },
   assistant: {
-    dockPlaceholder: "Pose-moi une question...",
+    dockPlaceholder: "Posez-moi une question...",
+    dockMobilePlaceholder: "Poser une question",
     dockAria: "Échanger directement avec Breno",
     dockBadge: "Direct",
     shortcutHint: "⌘K",
