@@ -10,6 +10,7 @@ import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { SkipLink } from "@/components/site/SkipLink";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { ToTop } from "@/components/site/ToTop";
+import { AssistantDock } from "@/components/site/AssistantDock";
 import { Providers } from "@/context/AppContext";
 import { profile } from "@/lib/content";
 import { cormorant, dmSans } from "@/lib/fonts";
@@ -55,6 +56,7 @@ export function SiteDocument({ children, lang }) {
           <main id="main">{children}</main>
           <Footer />
           <ToTop />
+          <AssistantDock />
         </Providers>
       </body>
     </html>
