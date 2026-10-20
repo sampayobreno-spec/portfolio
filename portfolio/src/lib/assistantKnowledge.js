@@ -381,7 +381,8 @@ export function detectQueryLanguage(text, defaultLang = "en", history = []) {
     "travail", "travaillez", "parle-moi", "parlez-moi", "suis", "es", "est", "sommes",
     "êtes", "sont", "avec", "dans", "pour", "sur", "ton", "ta", "tes", "votre", "vos",
     "moi", "toi", "vous", "te", "me", "du", "des", "les", "une", "est-ce", "que", "c'est",
-    "j'ai", "qu'est", "n'est", "projets", "projet"
+    "j'ai", "qu'est", "n'est", "projets", "projet", "maintenant", "dis", "explique", "français",
+    "francais", "montre", "raconte"
   ]);
 
   const ptWords = new Set([
@@ -390,7 +391,8 @@ export function detectQueryLanguage(text, defaultLang = "en", history = []) {
     "trabalho", "trabalha", "funciona", "projeto", "projetos", "falar", "ajudar",
     "contato", "sobre", "mim", "meu", "minha", "meus", "minhas", "está", "estou",
     "sou", "com", "para", "pra", "pelo", "pela", "não", "nao", "são", "sao", "também",
-    "tambem", "currículo", "curriculo", "direto", "diretamente"
+    "tambem", "currículo", "curriculo", "direto", "diretamente", "agora", "conta",
+    "fala", "diz", "explica", "português", "portugues", "mostra"
   ]);
 
   const esWords = new Set([
@@ -398,20 +400,27 @@ export function detectQueryLanguage(text, defaultLang = "en", history = []) {
     "por", "qué", "que", "porque", "hola", "gracias", "saludos", "trabajo", "trabajas", "funciona",
     "proyecto", "proyectos", "contacto", "hablar", "ayuda", "ayudar", "sobre", "mí", "mi",
     "mis", "está", "estoy", "soy", "con", "para", "usted", "ustedes", "tú", "tu",
-    "tus", "currículum", "curriculum", "directamente"
+    "tus", "currículum", "curriculum", "directamente", "ahora", "habla", "cuenta",
+    "dice", "explica", "español", "espanol", "muestra"
   ]);
 
   const enWords = new Set([
     "how", "what", "where", "who", "when", "why", "which", "hello", "hi", "hey",
     "thanks", "thank", "you", "your", "work", "works", "working", "project", "projects",
     "approach", "background", "skills", "resume", "contact", "reach", "email", "about",
-    "can", "tell", "show", "is", "are", "directly"
+    "can", "tell", "show", "is", "are", "directly", "now", "explain", "speak", "english"
   ]);
 
   let frScore = 0;
   let ptScore = 0;
   let esScore = 0;
   let enScore = 0;
+
+  // Explicit language switch requests have top priority
+  if (/\b(em\s+portugu[êe]s|fale?\s+em\s+portugu[êe]s|no\s+portugu[êe]s)\b/i.test(lower)) ptScore += 10;
+  if (/\b(en\s+fran[çc]ais|parle?\s+en\s+fran[çc]ais)\b/i.test(lower)) frScore += 10;
+  if (/\b(en\s+espa[ñn]ol|habla\s+en\s+espa[ñn]ol)\b/i.test(lower)) esScore += 10;
+  if (/\b(in\s+english|speak\s+in\s+english)\b/i.test(lower)) enScore += 10;
 
   tokens.forEach((t) => {
     if (frWords.has(t)) frScore++;
