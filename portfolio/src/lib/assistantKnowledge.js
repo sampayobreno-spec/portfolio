@@ -82,8 +82,12 @@ const INTENTS = [
   {
     id: "greeting",
     keywords: [
-      "hi", "hello", "hey", "olá", "ola", "oi", "bom dia", "boa tarde",
-      "bonjour", "salut", "coucou", "hola", "buenos dias", "buenas tardes"
+      "hi", "hello", "hey", "olá", "ola", "oi", "bom dia", "boa tarde", "boa noite",
+      "tudo bem", "tudo bom", "e ai", "e aí", "fala aí", "fala ai", "fala breno", "olá breno", "oi breno",
+      "opa", "salve", "beleza", "blz",
+      "bonjour", "bonsoir", "salut", "coucou", "ça va", "ca va", "comment vas-tu", "comment ca va",
+      "hola", "buenos dias", "buenos días", "buenas tardes", "buenas noches", "qué tal", "que tal", "cómo estás", "como estas", "buenas",
+      "good morning", "good afternoon", "good evening", "how are you", "what's up", "whats up"
     ],
     en: "Hey! I'm Breno. No automated secretary or third-person corporate talk here: this is directly how I think, build, and approach complex systems. Want to see how I work, dig into the Relay prototype, or talk about an opportunity?",
     fr: "Salut ! Je suis Breno. Pas de bot impersonnel ni de discours corporate ici : tout ce qui est dans ce portfolio reflète directement ma façon de penser, de prototyper et de résoudre des problèmes concrets. Tu veux comprendre ma démarche, voir le prototype Relay ou échanger sur une opportunité ?",
@@ -695,110 +699,128 @@ const INTENTS = [
   }
 ];
 
+function normalizeForLanguageDetection(text) {
+  return " " + (text || "").toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\w\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim() + " ";
+}
+
+const PT_PHRASES = [
+  " bom dia ", " boa tarde ", " boa noite ", " tudo bem ", " tudo bom ", " como vai ",
+  " e ai ", " e aí ", " fala ai ", " fala aí ", " fala breno ", " ola breno ", " oi breno ", " opa breno ",
+  " me ajuda ", " me explica ", " me conta ", " o que voce ", " o que vc ",
+  " quem e voce ", " quem e vc ", " quais principios ", " como voce ", " como vc ",
+  " voce mora ", " vc mora ", " qual e sua ", " qual e o seu ", " fale sobre ",
+  " me fale ", " conta mais ", " fale mais ", " me tira uma ", " falar com ",
+  " falar contigo ", " trocar uma ideia ", " o que voce acha ", " o que vc acha ",
+  " como funciona ", " me mostra ", " voce pode ", " voce faz ", " vc faz ",
+  " por favor ", " valeu ", " beleza ", " blz ", " opa ", " eae ", " salve "
+];
+
+const ES_PHRASES = [
+  " buenos dias ", " buenas tardes ", " buenas noches ", " buen dia ", " hola que tal ",
+  " que tal ", " como estas ", " como te va ", " muchas gracias ", " por favor ",
+  " cuentame ", " explicame ", " dime ", " que haces ", " quien eres ", " cuales son ",
+  " en que trabajas ", " donde vives ", " hablame ", " hablemos ", " que opinas ",
+  " como funciona "
+];
+
+const FR_PHRASES = [
+  " bonjour ", " bonsoir ", " bonne journee ", " bonne soiree ", " ca va ",
+  " comment vas tu ", " comment ca va ", " comment allez vous ", " merci beaucoup ",
+  " s il vous plait ", " s il te plait ", " qui es tu ", " qui etes vous ",
+  " que fais tu ", " que faites vous ", " parle moi ", " dis moi ", " explique moi ",
+  " parlez moi ", " qu est ce que "
+];
+
+const EN_PHRASES = [
+  " good morning ", " good afternoon ", " good evening ", " how are you ",
+  " what s up ", " whats up ", " how s it going ", " hows it going ",
+  " nice to meet you ", " who are you ", " what do you do ", " tell me about ",
+  " let s talk ", " talk to you "
+];
+
+const PT_UNIQUE_TOKENS = new Set([
+  "voce", "voces", "vc", "vcs", "nao", "obrigado", "obrigada", "valeu", "bora", "beleza",
+  "blz", "opa", "eae", "salve", "tambem", "estao", "acha", "acho", "achas", "acham",
+  "gosta", "gosto", "gostas", "gostam", "meu", "minha", "meus", "minhas", "teu", "tua",
+  "teus", "tuas", "seu", "sua", "seus", "suas", "nosso", "nossa", "nossos", "nossas",
+  "pra", "pro", "pras", "pros", "pelo", "pela", "pelos", "pelas", "sao", "da", "do",
+  "das", "dos", "no", "na", "nos", "nas", "dele", "dela", "deles", "delas", "nele", "nela",
+  "portugues", "to", "ta", "ne", "sou", "estou", "curriculo", "trabalha", "trabalho",
+  "faz", "fazer", "fazendo", "fiz", "conhece", "conhecer", "ajuda", "ajudar"
+]);
+
+const ES_UNIQUE_TOKENS = new Set([
+  "usted", "ustedes", "cual", "cuales", "quien", "quienes", "donde", "porque", "hola",
+  "gracias", "saludos", "espanol", "del", "al", "haces", "hace", "hacer", "haciendo",
+  "hizo", "hecho", "eres", "estas", "estoy", "estamos", "estan", "dime", "cuentame",
+  "explicame", "aqui", "alli", "despues", "tu", "tus", "mi", "mis", "nuestro", "nuestra",
+  "nuestros", "nuestras", "bueno", "buena", "buenos", "buenas"
+]);
+
+const FR_UNIQUE_TOKENS = new Set([
+  "comment", "pourquoi", "quand", "qui", "quel", "quelle", "quels", "quelles", "quoi",
+  "bonjour", "bonsoir", "salut", "merci", "beaucoup", "demarche", "vous", "nous", "c est",
+  "j ai", "qu est", "n est", "francais", "suis", "es", "est", "sommes", "etes", "sont",
+  "fais", "fait", "faire", "vas", "vais", "va", "plait", "coucou", "mon", "ma", "mes",
+  "ton", "ta", "tes", "son", "sa", "ses", "notre", "votre", "vos", "leur", "leurs", "ce",
+  "cet", "cette", "ces"
+]);
+
+const EN_UNIQUE_TOKENS = new Set([
+  "how", "what", "where", "who", "when", "why", "which", "whose", "whom", "hello", "hi",
+  "hey", "thanks", "thank", "you", "your", "yours", "the", "should", "would", "could",
+  "about", "english", "please", "working", "works"
+]);
+
 export function detectQueryLanguage(text, defaultLang = "en", history = []) {
   const clean = (text || "").trim();
   if (!clean) return defaultLang;
 
-  const lower = clean.toLowerCase();
-  const tokens = lower.match(/[\p{L}\p{M}'-]+/gu) || [];
+  const norm = normalizeForLanguageDetection(clean);
+  const rawLower = clean.toLowerCase();
+  const tokens = norm.trim().split(/\s+/).filter(Boolean);
 
-  const frWords = new Set([
-    "comment", "pourquoi", "quand", "qui", "quel", "quelle", "quels", "quelles",
-    "bonjour", "salut", "merci", "contacter", "contactez", "démarche", "demarche",
-    "travail", "travaillez", "parle-moi", "parlez-moi", "suis", "es", "est", "sommes",
-    "êtes", "sont", "avec", "dans", "pour", "sur", "ton", "ta", "tes", "votre", "vos",
-    "moi", "toi", "vous", "te", "me", "du", "des", "les", "une", "est-ce", "que", "c'est",
-    "j'ai", "qu'est", "n'est", "projets", "projet", "maintenant", "dis", "explique", "français",
-    "francais", "montre", "raconte"
-  ]);
-
-  const ptWords = new Set([
-    "como", "quem", "qual", "quais", "onde", "quando", "porque", "por", "que", "você", "voce",
-    "voces", "vocês", "olá", "ola", "oi", "obrigado", "obrigada", "valeu", "bora",
-    "trabalho", "trabalha", "funciona", "projeto", "projetos", "falar", "ajudar",
-    "contato", "sobre", "mim", "meu", "minha", "meus", "minhas", "está", "estou",
-    "sou", "com", "para", "pra", "pelo", "pela", "não", "nao", "são", "sao", "também",
-    "tambem", "currículo", "curriculo", "direto", "diretamente", "agora", "conta",
-    "fala", "diz", "explica", "português", "portugues", "mostra", "do", "da", "dos", "das",
-    "no", "na", "nos", "nas", "acha", "achas", "acham", "seu", "sua", "seus", "suas"
-  ]);
-
-  const esWords = new Set([
-    "cómo", "como", "quién", "quien", "cuál", "cual", "cuáles", "cuales", "dónde", "donde",
-    "por", "qué", "que", "porque", "hola", "gracias", "saludos", "trabajo", "trabajas", "funciona",
-    "proyecto", "proyectos", "contacto", "hablar", "ayuda", "ayudar", "sobre", "mí", "mi",
-    "mis", "está", "estoy", "soy", "con", "para", "usted", "ustedes", "tú", "tu",
-    "tus", "currículum", "curriculum", "directamente", "ahora", "habla", "cuenta",
-    "dice", "explica", "español", "espanol", "muestra", "del", "al"
-  ]);
-
-  const enWords = new Set([
-    "how", "what", "where", "who", "when", "why", "which", "hello", "hi", "hey",
-    "thanks", "thank", "you", "your", "work", "works", "working", "project", "projects",
-    "approach", "background", "skills", "resume", "contact", "reach", "email", "about",
-    "can", "tell", "show", "is", "are", "directly", "now", "explain", "speak", "english",
-    "the", "should", "build", "why", "would"
-  ]);
-
-  const ptUniques = new Set([
-    "você", "voce", "vocês", "voces", "não", "nao", "obrigado", "obrigada", "valeu", "bora",
-    "também", "tambem", "estão", "estao", "acha", "achas", "acham", "meu", "minha", "meus",
-    "minhas", "pra", "pelo", "pela", "pelos", "pelas", "são", "sao", "da", "do", "das", "dos",
-    "no", "na", "nos", "nas", "português", "portugues"
-  ]);
-
-  const esUniques = new Set([
-    "cómo", "usted", "ustedes", "cuál", "cuáles", "quién", "quiénes", "dónde", "porqué",
-    "hola", "gracias", "saludos", "español", "espanol", "del", "al"
-  ]);
-
-  const frUniques = new Set([
-    "comment", "pourquoi", "quand", "qui", "quel", "quelle", "quels", "quelles",
-    "bonjour", "salut", "merci", "démarche", "demarche", "vous", "nous", "c'est", "j'ai",
-    "qu'est", "n'est", "français", "francais"
-  ]);
-
-  const enUniques = new Set([
-    "how", "what", "where", "who", "when", "why", "which", "hello", "hi", "hey",
-    "thanks", "thank", "you", "your", "the", "should", "build", "about", "english"
-  ]);
-
-  let frScore = 0;
   let ptScore = 0;
   let esScore = 0;
+  let frScore = 0;
   let enScore = 0;
 
-  // Explicit language switch requests have top priority
-  if (/\b(em\s+portugu[êe]s|fale?\s+em\s+portugu[êe]s|no\s+portugu[êe]s)\b/i.test(lower)) ptScore += 10;
-  if (/\b(en\s+fran[çc]ais|parle?\s+en\s+fran[çc]ais)\b/i.test(lower)) frScore += 10;
-  if (/\b(en\s+espa[ñn]ol|habla\s+en\s+espa[ñn]ol)\b/i.test(lower)) esScore += 10;
-  if (/\b(in\s+english|speak\s+in\s+english)\b/i.test(lower)) enScore += 10;
+  // 1. Explicit language switch requests have top priority
+  if (/\b(em\s+portugu[êe]s|fale?\s+em\s+portugu[êe]s|no\s+portugu[êe]s)\b/i.test(rawLower)) ptScore += 25;
+  if (/\b(en\s+fran[çc]ais|parle?\s+en\s+fran[çc]ais)\b/i.test(rawLower)) frScore += 25;
+  if (/\b(en\s+espa[ñn]ol|habla\s+en\s+espa[ñn]ol)\b/i.test(rawLower)) esScore += 25;
+  if (/\b(in\s+english|speak\s+in\s+english)\b/i.test(rawLower)) enScore += 25;
 
+  // 2. Multi-word phrase matches (high confidence)
+  PT_PHRASES.forEach((p) => { if (norm.includes(p)) ptScore += 12; });
+  ES_PHRASES.forEach((p) => { if (norm.includes(p)) esScore += 12; });
+  FR_PHRASES.forEach((p) => { if (norm.includes(p)) frScore += 12; });
+  EN_PHRASES.forEach((p) => { if (norm.includes(p)) enScore += 12; });
+
+  // 3. Unique token matches
   tokens.forEach((t) => {
-    if (frWords.has(t)) frScore++;
-    if (ptWords.has(t)) ptScore++;
-    if (esWords.has(t)) esScore++;
-    if (enWords.has(t)) enScore++;
-
-    if (frUniques.has(t)) frScore += 3;
-    if (ptUniques.has(t)) ptScore += 3;
-    if (esUniques.has(t)) esScore += 3;
-    if (enUniques.has(t)) enScore += 3;
+    if (PT_UNIQUE_TOKENS.has(t)) ptScore += 5;
+    if (ES_UNIQUE_TOKENS.has(t)) esScore += 5;
+    if (FR_UNIQUE_TOKENS.has(t)) frScore += 5;
+    if (EN_UNIQUE_TOKENS.has(t)) enScore += 5;
   });
 
-  // Language-specific character indicators
-  if (/[¿¡ñ]/.test(lower)) esScore += 3;
-  if (/[ãõ]/.test(lower)) ptScore += 3;
-  if (/[œæ]/.test(lower)) frScore += 3;
+  // 4. Language-specific character indicators
+  if (/[¿¡ñ]/.test(rawLower)) esScore += 6;
+  if (/[ãõ]/.test(rawLower)) ptScore += 6;
+  if (/[œæ]/.test(rawLower)) frScore += 6;
 
   const scores = [
-    { lang: "fr", score: frScore },
     { lang: "pt", score: ptScore },
     { lang: "es", score: esScore },
+    { lang: "fr", score: frScore },
     { lang: "en", score: enScore },
-  ];
-
-  scores.sort((a, b) => b.score - a.score);
+  ].sort((a, b) => b.score - a.score);
 
   if (scores[0].score > 0) {
     if (
@@ -810,13 +832,13 @@ export function detectQueryLanguage(text, defaultLang = "en", history = []) {
     return scores[0].lang;
   }
 
-  // Conversation history continuity: if current query is short/neutral, check previous user language!
+  // 5. Conversation history continuity: if current query is short/neutral, check previous user language!
   if (Array.isArray(history) && history.length > 0) {
     for (let i = history.length - 1; i >= 0; i--) {
       const prev = history[i];
       if (prev.sender === "user" && prev.text) {
         const prevLang = detectQueryLanguage(prev.text, defaultLang);
-        if (prevLang && prevLang !== defaultLang) {
+        if (prevLang && ["pt", "es", "fr", "en"].includes(prevLang) && prevLang !== defaultLang) {
           return prevLang;
         }
       }
@@ -836,27 +858,31 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
       return {
         reply: "Pose-moi n'importe quelle question sur mon parcours, ma démarche, mes prototypes ou ma vision UX/UI !",
         actions: [],
-        followUps: ["Comment travailles-tu ?", "Quelle est ta vision de Steve Jobs & Apple ?", "Parle-moi du projet Relay"]
+        followUps: ["Comment travailles-tu ?", "Quelle est ta vision de Steve Jobs & Apple ?", "Parle-moi du projet Relay"],
+        detectedLang: targetLang
       };
     }
     if (targetLang === "pt") {
       return {
         reply: "Me pergunta qualquer coisa sobre minha trajetória, como eu trabalho, meus cases ou minha visão sobre UX/UI e Design Engineering!",
         actions: [],
-        followUps: ["Como você trabalha? (Way of Working)", "O que pensa sobre Steve Jobs e Apple HIG?", "Conte sobre o case Relay"]
+        followUps: ["Como você trabalha? (Way of Working)", "O que pensa sobre Steve Jobs e Apple HIG?", "Conte sobre o case Relay"],
+        detectedLang: targetLang
       };
     }
     if (targetLang === "es") {
       return {
         reply: "¡Pregúntame lo que quieras sobre mi trayectoria, cómo trabajo, mis proyectos o mi visión de UX/UI y Design Engineering!",
         actions: [],
-        followUps: ["¿Cómo trabajas? (Metodología)", "¿Qué opinas sobre Steve Jobs y Apple HIG?", "Cuéntame sobre el caso Relay"]
+        followUps: ["¿Cómo trabajas? (Metodología)", "¿Qué opinas sobre Steve Jobs y Apple HIG?", "Cuéntame sobre el caso Relay"],
+        detectedLang: targetLang
       };
     }
     return {
       reply: "Ask me anything about my background, how I work, my design prototypes, or my take on UX/UI and Design Engineering!",
       actions: [],
-      followUps: ["How do you work? (Way of Working)", "What is your take on Steve Jobs & Apple HIG?", "Tell me about Relay case study"]
+      followUps: ["How do you work? (Way of Working)", "What is your take on Steve Jobs & Apple HIG?", "Tell me about Relay case study"],
+      detectedLang: targetLang
     };
   }
 
@@ -925,7 +951,8 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
     return {
       reply: item[targetLang] || item[lang] || item.en,
       actions: actionsForLang,
-      followUps: followUpsForLang
+      followUps: followUpsForLang,
+      detectedLang: targetLang
     };
   }
 
@@ -948,7 +975,8 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
           "Comment travailles-tu ? (Démarche)",
           "Quelle est ta vision de Steve Jobs & Apple ?",
           "Quelles sont tes compétences clés ?"
-        ]
+        ],
+        detectedLang: targetLang
       };
     }
 
@@ -964,7 +992,8 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
           "Como você trabalha? (Way of Working)",
           "O que pensa sobre Steve Jobs e Apple HIG?",
           "Quais são suas principais habilidades?"
-        ]
+        ],
+        detectedLang: targetLang
       };
     }
 
@@ -980,7 +1009,8 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
           "¿Cómo trabajas? (Metodología)",
           "¿Qué opinas sobre Steve Jobs y Apple HIG?",
           "¿Cuáles son tus habilidades clave?"
-        ]
+        ],
+        detectedLang: targetLang
       };
     }
 
@@ -995,7 +1025,8 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
         "How do you work? (Way of Working)",
         "What is your take on Steve Jobs & Apple HIG?",
         "What are your core skills?"
-      ]
+      ],
+      detectedLang: targetLang
     };
   }
 
@@ -1012,7 +1043,8 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
         "Quels sont tes principes de design préférés ?",
         "Quelle est ta vision de Steve Jobs & Apple ?",
         "Pourquoi prototyper en React ?"
-      ]
+      ],
+      detectedLang: targetLang
     };
   }
 
@@ -1028,7 +1060,8 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
         "Quais princípios de design você mais gosta?",
         "O que pensa sobre Steve Jobs e Apple HIG?",
         "Por que você prototipa em React?"
-      ]
+      ],
+      detectedLang: targetLang
     };
   }
 
@@ -1044,7 +1077,8 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
         "¿Cuáles son tus principios de diseño favoritos?",
         "¿Qué opinas sobre Steve Jobs y Apple HIG?",
         "¿Por qué prototipar en React?"
-      ]
+      ],
+      detectedLang: targetLang
     };
   }
 
@@ -1059,7 +1093,8 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
       "What are your core design principles?",
       "What is your take on Steve Jobs & Apple HIG?",
       "Why build functional prototypes in React?"
-    ]
+    ],
+    detectedLang: targetLang
   };
 }
 

@@ -62,6 +62,7 @@ export async function POST(request) {
               reply,
               actions: curated.actions || [],
               followUps: curated.followUps || [],
+              detectedLang: curated.detectedLang || lang,
               source: "gemini"
             });
           }
@@ -116,6 +117,7 @@ export async function POST(request) {
               reply,
               actions: curated.actions || [],
               followUps: curated.followUps || [],
+              detectedLang: curated.detectedLang || lang,
               source: "openai"
             });
           }
@@ -130,6 +132,7 @@ export async function POST(request) {
       reply: curated.reply,
       actions: curated.actions || [],
       followUps: curated.followUps || [],
+      detectedLang: curated.detectedLang || lang,
       source: "curated"
     });
   } catch (error) {

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useLang, useTheme } from "@/context/AppContext";
 import { getT } from "@/lib/i18n";
-import { getAssistantKnowledgeResult } from "@/lib/assistantKnowledge";
+import { getAssistantKnowledgeResult, detectQueryLanguage } from "@/lib/assistantKnowledge";
 import styles from "./AssistantDock.module.css";
 
 function SparkleIcon({ className }) {
@@ -92,6 +92,81 @@ function renderFormattedMessage(text) {
   });
 }
 
+const LOCALIZED_ASSISTANT_STRINGS = {
+  en: {
+    modalTitle: "Breno Sampaio",
+    modalSubtitle: "Direct from my verified experience, case studies and systems prototyping.",
+    dockBadge: "Direct",
+    inputPlaceholder: "Ask me anything... (e.g. 'How do you work?' or 'Tell me about Relay')",
+    newQuestion: "New question",
+    suggestedFollowUps: "Continue exploring",
+    suggestedHeading: "Topics to explore with me",
+    thinking: "Thinking...",
+    emptyState: "Hey! Ask me anything about my design philosophy, React 19 prototypes, 8 years in frontline operations, or let's talk directly.",
+    suggestions: [
+      "How do you work? (Way of Working)",
+      "Tell me about your Relay case study",
+      "What are your core design principles?",
+      "What are your core skills?",
+      "How can I get in touch with you?"
+    ]
+  },
+  pt: {
+    modalTitle: "Breno Sampaio",
+    modalSubtitle: "Direto da minha experiência real, estudos de caso e prototipagem de sistemas.",
+    dockBadge: "Direto",
+    inputPlaceholder: "Me pergunte qualquer coisa... (ex.: 'Como você trabalha?' ou 'Me conte sobre o Relay')",
+    newQuestion: "Nova pergunta",
+    suggestedFollowUps: "Continuar explorando",
+    suggestedHeading: "Temas para explorar comigo",
+    thinking: "Pensando...",
+    emptyState: "E aí! Me pergunte sobre minha metodologia de trabalho, meus protótipos em React 19, meus 8 anos em operações, ou bora trocar uma ideia.",
+    suggestions: [
+      "Como você trabalha? (Way of Working)",
+      "Conte sobre o protótipo do Relay",
+      "Quais princípios de design você gosta mais?",
+      "Quais são suas principais habilidades?",
+      "Como falar direto com você?"
+    ]
+  },
+  fr: {
+    modalTitle: "Breno Sampaio",
+    modalSubtitle: "En direct de mon expérience vérifiée, mes études de cas et prototypes.",
+    dockBadge: "Direct",
+    inputPlaceholder: "Pose-moi une question... (ex. « Comment travailles-tu ? » ou « Parle-moi de Relay »)",
+    newQuestion: "Nouvelle question",
+    suggestedFollowUps: "Poursuivre l'exploration",
+    suggestedHeading: "Sujets à explorer avec moi",
+    thinking: "Réflexion...",
+    emptyState: "Salut ! Pose-moi des questions sur ma méthode de design, mes prototypes React, mes 8 ans en opérations, ou échangeons directement.",
+    suggestions: [
+      "Comment travailles-tu ? (Démarche)",
+      "Parle-moi de ton étude de cas Relay",
+      "Quels sont tes principes de design préférés ?",
+      "Quelles sont tes compétences clés ?",
+      "Comment te contacter directement ?"
+    ]
+  },
+  es: {
+    modalTitle: "Breno Sampaio",
+    modalSubtitle: "Directo de mi experiencia real, casos de estudio y prototipos funcionales.",
+    dockBadge: "Directo",
+    inputPlaceholder: "Pregúntame lo que quieras... (ej. '¿Cómo trabajas?' o 'Háblame de Relay')",
+    newQuestion: "Nueva pregunta",
+    suggestedFollowUps: "Continuar explorando",
+    suggestedHeading: "Temas para explorar conmigo",
+    thinking: "Pensando...",
+    emptyState: "¡Hola! Pregúntame sobre mi método de diseño, prototipos en React 19, mis 8 años en operaciones, o hablemos directamente.",
+    suggestions: [
+      "¿Cómo trabajas? (Metodología)",
+      "Háblame sobre el caso Relay",
+      "¿Cuáles son tus principios de diseño favoritos?",
+      "¿Cuáles son tus habilidades clave?",
+      "¿Cómo puedo contactar contigo?"
+    ]
+  }
+};
+
 export function AssistantDock() {
   const router = useRouter();
   const pathname = usePathname() || "/";
@@ -99,6 +174,17 @@ export function AssistantDock() {
   const { theme } = useTheme();
   const t = getT(lang);
   const strings = t.assistant || {};
+
+  const [conversationLang, setConversationLang] = useState(lang);
+
+  useEffect(() => {
+    setConversationLang(lang);
+  }, [lang]);
+
+  const currentStrings = {
+    ...strings,
+    ...(LOCALIZED_ASSISTANT_STRINGS[conversationLang] || LOCALIZED_ASSISTANT_STRINGS[lang] || {})
+  };
 
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -320,16 +406,31 @@ export function AssistantDock() {
       text: m.fullText || m.text,
     }));
 
+    const activeLang = conversationLang || lang;
+    const detected = detectQueryLanguage(textToSend, activeLang, recentHistory);
+    const effectiveLang = ["pt", "es", "fr", "en"].includes(detected) ? detected : activeLang;
+    if (effectiveLang !== conversationLang) {
+      setConversationLang(effectiveLang);
+    }
+
     try {
       const res = await fetch("/api/assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: textToSend, lang, history: recentHistory }),
+        body: JSON.stringify({ message: textToSend, lang: effectiveLang, history: recentHistory }),
       });
 
       if (!res.ok) throw new Error("API request failed");
       const data = await res.json();
-      const localResult = getAssistantKnowledgeResult(textToSend, lang, recentHistory);
+      const serverLang =
+        data.detectedLang && ["pt", "es", "fr", "en"].includes(data.detectedLang)
+          ? data.detectedLang
+          : effectiveLang;
+      if (serverLang !== conversationLang) {
+        setConversationLang(serverLang);
+      }
+
+      const localResult = getAssistantKnowledgeResult(textToSend, serverLang, recentHistory);
       const replyText = data.reply || localResult.reply;
       const actions = data.actions && data.actions.length > 0 ? data.actions : localResult.actions;
       const followUps = data.followUps && data.followUps.length > 0 ? data.followUps : localResult.followUps;
@@ -390,7 +491,7 @@ export function AssistantDock() {
       }, 18);
     } catch {
       // Local fallback guarantee with action navigation and history awareness
-      const fallbackResult = getAssistantKnowledgeResult(textToSend, lang, recentHistory);
+      const fallbackResult = getAssistantKnowledgeResult(textToSend, effectiveLang, recentHistory);
       const replyText = fallbackResult.reply;
       setIsThinking(false);
 
@@ -445,7 +546,7 @@ export function AssistantDock() {
         }
       }, 18);
     }
-  }, [query, isThinking, lang, finishActiveStream, messages]);
+  }, [query, isThinking, lang, conversationLang, finishActiveStream, messages]);
 
   const handleChipClick = (suggestion) => {
     handleSubmit(suggestion);
@@ -454,6 +555,7 @@ export function AssistantDock() {
   const handleClear = () => {
     finishActiveStream();
     setMessages([]);
+    setConversationLang(lang);
   };
 
   // Determine if dark mode is active (via theme context or surface detection)
@@ -481,7 +583,7 @@ export function AssistantDock() {
               className={`${styles.chatPanel} ${isDark ? styles.chatPanelDark : ""}`}
               role="dialog"
               aria-modal="true"
-              aria-label={strings.modalTitle}
+              aria-label={currentStrings.modalTitle}
               data-lenis-prevent="true"
               onWheel={(e) => e.stopPropagation()}
               onTouchMove={(e) => e.stopPropagation()}
@@ -490,7 +592,7 @@ export function AssistantDock() {
               <div
                 className={styles.sheetHandleBar}
                 onClick={() => setIsOpen(false)}
-                aria-label={strings.closeAria}
+                aria-label={currentStrings.closeAria}
               >
                 <div className={styles.sheetHandle} />
               </div>
@@ -501,8 +603,8 @@ export function AssistantDock() {
                   <div className={styles.iconWrapper}>
                     <SparkleIcon className={styles.sparkleIcon} />
                   </div>
-                  <h3 className={styles.headerTitle}>{strings.modalTitle}</h3>
-                  <span className={styles.headerBadge}>{strings.dockBadge}</span>
+                  <h3 className={styles.headerTitle}>{currentStrings.modalTitle}</h3>
+                  <span className={styles.headerBadge}>{currentStrings.dockBadge}</span>
                 </div>
 
                 <div className={styles.headerActions}>
@@ -511,17 +613,17 @@ export function AssistantDock() {
                       type="button"
                       className={styles.newQuestionButton}
                       onClick={handleClear}
-                      aria-label={strings.newQuestion || "New question"}
+                      aria-label={currentStrings.newQuestion || "New question"}
                     >
                       <ResetIcon />
-                      <span>{strings.newQuestion || "New question"}</span>
+                      <span>{currentStrings.newQuestion || "New question"}</span>
                     </button>
                   )}
                   <button
                     type="button"
                     className={styles.closeButton}
                     onClick={() => setIsOpen(false)}
-                    aria-label={strings.closeAria}
+                    aria-label={currentStrings.closeAria}
                   >
                     <CloseIcon />
                   </button>
@@ -542,12 +644,12 @@ export function AssistantDock() {
                     <div className={styles.emptyStateIcon}>
                       <SparkleIcon className={styles.sparkleIcon} />
                     </div>
-                    <p className={styles.emptyStateText}>{strings.emptyState}</p>
+                    <p className={styles.emptyStateText}>{currentStrings.emptyState}</p>
 
                     <div className={styles.suggestionsGroup}>
-                      <div className={styles.suggestionsTitle}>{strings.suggestedHeading}</div>
+                      <div className={styles.suggestionsTitle}>{currentStrings.suggestedHeading}</div>
                       <div className={styles.chipsContainer}>
-                        {(strings.suggestions || []).map((sugg, i) => (
+                        {(currentStrings.suggestions || []).map((sugg, i) => (
                           <button
                             key={i}
                             type="button"
@@ -608,7 +710,7 @@ export function AssistantDock() {
                         <div className={styles.followUpsContainer}>
                           <div className={styles.followUpsHeader}>
                             <SparkleIcon className={styles.miniSparkle} />
-                            <span>{strings.suggestedFollowUps || "Continue exploring"}</span>
+                            <span>{currentStrings.suggestedFollowUps || "Continue exploring"}</span>
                           </div>
                           <div className={styles.followUpsRow}>
                             {msg.followUps.map((prompt, pIdx) => (
@@ -631,7 +733,7 @@ export function AssistantDock() {
 
                 {isThinking && (
                   <div className={`${styles.messageRow} ${styles.messageRowAssistant}`}>
-                    <div className={styles.typingIndicator} aria-label={strings.thinking}>
+                    <div className={styles.typingIndicator} aria-label={currentStrings.thinking}>
                       <span className={styles.typingDot} />
                       <span className={styles.typingDot} />
                       <span className={styles.typingDot} />
@@ -655,20 +757,20 @@ export function AssistantDock() {
                     className={styles.textInput}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder={strings.inputPlaceholder}
-                    aria-label={strings.inputPlaceholder}
+                    placeholder={currentStrings.inputPlaceholder}
+                    aria-label={currentStrings.inputPlaceholder}
                   />
                   <button
                     type="submit"
                     className={styles.sendButton}
                     disabled={!query.trim() || isThinking}
-                    aria-label={strings.sendAria}
+                    aria-label={currentStrings.sendAria}
                   >
                     <ArrowUpIcon />
                   </button>
                 </form>
                 <div className={styles.sourcesDisclaimer}>
-                  {strings.sourcesNote}
+                  {currentStrings.sourcesNote || strings.sourcesNote}
                 </div>
               </div>
             </div>
