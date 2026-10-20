@@ -1,74 +1,58 @@
-// Knowledge base for Breno Sampaio's Assistant
-// Grounded strictly in authentic portfolio data: background, projects, skills, contact and philosophy.
+// Knowledge base for Breno Sampaio's Spotlight Dialogue
+// First-person authentic voice: sharp, formal yet relaxed, disruptive, pragmatic, non-robotic.
 
 export const SYSTEM_KNOWLEDGE = `
-You are the interactive portfolio assistant for Breno Sampaio.
-Your goal is to answer questions from recruiters, hiring managers, and design peers accurately, warmly, and professionally.
-You also help visitors navigate to specific pages and sections, understand how Breno operates, and download resources.
-You must NEVER invent facts, metrics, fake clients, or unverified claims.
+You are Breno Sampaio, speaking directly in the first person ("I", "me", "my" / "eu", "meu", "minha" / "je", "moi", "mon").
+You are NOT an assistant, secretary, or bot. You ARE Breno Sampaio talking directly with a visitor, recruiter, or fellow designer.
+Your tone is confident, thoughtful, articulate, pragmatic, and conversational—never robotic, never corporate-fluffy, never third-person.
 
-PROFILE SUMMARY:
-- Name: Breno Sampaio
-- Role: Product Designer & Frontend Prototyper (grounded in Multilingual Operations)
-- Location: Valencia, Spain (GMT+2)
-- Target: Product Design & Design Engineering / Prototyping roles across Europe and remote teams.
-- Core philosophy: "I make complex work easier to navigate."
-- Languages:
-  * Portuguese: Native
-  * Spanish: Fluent
-  * French: Professional / Fluent
-  * English: Professional working
+WHO YOU ARE:
+- Product Designer & Frontend Prototyper based in Valencia, Spain (GMT+2).
+- You make complex systems easier to navigate by uniting product design with working React prototypes.
+- 8 years of frontline multilingual operations across France and Spain (Moontels, Travelodge, Accor Group in Rennes) before going all-in on Product Design and Prototyping.
+- Multilingual: Portuguese (Native), Spanish (Fluent), French (Fluent/Professional), English (Professional working).
 
-WAY OF WORKING / PHILOSOPHY / HOW HE OPERATES:
-- Rooted in 8 years of multilingual frontline operations in France and Spain.
-- 3 core tenets:
-  1. Separate evidence from assumption: Start with real people and technical constraints; distinguish verified observations from untested guesses.
-  2. Prototype where the doubt lives: Build in React/Next.js to stress-test real states, edge cases, error handling, and accessibility (mockups hide failure paths).
-  3. Care for the handover: Record decisions, data contracts, and trade-offs so design and engineering align without friction.
+YOUR CORE PHILOSOPHY / HOW YOU WORK (3 COMMITMENTS):
+1. Separate evidence from assumptions: Start in the operational trenches with real workflow bottlenecks. Keep verified facts strictly distinct from unverified hypotheses.
+2. Prototype where the doubt lives: Don't settle for static Figma screens that conceal edge cases and failure paths. Build functional prototypes in React/Next.js to stress-test error recovery, missing states, and real WCAG accessibility.
+3. Care for the handover: Document trade-offs, state logic, and data contracts so engineering and product teams move forward with zero ambiguity.
 
-KEY CASE STUDIES & PAGES:
-1. RELAY (/work/relay):
-   - Flagship research prototype for airline crew disruption & multi-party schedule exception handling.
-   - Built in React/Next.js with semantic queues, source-labelled evidence, synthetic data disclosures, and audit trails.
-2. TRIAGE AI (/work/triageai):
-   - Multilingual support intake workflow with mandatory human-in-the-loop review.
-3. SERVICE OPERATIONS (/work/service-operations):
-   - Incident tracking and escalation workflow ensuring clean handoffs.
-4. SYSTEMS LAB (/labs):
-   - Micro-experiments examining table patterns, accessible forms, and design tokens.
-5. ABOUT PAGE (/about):
-   - Full story of transition from frontline operations to product design and prototyping.
-6. CONTACT SECTION (#contact):
-   - Email: sampayobreno@gmail.com, LinkedIn, GitHub, downloadable resume.
+YOUR KEY PROJECTS:
+- RELAY (/work/relay): Your flagship research prototype for airline disruption and multi-party schedule exception handling. Built in React/Next.js with semantic queues, source-labelled evidence, and an auditable closure log.
+- TRIAGE AI (/work/triageai): Operational intake workflow for multilingual support. Key rule: human-in-the-loop (no automated response goes out without operator sign-off).
+- SERVICE OPERATIONS (/work/service-operations): Incident and discrepancy escalation workflow preventing lost handoffs.
+- SYSTEMS LAB (/labs): Interactive micro-experiments exploring table patterns, accessible forms, and design tokens.
+- ABOUT PAGE (/about): Full story of your transition from frontline operations to product design and prototyping.
+- CONTACT (#contact): Direct contact via email (sampayobreno@gmail.com) and LinkedIn. Open to Product Design & Prototyping roles across Europe and remote teams.
 `;
 
 const INTENTS = [
   {
     id: "greeting",
     keywords: ["hi", "hello", "hey", "olá", "ola", "oi", "bom dia", "boa tarde", "bonjour", "salut", "coucou", "hola"],
-    en: "Hello! I am Breno's interactive assistant. I can help you navigate to any page, understand how Breno works, explore his case studies (like Relay), or get in touch. How can I help you?",
-    fr: "Bonjour ! Je suis l'assistant interactif de Breno. Je peux vous orienter vers une page spécifique, vous expliquer sa façon de travailler, vous présenter ses études de cas (comme Relay) ou vous aider à le contacter. Comment puis-je vous aider ?",
-    pt: "Olá! Sou o assistente interativo do Breno. Posso te levar para qualquer página ou seção, explicar como o Breno trabalha e pensa, apresentar seus cases (como o Relay), ou te colocar em contato com ele. Como posso te ajudar?",
+    en: "Hey! I'm Breno. No automated secretary or third-person corporate talk here: this is directly how I think, build, and approach complex systems. Want to see how I work, dig into the Relay prototype, or talk about an opportunity?",
+    fr: "Salut ! Je suis Breno. Pas de bot impersonnel ni de discours corporate ici : tout ce qui est dans ce portfolio reflète directement ma façon de penser, de prototyper et de résoudre des problèmes concrets. Tu veux comprendre ma démarche, voir le prototype Relay ou échanger sur une opportunité ?",
+    pt: "E aí! Sou o Breno. Não tem robô nem intermediário aqui: tudo o que tá neste portfólio reflete diretamente como eu penso, desenho e resolvo bucha de verdade em produto. Quer entender minha metodologia de trabalho, ver o protótipo do Relay ou trocar uma ideia sobre alguma vaga ou projeto?",
     actions: {
       en: [
-        { label: "How Breno works", href: "#approach", type: "anchor" },
-        { label: "Explore Relay case study", href: "/work/relay", type: "navigate" },
-        { label: "Get in touch", href: "#contact", type: "anchor" }
+        { label: "How I work", href: "#approach", type: "anchor" },
+        { label: "Relay Prototype", href: "/work/relay", type: "navigate" },
+        { label: "Let's talk", href: "#contact", type: "anchor" }
       ],
       fr: [
-        { label: "Sa démarche de travail", href: "#approach", type: "anchor" },
-        { label: "Découvrir le projet Relay", href: "/fr/work/relay", type: "navigate" },
-        { label: "Contacter Breno", href: "#contact", type: "anchor" }
+        { label: "Ma démarche", href: "#approach", type: "anchor" },
+        { label: "Prototype Relay", href: "/fr/work/relay", type: "navigate" },
+        { label: "Me contacter", href: "#contact", type: "anchor" }
       ],
       pt: [
-        { label: "Como o Breno trabalha", href: "#approach", type: "anchor" },
+        { label: "Como eu trabalho", href: "#approach", type: "anchor" },
         { label: "Ver case Relay", href: "/work/relay", type: "navigate" },
-        { label: "Entrar em contato", href: "#contact", type: "anchor" }
+        { label: "Bora conversar", href: "#contact", type: "anchor" }
       ]
     },
     followUps: {
       en: ["How do you work? (Way of Working)", "Tell me about Relay case study", "What are your core skills?"],
-      fr: ["Comment travaillez-vous ? (Démarche)", "Parlez-moi du projet Relay", "Quelles sont vos compétences ?"],
+      fr: ["Comment travailles-tu ? (Démarche)", "Parle-moi du projet Relay", "Quelles sont tes compétences ?"],
       pt: ["Como você trabalha? (Way of Working)", "Conte sobre o case Relay", "Quais são suas principais habilidades?"]
     }
   },
@@ -80,9 +64,9 @@ const INTENTS = [
       "mindset", "método", "metodologia", "processo", "approach", "comment travaillez-vous",
       "comment vous travaillez", "methode", "démarche", "demarche", "philosophie", "filosofia"
     ],
-    en: "Breno's design philosophy is forged by **8 years in frontline multilingual operations**. He approaches complex products through 3 core commitments:\n\n1. **Separate evidence from assumption**: Start with real people and workflow bottlenecks. Keep verified evidence distinct from hypotheses that still need testing.\n2. **Prototype where the doubt lives**: Don't rely solely on static Figma mockups. He builds functional prototypes in React/Next.js to stress-test real states, edge cases, error recovery, and true accessibility.\n3. **Care for the handover**: Document trade-offs, state logic, and system limits so engineering and product teams move forward with zero loss of context.",
-    fr: "La méthode de Breno s'appuie sur **8 ans d'opérations multilingues** et repose sur 3 engagements fondamentaux :\n\n1. **Séparer les faits des suppositions** : Partir du terrain et des contraintes réelles, en distinguant ce qui est observé de ce qu'il reste à valider.\n2. **Prototyper là où réside le doute** : Dépasser les maquettes statiques en codant en React/Next.js pour éprouver les cas limites, les états d'erreur et l'accessibilité réelle.\n3. **Soigner le passage de relais** : Documenter les décisions et compromis pour que design et ingénierie avancent sans friction.",
-    pt: "O modo de pensar e trabalhar do Breno nasceu de **8 anos na linha de frente de operações multilíngues**. Ele aborda produtos complexos através de 3 pilares:\n\n1. **Separar fatos de suposições**: Começar nos problemas e fluxos reais, distinguindo o que é evidência comprovada do que ainda é hipótese.\n2. **Prototipar onde mora a dúvida**: Não depender apenas de telas estáticas no Figma. Ele constrói protótipos funcionais em React/Next.js para testar estados vazios, falhas e acessibilidade que mockups escondem.\n3. **Cuidar da passagem de bastão (handoff)**: Documentar trade-offs, fluxos e contratos de dados para que design e desenvolvimento trabalhem sem ruído.",
+    en: "My mindset was forged by **8 years in frontline multilingual operations** across France and Spain. I've lived through the mess created when design stops at polished Figma mockups that fall apart at the first real system exception. I approach complex products through 3 core commitments:\n\n1. **Separate evidence from assumptions**: I start with real operational bottlenecks, keeping verified facts strictly distinct from untested guesses.\n2. **Prototype where the doubt lives**: I don't rely only on static frames. I build working prototypes in React/Next.js to stress-test error recovery, missing states, and real WCAG accessibility before engineers write production code.\n3. **Care for the handover**: I document trade-offs, state logic, and data contracts so design and engineering build together with zero ambiguity.",
+    fr: "Ma vision s'est forgée au fil de **8 ans sur le terrain en opérations multilingues** en France et en Espagne. J'ai vu ce qui se passe quand le design se limite à de jolies maquettes Figma qui s'effondrent dès la première exception de système. Ma démarche repose sur 3 piliers :\n\n1. **Distinguer les faits des suppositions** : Je pars des points de friction réels et des contraintes opérationnelles, en isolant les preuves vérifiées des simples hypothèses.\n2. **Prototyper là où réside le doute** : Je ne me fie pas aux écrans figés. Je code des prototypes fonctionnels en React/Next.js pour éprouver les cas limites, les états d'erreur et l'accessibilité réelle.\n3. **Soigner le passage de relais** : Je documente les arbitrages et la logique d'état pour que design et ingénierie avancent sans perte de contexte.",
+    pt: "Meu jeito de pensar e trabalhar foi forjado em **8 anos na linha de frente de operações multilíngues** na França e na Espanha. Eu vi de perto o que acontece quando o design vive apenas em mockups bonitinhos no Figma que quebram na primeira exceção de sistema. Minha abordagem é baseada em 3 compromissos:\n\n1. **Separar fatos de achismos**: Começo nas dores reais das pessoas e nas restrições operacionais, separando o que é evidência comprovada do que ainda é hipótese.\n2. **Prototipar onde mora a dúvida**: Não confio apenas em telas estáticas. Eu construo protótipos funcionais em React/Next.js para testar na prática estados vazios, falhas de rede, limites do sistema e acessibilidade real.\n3. **Cuidar da passagem de bastão (handoff)**: Documento decisões, trade-offs e fluxos para que design e engenharia falem a mesma língua, sem atrito e sem retrabalho.",
     actions: {
       en: [
         { label: "Jump to 'Way of Working' section", href: "#approach", type: "anchor" },
@@ -99,8 +83,8 @@ const INTENTS = [
     },
     followUps: {
       en: ["How did 8 years in ops shape your design?", "Tell me about the Relay case study", "How can I contact Breno?"],
-      fr: ["Comment vos 8 ans en opérations influencent votre design ?", "Parlez-moi du projet Relay", "Comment contacter Breno ?"],
-      pt: ["Como os 8 anos em operações influenciam seu design?", "Conte sobre o case Relay", "Como entrar em contato com o Breno?"]
+      fr: ["Comment vos 8 ans en opérations influencent votre design ?", "Parle-moi du projet Relay", "Comment te contacter ?"],
+      pt: ["Como os 8 anos em operações influenciam seu design?", "Me conta sobre o case Relay", "Como entrar em contato com você?"]
     }
   },
   {
@@ -109,9 +93,9 @@ const INTENTS = [
       "ir para", "ir pra", "levar para", "navegar", "abrir pagina", "abrir página", "mostrar",
       "go to", "jump to", "open page", "navigate to", "teleport", "aller à", "aller a", "ouvrir", "page", "seção", "secao"
     ],
-    en: "Here are direct shortcuts to teleport to any page or section across the portfolio:",
-    fr: "Voici les raccourcis directs pour accéder à n'importe quelle section ou page du portfolio :",
-    pt: "Aqui estão os atalhos diretos para você ir para qualquer página ou seção do portfólio:",
+    en: "Here are direct shortcuts to teleport to any section of my portfolio without friction:",
+    fr: "Voici les raccourcis directs pour accéder directement à n'importe quelle section de mon portfolio :",
+    pt: "Aqui estão os atalhos diretos para você ir para qualquer parte do meu portfólio sem rodeios:",
     actions: {
       en: [
         { label: "Relay Prototype", href: "/work/relay", type: "navigate" },
@@ -125,28 +109,28 @@ const INTENTS = [
         { label: "Ma démarche", href: "#approach", type: "anchor" },
         { label: "À propos", href: "/fr/about", type: "navigate" },
         { label: "Formulaire de contact", href: "#contact", type: "anchor" },
-        { label: "Télécharger le CV", href: "/breno-sampaio-resume-en.pdf", type: "download" }
+        { label: "Télécharger mon CV", href: "/breno-sampaio-resume-en.pdf", type: "download" }
       ],
       pt: [
         { label: "Case Relay", href: "/work/relay", type: "navigate" },
         { label: "Como Trabalho (Approach)", href: "#approach", type: "anchor" },
-        { label: "Sobre o Breno", href: "/about", type: "navigate" },
+        { label: "Sobre Mim", href: "/about", type: "navigate" },
         { label: "Formulário de Contato", href: "#contact", type: "anchor" },
         { label: "Baixar Currículo", href: "/breno-sampaio-resume-en.pdf", type: "download" }
       ]
     },
     followUps: {
-      en: ["Tell me about Relay case study", "How does Breno work?", "Download resume (PDF)"],
-      fr: ["Parlez-moi de l'étude Relay", "Quelle est la démarche de Breno ?", "Télécharger le CV"],
-      pt: ["Conte sobre o case Relay", "Como o Breno trabalha?", "Baixar currículo em PDF"]
+      en: ["Tell me about Relay case study", "Explain your Way of Working", "Download resume (PDF)"],
+      fr: ["Parle-moi de l'étude Relay", "Quelle est ta démarche ?", "Télécharger le CV"],
+      pt: ["Conte sobre o case Relay", "Como você trabalha?", "Baixar currículo em PDF"]
     }
   },
   {
     id: "relay",
     keywords: ["relay", "airline", "exception", "case study", "case", "projeto", "projet"],
-    en: "**Relay** is Breno's flagship research prototype for multi-party exception handling. It addresses the reality where orders, fulfillment, and carrier systems disagree. Instead of another passive dashboard, Relay frames the work around the next defensible decision with semantic queues, explicit permissions, source-labelled evidence, and an auditable closure log. It is built as a working React/Next.js prototype with synthetic data.",
-    fr: "**Relay** est le prototype de recherche phare de Breno pour la gestion des exceptions opérationnelles. Il répond aux situations où les données de commande, de transport et de service client divergent. Relay organise le travail autour de la prochaine décision défendable avec des files d'attente sémantiques, des preuves sourcées et une piste d'audit complète. C'est un prototype fonctionnel en React/Next.js utilisant des données synthétiques.",
-    pt: "O **Relay** é o principal case de protótipo de pesquisa do Breno para resolução de exceções operacionais complexas. Quando sistemas de pedidos, transporte e suporte entram em desacordo, o Relay substitui dashboards passivos por um fluxo guiado para a próxima decisão segura — com filas semânticas, dados sintéticos transparentes, permissões claras e histórico de auditoria. Ele foi totalmente prototipado em React/Next.js.",
+    en: "**Relay** is my flagship research prototype for multi-party exception handling. It tackles the painful reality where orders, fulfillment, and carrier systems disagree. Instead of slapping together another passive dashboard full of meaningless charts, I framed the product around the **next defensible decision**—with semantic queues, source-labelled evidence, synthetic data disclosures, and an auditable closure log. It's a real working React/Next.js prototype you can interact with right now.",
+    fr: "**Relay** est mon prototype de recherche phare pour la résolution d'exceptions opérationnelles. Quand les systèmes de commande, de transport et de service client divergent, plutôt que d'ajouter un énième tableau de bord passif, j'ai structuré le produit autour de la **prochaine décision défendable** — avec des files d'attente sémantiques, des preuves sourcées et une piste d'audit complète. C'est un vrai prototype fonctionnel en React/Next.js.",
+    pt: "O **Relay** é o meu protótipo de pesquisa principal. Desenhei ele para resolver uma dor clássica e brutal: quando sistemas de pedidos, centros de distribuição e transportadoras discordam e ninguém sabe qual é a próxima decisão segura. Em vez de criar outro dashboard passivo cheio de métricas vazias, estruturei o produto em torno da **próxima decisão defensável** — com filas semânticas, dados sintéticos transparentes, permissões explícitas e log de auditoria completo. E sim: é um protótipo funcional em React/Next.js que você pode testar agora.",
     actions: {
       en: [
         { label: "Open Relay Prototype", href: "/work/relay", type: "navigate" },
@@ -154,25 +138,25 @@ const INTENTS = [
       ],
       fr: [
         { label: "Ouvrir l'étude Relay", href: "/fr/work/relay", type: "navigate" },
-        { label: "Voir tous les projets", href: "/fr/work", type: "navigate" }
+        { label: "Voir tous mes projets", href: "/fr/work", type: "navigate" }
       ],
       pt: [
-        { label: "Abrir case Relay", href: "/work/relay", type: "navigate" },
+        { label: "Abrir protótipo do Relay", href: "/work/relay", type: "navigate" },
         { label: "Ver todos os projetos", href: "/work", type: "navigate" }
       ]
     },
     followUps: {
-      en: ["How does Breno use React for prototyping?", "What other projects has he built?", "How do you work with engineers?"],
-      fr: ["Comment Breno utilise React pour prototyper ?", "Quels autres projets a-t-il réalisés ?", "Comment travaillez-vous avec les ingénieurs ?"],
-      pt: ["Como o Breno usa React para prototipar?", "Quais outros projetos ele construiu?", "Como você trabalha com desenvolvedores?"]
+      en: ["How do you use React for prototyping?", "What other projects have you built?", "How do you work with engineers?"],
+      fr: ["Comment utilises-tu React pour prototyper ?", "Quels autres projets as-tu réalisés ?", "Comment travailles-tu avec les ingénieurs ?"],
+      pt: ["Como você usa React para prototipar?", "Quais outros projetos você construiu?", "Como você trabalha com desenvolvedores?"]
     }
   },
   {
     id: "triage",
     keywords: ["triage", "triageai", "ai", "intake", "support triage", "ia", "inteligencia"],
-    en: "**TriageAI** is an operational support concept designed for multilingual environments (handling PT, ES, FR, and EN in a unified queue). Its foundational rule is **human-in-the-loop**: no automated response is sent without operator review. It scores routing confidence explicitly, and turns missing details into actionable tasks instead of dead ends.",
-    fr: "**TriageAI** est un concept opérationnel de tri des demandes d'assistance en environnement multilingue (PT, ES, FR, EN). Son principe cardinal est l'approbation humaine préalable : aucune réponse sortante n'est envoyée sans validation par un agent. Les scores de confiance sont explicites et les informations manquantes deviennent des tâches concrètes.",
-    pt: "O **TriageAI** é um conceito operacional para triagem de suporte multilíngue (atendendo PT, ES, FR e EN em uma única fila). Sua regra de ouro é o **human-in-the-loop**: nenhuma resposta automatizada sai sem aprovação de um operador humano. Ele trabalha com regras transparentes de confiança e transforma informações faltantes em tarefas acionáveis.",
+    en: "**TriageAI** is an operational support concept I designed for multilingual environments (handling PT, ES, FR, and EN in a single queue). My non-negotiable rule here is **human-in-the-loop**: no automated message goes out without operator sign-off. I built clear confidence scoring and turned missing details into actionable next steps instead of dead ends.",
+    fr: "**TriageAI** est un concept opérationnel que j'ai conçu pour le tri du support multilingue (PT, ES, FR, EN en file unifiée). Ma règle cardinale est l'**approbation humaine préalable** : aucun message sortant n'est envoyé sans validation par un opérateur. J'ai rendu les scores de confiance transparents et transformé les données manquantes en tâches concrètes.",
+    pt: "O **TriageAI** é um conceito operacional que desenhei para triagem de suporte multilíngue (lidando com PT, ES, FR e EN em uma fila unificada). A minha regra inegociável aqui é o **human-in-the-loop**: nenhuma resposta automatizada sai sem aprovação de um operador humano. Eu estruturei o fluxo com pontuações transparentes de confiança e transformo informações incompletas em tarefas claras em vez de becos sem saída.",
     actions: {
       en: [{ label: "View TriageAI case", href: "/work/triageai", type: "navigate" }],
       fr: [{ label: "Voir le cas TriageAI", href: "/fr/work/triageai", type: "navigate" }],
@@ -180,49 +164,49 @@ const INTENTS = [
     },
     followUps: {
       en: ["Tell me about Relay case study", "What is your background?", "How can I contact Breno?"],
-      fr: ["Parlez-moi de l'étude Relay", "Quel est votre parcours ?", "Comment contacter Breno ?"],
-      pt: ["Conte sobre o case Relay", "Qual é a sua trajetória?", "Como falar com o Breno?"]
+      fr: ["Parle-moi de l'étude Relay", "Quel est ton parcours ?", "Comment te contacter ?"],
+      pt: ["Conte sobre o case Relay", "Qual é a sua trajetória?", "Como falar com você?"]
     }
   },
   {
     id: "background",
     keywords: ["background", "who is", "who are", "about", "bio", "experience", "historia", "sobre", "experiencia", "parcours", "qui est"],
-    en: "Breno spent **8 years in frontline multilingual operations** before focusing on Product Design and Frontend Prototyping. Living through broken handoffs, missing context, and ambiguous ownership gives him a distinct advantage: he designs systems that hold up under real operational pressure. Based in Valencia, Spain, he combines systems thinking, interaction design, and React prototyping.",
-    fr: "Breno a passé **8 ans au cœur d'opérations multilingues** avant de se concentrer sur le Product Design et le prototypage frontend. Avoir vécu directement les ruptures de service et l'ambiguïté des responsabilités lui confère un point de vue unique : concevoir des interfaces fiables sous forte contrainte opérationnelle. Basé à Valence (Espagne), il allie design de systèmes et code React.",
-    pt: "O Breno trabalhou por **8 anos na linha de frente de operações multilíngues** antes de se aprofundar em Product Design e prototipagem frontend. Vivenciar gargalos reais de atendimento, dados desencontrados e falta de clareza de responsabilidade deu a ele uma perspectiva prática: projetar interfaces funcionais que resistem à complexidade real do dia a dia. Ele mora em Valência, Espanha, e combina design de sistemas com prototipagem em React.",
+    en: "I spent **8 years in frontline multilingual operations** (at Moontels, Travelodge, and Accor in Rennes) before focusing on Product Design and Frontend Prototyping. Living through broken handoffs, fragmented records, and operational chaos gave me an edge: I don't design for the imaginary 'happy path'—I design systems that hold up under real pressure. Today I'm based in Valencia, Spain.",
+    fr: "J'ai passé **8 ans au cœur d'opérations multilingues** (chez Moontels, Travelodge et dans le groupe Accor à Rennes) avant de me consacrer au Product Design et au prototypage frontend. Avoir vécu au quotidien les ruptures de service et l'ambiguïté des responsabilités m'a appris une chose essentielle : concevoir pour la réalité du terrain et non pour un monde idéal. Je vis aujourd'hui à Valence, en Espagne.",
+    pt: "Passei **8 anos na linha de frente de operações multilíngues** (na Moontels, Travelodge e no grupo Accor em Rennes) antes de migrar com foco total para Product Design e prototipagem frontend. Ter vivido na pele a dor de handoffs quebrados, informações desencontradas e suporte caótico me deu uma vantagem que muito designer não tem: eu não projeto pensando só no 'caminho feliz', projeto para sistemas que precisam aguentar a pressão do mundo real. Hoje moro em Valência, Espanha.",
     actions: {
       en: [
         { label: "Read full About story", href: "/about", type: "navigate" },
         { label: "Jump to About section", href: "#about", type: "anchor" }
       ],
       fr: [
-        { label: "Lire la présentation complète", href: "/fr/about", type: "navigate" },
+        { label: "Lire mon histoire complète", href: "/fr/about", type: "navigate" },
         { label: "Aller à la section À propos", href: "#about", type: "anchor" }
       ],
       pt: [
-        { label: "Ver história completa", href: "/about", type: "navigate" },
+        { label: "Ver minha história completa", href: "/about", type: "navigate" },
         { label: "Ir para seção Sobre", href: "#about", type: "anchor" }
       ]
     },
     followUps: {
-      en: ["Explain your 3-pillar Way of Working", "What are your hard & soft skills?", "Download Breno's resume"],
-      fr: ["Expliquez votre démarche en 3 piliers", "Quelles sont vos compétences clés ?", "Télécharger le CV"],
-      pt: ["Como funciona sua metodologia em 3 pilares?", "Quais são suas habilidades técnicas?", "Baixar currículo do Breno"]
+      en: ["Explain your 3-pillar Way of Working", "What are your hard & soft skills?", "Download my resume"],
+      fr: ["Explique ta démarche en 3 piliers", "Quelles sont tes compétences clés ?", "Télécharger le CV"],
+      pt: ["Como funciona sua metodologia em 3 pilares?", "Quais são suas habilidades técnicas?", "Baixar meu currículo"]
     }
   },
   {
     id: "skills",
     keywords: ["skills", "stack", "tools", "technologies", "tech", "react", "next", "css", "figma", "habilidades", "ferramentas", "competences"],
-    en: "Breno's skillset bridges **Product Design & Engineering Prototyping**:\n\n• **Design**: Interaction design, UI design systems & design tokens, accessible patterns (WCAG 2.1 AA), information architecture.\n• **Frontend / Code**: React 19, Next.js 16 (App Router), Modern CSS, HTML, JavaScript, Git, Vitest, Playwright.\n• **Product & Ops**: Workflow mapping, edge case scoping, operational empathy, multilingual communication.",
-    fr: "L'expertise de Breno relie le **Product Design et le prototypage d'ingénierie** :\n\n• **Design** : Design d'interaction, systèmes UI & tokens, accessibilité (WCAG 2.1 AA), architecture de l'information.\n• **Frontend / Code** : React 19, Next.js 16, CSS moderne, HTML, JavaScript, Git, Vitest, Playwright.\n• **Produit & Opérations** : Cartographie des flux, gestion des cas limites (edge cases), communication multilingue.",
-    pt: "As competências do Breno unem **Product Design e Prototipagem Funcional**:\n\n• **Design**: Design de interação, sistemas de UI e design tokens, acessibilidade (WCAG 2.1 AA), arquitetura de informação.\n• **Código / Frontend**: React 19, Next.js 16 (App Router), CSS Moderno, HTML semântico, JavaScript, Git, Vitest, Playwright.\n• **Produto e Operações**: Mapeamento de fluxos, análise de edge cases, empatia operacional e alinhamento entre times.",
+    en: "My skillset bridges two worlds that often clash: **Product Design & Engineering Prototyping**:\n\n• **Design**: Interaction design, UI systems & design tokens, accessible patterns (WCAG 2.1 AA), information architecture.\n• **Code & Frontend**: React 19, Next.js 16 (App Router), Modern CSS, semantic HTML, JavaScript, Git, automated testing (Vitest/Playwright).\n• **Product & Ops**: Real workflow mapping, edge-case scoping, and zero-loss communication with engineering.",
+    fr: "Mon profil fait le pont entre deux mondes : **Product Design et prototypage frontend** :\n\n• **Design** : Design d'interaction, design systems et tokens, accessibilité (WCAG 2.1 AA), architecture de l'information.\n• **Code / Frontend** : React 19, Next.js 16, CSS moderne, HTML sémantique, JavaScript, Git, Vitest, Playwright.\n• **Produit & Opérations** : Cartographie des flux, anticipation des cas limites et collaboration directe avec les développeurs.",
+    pt: "Minha atuação une duas pontas que raramente conversam bem: **Product Design e Prototipagem em Código**:\n\n• **Design**: Design de interação, design systems e design tokens, acessibilidade real (WCAG 2.1 AA), arquitetura da informação.\n• **Código / Frontend**: React 19, Next.js 16 (App Router), CSS Moderno, HTML semântico, JavaScript, Git, testes automatizados (Vitest/Playwright).\n• **Produto & Operações**: Mapeamento de fluxos reais, análise profunda de edge cases e comunicação sem ruído com engenharia.",
     actions: {
       en: [
         { label: "Explore Capabilities Map", href: "#capabilities", type: "anchor" },
         { label: "Systems Lab preview", href: "/labs", type: "navigate" }
       ],
       fr: [
-        { label: "Explorer les compétences", href: "#capabilities", type: "anchor" },
+        { label: "Explorer mes compétences", href: "#capabilities", type: "anchor" },
         { label: "Laboratoire systèmes", href: "/fr/labs", type: "navigate" }
       ],
       pt: [
@@ -232,28 +216,28 @@ const INTENTS = [
     },
     followUps: {
       en: ["Tell me about your React & Next.js practice", "Explain your Way of Working", "Download resume (PDF)"],
-      fr: ["Parlez-moi de votre pratique React & Next.js", "Expliquez votre démarche de travail", "Télécharger le CV"],
+      fr: ["Parle-moi de ta pratique React & Next.js", "Explique ta démarche de travail", "Télécharger le CV"],
       pt: ["Como é sua prática com React e Next.js?", "Como é o seu modo de trabalhar?", "Baixar currículo em PDF"]
     }
   },
   {
     id: "languages",
     keywords: ["language", "languages", "idioma", "idiomas", "linguas", "français", "ingles", "english", "portugues", "espanol", "langues"],
-    en: "Breno is genuinely multilingual across 4 languages:\n\n• **Portuguese**: Native\n• **Spanish**: Fluent\n• **French**: Professional / Fluent\n• **English**: Professional working\n\nThis multilingual capability comes from years of international operations and allows him to design products naturally suited for localization and international teams.",
-    fr: "Breno maîtrise 4 langues professionnelles :\n\n• **Portugais** : Langue maternelle\n• **Espagnol** : Courant\n• **Français** : Professionnel / Courant\n• **Anglais** : Professionnel de travail\n\nCette expérience multilingue est issue d'années d'opérations internationales et enrichit directement son approche de l'internationalisation logicielle.",
-    pt: "O Breno é fluente em 4 idiomas:\n\n• **Português**: Nativo\n• **Espanhol**: Fluente\n• **Francês**: Profissional / Fluente\n• **Inglês**: Profissional de trabalho\n\nEssa vivência multilíngue veio de anos em operações internacionais e se reflete diretamente na facilidade de desenhar produtos para audiências globais.",
+    en: "I work across **4 languages** fluently:\n\n• **Portuguese**: Native\n• **Spanish**: Fluent\n• **French**: Fluent / Professional\n• **English**: Professional working\n\nThis comes from years of frontline international operations, which helps me design software that naturally accommodates localization and diverse operational cultures.",
+    fr: "Je travaille couramment en **4 langues** :\n\n• **Portugais** : Langue maternelle\n• **Espagnol** : Courant\n• **Français** : Courant / Professionnel\n• **Anglais** : Professionnel de travail\n\nCe bagage multilingue est issu d'années sur le terrain et me permet de concevoir des interfaces prêtes pour l'internationalisation.",
+    pt: "Falo **4 idiomas** fluentemente no dia a dia profissional:\n\n• **Português**: Nativo\n• **Espanhol**: Fluente\n• **Francês**: Fluente / Profissional\n• **Inglês**: Profissional de trabalho\n\nIsso não é só falar línguas: são anos operando com clientes e times de vários países, o que me faz projetar produtos já preparados para localização e contextos culturais diversos.",
     followUps: {
       en: ["How does multilingual ops impact your UI work?", "Tell me about Relay", "How to contact Breno?"],
-      fr: ["Quel impact a le multilingue sur vos interfaces ?", "Parlez-moi du projet Relay", "Comment contacter Breno ?"],
+      fr: ["Quel impact a le multilingue sur tes interfaces ?", "Parle-moi du projet Relay", "Comment te contacter ?"],
       pt: ["Como o ambiente multilíngue afeta seu design?", "Conte sobre o Relay", "Como entrar em contato?"]
     }
   },
   {
     id: "contact",
     keywords: ["contact", "hire", "email", "linkedin", "github", "talk", "contato", "contratar", "falar", "message", "recruteur", "recruiter"],
-    en: "You can reach Breno directly via:\n\n• **Email**: sampayobreno@gmail.com\n• **LinkedIn**: linkedin.com/in/brenosampaio\n• **GitHub**: github.com/sampayobreno-spec\n\nHe is located in **Valencia, Spain** and is open to Product Design and Prototyping roles across Europe and remote teams.",
-    fr: "Vous pouvez contacter Breno directement par :\n\n• **Courriel** : sampayobreno@gmail.com\n• **LinkedIn** : linkedin.com/in/brenosampaio\n• **GitHub** : github.com/sampayobreno-spec\n\nIl réside à **Valence en Espagne** et est ouvert aux opportunités en Product Design et prototypage en Europe ou à distance.",
-    pt: "Você pode falar com o Breno diretamente pelos canais:\n\n• **E-mail**: sampayobreno@gmail.com\n• **LinkedIn**: linkedin.com/in/brenosampaio\n• **GitHub**: github.com/sampayobreno-spec\n\nEle mora em **Valência, Espanha** e está disponível para vagas e projetos de Product Design e Prototipagem na Europa e em regime remoto.",
+    en: "Want to connect directly? No red tape or intermediaries:\n\n• **Email**: sampayobreno@gmail.com\n• **LinkedIn**: linkedin.com/in/brenosampaio\n• **GitHub**: github.com/sampayobreno-spec\n\nI'm based in **Valencia, Spain** and actively open to Product Design and Prototyping roles across Europe or with remote teams.",
+    fr: "Envie d'échanger directement ? Pas d'intermédiaire :\n\n• **Courriel** : sampayobreno@gmail.com\n• **LinkedIn** : linkedin.com/in/brenosampaio\n• **GitHub** : github.com/sampayobreno-spec\n\nJe suis basé à **Valence en Espagne** et disponible pour des rôles en Product Design et prototypage en Europe ou à distance.",
+    pt: "Bora conversar direto? Não tem burocracia nem intermediário:\n\n• **E-mail**: sampayobreno@gmail.com\n• **LinkedIn**: linkedin.com/in/brenosampaio\n• **GitHub**: github.com/sampayobreno-spec\n\nTô baseado em **Valência, Espanha** e aberto a oportunidades em Product Design e Prototipagem na Europa ou em times remotos.",
     actions: {
       en: [
         { label: "Go to Contact Form", href: "#contact", type: "anchor" },
@@ -261,37 +245,37 @@ const INTENTS = [
         { label: "View LinkedIn", href: "https://www.linkedin.com/in/brenosampaio", type: "external" }
       ],
       fr: [
-        { label: "Aller au formulaire de contact", href: "#contact", type: "anchor" },
-        { label: "Envoyer un e-mail", href: "mailto:sampayobreno@gmail.com", type: "external" },
-        { label: "Voir LinkedIn", href: "https://www.linkedin.com/in/brenosampaio", type: "external" }
+        { label: "Formulaire de contact", href: "#contact", type: "anchor" },
+        { label: "M'envoyer un e-mail", href: "mailto:sampayobreno@gmail.com", type: "external" },
+        { label: "Mon profil LinkedIn", href: "https://www.linkedin.com/in/brenosampaio", type: "external" }
       ],
       pt: [
         { label: "Ir para formulário de contato", href: "#contact", type: "anchor" },
         { label: "Enviar e-mail direto", href: "mailto:sampayobreno@gmail.com", type: "external" },
-        { label: "Ver LinkedIn", href: "https://www.linkedin.com/in/brenosampaio", type: "external" }
+        { label: "Ver meu LinkedIn", href: "https://www.linkedin.com/in/brenosampaio", type: "external" }
       ]
     },
     followUps: {
-      en: ["What kind of roles are you open to?", "Download Breno's resume", "Explain your Way of Working"],
-      fr: ["Quels types de postes recherchez-vous ?", "Télécharger le CV", "Expliquez votre démarche"],
-      pt: ["Que tipo de vagas você está buscando?", "Baixar currículo do Breno", "Como você trabalha?"]
+      en: ["What kind of roles are you open to?", "Download my resume", "Explain your Way of Working"],
+      fr: ["Quels types de postes recherches-tu ?", "Télécharger mon CV", "Explique ta démarche"],
+      pt: ["Que tipo de vagas você está buscando?", "Baixar meu currículo", "Como você trabalha?"]
     }
   },
   {
     id: "resume",
     keywords: ["resume", "cv", "curriculo", "curriculum"],
-    en: "You can download Breno's résumé directly using the button below (available in English and French PDF).",
-    fr: "Vous pouvez télécharger le CV de Breno directement via le bouton ci-dessous (format PDF).",
-    pt: "Você pode baixar o currículo do Breno diretamente pelo botão abaixo (em formato PDF):",
+    en: "You can grab my up-to-date resume in PDF using the button below (focused on Product Design and Prototyping):",
+    fr: "Tu peux télécharger mon CV à jour au format PDF via le bouton ci-dessous :",
+    pt: "Você pode baixar meu currículo atualizado em PDF clicando no botão abaixo (versão com foco em Product Design e Prototipagem Funcional):",
     actions: {
       en: [{ label: "Download Resume (PDF)", href: "/breno-sampaio-resume-en.pdf", type: "download" }],
-      fr: [{ label: "Télécharger le CV (PDF)", href: "/breno-sampaio-resume-en.pdf", type: "download" }],
+      fr: [{ label: "Télécharger mon CV (PDF)", href: "/breno-sampaio-resume-en.pdf", type: "download" }],
       pt: [{ label: "Baixar Currículo (PDF)", href: "/breno-sampaio-resume-en.pdf", type: "download" }]
     },
     followUps: {
-      en: ["What are your core skills?", "Tell me about the Relay case", "How to contact Breno?"],
-      fr: ["Quelles sont vos compétences clés ?", "Parlez-moi de l'étude Relay", "Comment contacter Breno ?"],
-      pt: ["Quais são suas habilidades principais?", "Conte sobre o case Relay", "Como falar com o Breno?"]
+      en: ["What are your core skills?", "Tell me about the Relay case", "How to contact you?"],
+      fr: ["Quelles sont tes compétences clés ?", "Parle-moi de l'étude Relay", "Comment te contacter ?"],
+      pt: ["Quais são suas habilidades principais?", "Conte sobre o case Relay", "Como falar direto com você?"]
     }
   }
 ];
@@ -321,19 +305,22 @@ export function getAssistantKnowledgeResult(query, lang = "en") {
   if (!clean) {
     if (lang === "fr") {
       return {
-        reply: "Posez-moi n'importe quelle question sur le parcours, la démarche ou les projets de Breno !",
-        actions: []
+        reply: "Pose-moi n'importe quelle question sur mon parcours, ma démarche ou mes prototypes !",
+        actions: [],
+        followUps: []
       };
     }
     if (lang === "pt") {
       return {
-        reply: "Pergunte qualquer coisa sobre a trajetória, a metodologia de trabalho ou os projetos do Breno!",
-        actions: []
+        reply: "Me pergunta qualquer coisa sobre minha trajetória, como eu trabalho ou meus projetos!",
+        actions: [],
+        followUps: []
       };
     }
     return {
-      reply: "Ask me anything about Breno's background, way of working, or design projects!",
-      actions: []
+      reply: "Ask me anything about my background, how I work, or my design prototypes!",
+      actions: [],
+      followUps: []
     };
   }
 
@@ -356,26 +343,26 @@ export function getAssistantKnowledgeResult(query, lang = "en") {
 
   if (targetLang === "fr") {
     return {
-      reply: `Breno est un **Product Designer** basé à Valence, en Espagne, avec 8 ans d'expérience en opérations multilingues. Il conçoit des interfaces et prototypes clairs pour des workflows complexes.\n\nVous pouvez me demander sa **façon de travailler**, ses **projets (Relay)**, ou me demander de vous **orienter vers une page**.`,
+      reply: `Je suis Breno, **Product Designer** basé à Valence, en Espagne, avec 8 ans d'expérience sur le terrain en opérations multilingues. Je transforme les flux complexes en interfaces claires et prototypes fonctionnels en React.\n\nDemande-moi **comment je travaille**, mes **projets (comme Relay)**, ou de t'**orienter vers une section** !`,
       actions: [
-        { label: "Sa démarche de travail", href: "#approach", type: "anchor" },
-        { label: "Projet Relay", href: "/fr/work/relay", type: "navigate" },
-        { label: "Contacter Breno", href: "#contact", type: "anchor" }
+        { label: "Ma démarche", href: "#approach", type: "anchor" },
+        { label: "Prototype Relay", href: "/fr/work/relay", type: "navigate" },
+        { label: "Me contacter", href: "#contact", type: "anchor" }
       ],
       followUps: [
-        "Comment travaillez-vous ? (Démarche)",
-        "Parlez-moi de l'étude Relay",
-        "Quelles sont vos compétences clés ?"
+        "Comment travailles-tu ? (Démarche)",
+        "Parle-moi de l'étude Relay",
+        "Quelles sont tes compétences clés ?"
       ]
     };
   }
   if (targetLang === "pt") {
     return {
-      reply: `O Breno é um **Product Designer** baseado em Valência, Espanha, com 8 anos de experiência em operações multilíngues. Ele transforma fluxos operacionais complexos em produtos claros e protótipos funcionais.\n\nVocê pode me perguntar sobre **como ele trabalha**, seus **projetos (como o Relay)**, ou pedir para eu te **levar a qualquer página do site**.`,
+      reply: `Sou o Breno, **Product Designer** baseado em Valência, Espanha, com 8 anos de estrada em operações multilíngues. Eu transformo fluxos operacionais complexos em produtos fáceis de navegar e protótipos funcionais em React.\n\nPode me perguntar sobre **como eu trabalho**, meus **cases (como o Relay)**, ou pedir para eu te **levar a qualquer seção**!`,
       actions: [
-        { label: "Como o Breno trabalha", href: "#approach", type: "anchor" },
+        { label: "Como eu trabalho", href: "#approach", type: "anchor" },
         { label: "Ver case Relay", href: "/work/relay", type: "navigate" },
-        { label: "Formulário de Contato", href: "#contact", type: "anchor" }
+        { label: "Bora conversar", href: "#contact", type: "anchor" }
       ],
       followUps: [
         "Como você trabalha? (Way of Working)",
@@ -386,11 +373,11 @@ export function getAssistantKnowledgeResult(query, lang = "en") {
   }
 
   return {
-    reply: `Breno is a **Product Designer** based in Valencia, Spain, with 8 years of background in multilingual operations. He turns complex workflows into accessible products and working prototypes.\n\nFeel free to ask about his **way of working**, his **case studies (Relay)**, or ask me to **teleport to any section**!`,
+    reply: `I'm Breno, a **Product Designer** based in Valencia, Spain, with 8 years in frontline operations. I turn messy, complex workflows into clear products and working React prototypes.\n\nAsk me about **how I work**, my **case studies (like Relay)**, or ask me to **jump to any section**!`,
     actions: [
-      { label: "How Breno works", href: "#approach", type: "anchor" },
-      { label: "Relay case study", href: "/work/relay", type: "navigate" },
-      { label: "Contact Breno", href: "#contact", type: "anchor" }
+      { label: "How I work", href: "#approach", type: "anchor" },
+      { label: "Relay prototype", href: "/work/relay", type: "navigate" },
+      { label: "Let's talk", href: "#contact", type: "anchor" }
     ],
     followUps: [
       "How do you work? (Way of Working)",

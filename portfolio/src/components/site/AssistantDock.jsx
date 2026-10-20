@@ -486,7 +486,6 @@ export function AssistantDock() {
                             className={styles.chipButton}
                             onClick={() => handleChipClick(sugg)}
                           >
-                            <span className={styles.chipBullet}>✦</span>
                             <span>{sugg}</span>
                           </button>
                         ))}
