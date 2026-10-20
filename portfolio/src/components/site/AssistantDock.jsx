@@ -175,11 +175,20 @@ export function AssistantDock() {
   // Focus input and lock document scroll when modal opens
   useEffect(() => {
     if (isOpen) {
-      const prevOverflow = document.body.style.overflow;
+      if (typeof window !== "undefined" && window.__lenis) {
+        window.__lenis.stop();
+      }
+      const prevBodyOverflow = document.body.style.overflow;
+      const prevHtmlOverflow = document.documentElement.style.overflow;
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
       const timer = setTimeout(() => inputRef.current?.focus(), 80);
       return () => {
-        document.body.style.overflow = prevOverflow;
+        if (typeof window !== "undefined" && window.__lenis) {
+          window.__lenis.start();
+        }
+        document.body.style.overflow = prevBodyOverflow;
+        document.documentElement.style.overflow = prevHtmlOverflow;
         clearTimeout(timer);
       };
     }
@@ -458,15 +467,24 @@ export function AssistantDock() {
           <div
             className={styles.chatBackdrop}
             onClick={() => setIsOpen(false)}
+            onWheel={(e) => e.preventDefault()}
+            onTouchMove={(e) => e.preventDefault()}
+            data-lenis-prevent="true"
             aria-hidden="true"
           />
 
-          <div className={styles.modalWrapper}>
+          <div
+            className={styles.modalWrapper}
+            data-lenis-prevent="true"
+          >
             <div
               className={`${styles.chatPanel} ${isDark ? styles.chatPanelDark : ""}`}
               role="dialog"
               aria-modal="true"
               aria-label={strings.modalTitle}
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
             >
               {/* Mobile Sheet Grab Handle */}
               <div
@@ -515,6 +533,9 @@ export function AssistantDock() {
                 className={styles.panelBody}
                 ref={bodyRef}
                 onScroll={handleBodyScroll}
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
               >
                 {messages.length === 0 ? (
                   <div className={styles.emptyState}>

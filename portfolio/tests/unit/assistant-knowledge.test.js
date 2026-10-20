@@ -111,6 +111,21 @@ describe("assistantKnowledge base and intelligence", () => {
     expect(result.reply).not.toContain("I'm Breno, a Product Designer");
   });
 
+  it("answers 'quais principios voce gosta mais' with core principles rather than generic greeting", () => {
+    const result = getAssistantKnowledgeResult("quais principios voce gosta mais");
+    expect(result.reply).not.toContain("Sou o Breno, **Product Designer & Frontend Prototyper** baseado em Valência, Espanha, com 8 anos de estrada em operações multilíngues.");
+    expect(result.reply).toContain("Dieter Rams");
+    expect(result.reply).toContain("Apple HIG");
+    expect(result.reply).toContain("Don Norman");
+  });
+
+  it("synthesizes thoughtful answers for open-ended questions without falling back to robotic greeting", () => {
+    const result = getAssistantKnowledgeResult("o que você acha da evolução do design moderno?");
+    expect(result.reply).not.toContain("Sou o Breno, **Product Designer & Frontend Prototyper** baseado em Valência, Espanha, com 8 anos de estrada em operações multilíngues.");
+    expect(result.reply).toContain("Product Designer & Frontend Prototyper");
+    expect(result.reply).toContain("React 19");
+  });
+
   it("getCuratedAssistantResponse returns clean reply string", () => {
     const reply = getCuratedAssistantResponse("What is your approach to design?");
     expect(typeof reply).toBe("string");
