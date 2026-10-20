@@ -49,6 +49,7 @@ export async function POST(request) {
             return NextResponse.json({
               reply,
               actions: curated.actions || [],
+              followUps: curated.followUps || [],
               source: "gemini"
             });
           }
@@ -85,6 +86,7 @@ export async function POST(request) {
             return NextResponse.json({
               reply,
               actions: curated.actions || [],
+              followUps: curated.followUps || [],
               source: "openai"
             });
           }
@@ -98,6 +100,7 @@ export async function POST(request) {
     return NextResponse.json({
       reply: curated.reply,
       actions: curated.actions || [],
+      followUps: curated.followUps || [],
       source: "curated"
     });
   } catch (error) {

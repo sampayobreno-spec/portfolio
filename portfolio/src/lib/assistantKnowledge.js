@@ -65,6 +65,11 @@ const INTENTS = [
         { label: "Ver case Relay", href: "/work/relay", type: "navigate" },
         { label: "Entrar em contato", href: "#contact", type: "anchor" }
       ]
+    },
+    followUps: {
+      en: ["How do you work? (Way of Working)", "Tell me about Relay case study", "What are your core skills?"],
+      fr: ["Comment travaillez-vous ? (Démarche)", "Parlez-moi du projet Relay", "Quelles sont vos compétences ?"],
+      pt: ["Como você trabalha? (Way of Working)", "Conte sobre o case Relay", "Quais são suas principais habilidades?"]
     }
   },
   {
@@ -91,6 +96,11 @@ const INTENTS = [
         { label: "Ir para seção 'Como trabalho'", href: "#approach", type: "anchor" },
         { label: "Ver mapa de competências", href: "#capabilities", type: "anchor" }
       ]
+    },
+    followUps: {
+      en: ["How did 8 years in ops shape your design?", "Tell me about the Relay case study", "How can I contact Breno?"],
+      fr: ["Comment vos 8 ans en opérations influencent votre design ?", "Parlez-moi du projet Relay", "Comment contacter Breno ?"],
+      pt: ["Como os 8 anos em operações influenciam seu design?", "Conte sobre o case Relay", "Como entrar em contato com o Breno?"]
     }
   },
   {
@@ -124,6 +134,11 @@ const INTENTS = [
         { label: "Formulário de Contato", href: "#contact", type: "anchor" },
         { label: "Baixar Currículo", href: "/breno-sampaio-resume-en.pdf", type: "download" }
       ]
+    },
+    followUps: {
+      en: ["Tell me about Relay case study", "How does Breno work?", "Download resume (PDF)"],
+      fr: ["Parlez-moi de l'étude Relay", "Quelle est la démarche de Breno ?", "Télécharger le CV"],
+      pt: ["Conte sobre o case Relay", "Como o Breno trabalha?", "Baixar currículo em PDF"]
     }
   },
   {
@@ -145,6 +160,11 @@ const INTENTS = [
         { label: "Abrir case Relay", href: "/work/relay", type: "navigate" },
         { label: "Ver todos os projetos", href: "/work", type: "navigate" }
       ]
+    },
+    followUps: {
+      en: ["How does Breno use React for prototyping?", "What other projects has he built?", "How do you work with engineers?"],
+      fr: ["Comment Breno utilise React pour prototyper ?", "Quels autres projets a-t-il réalisés ?", "Comment travaillez-vous avec les ingénieurs ?"],
+      pt: ["Como o Breno usa React para prototipar?", "Quais outros projetos ele construiu?", "Como você trabalha com desenvolvedores?"]
     }
   },
   {
@@ -157,6 +177,11 @@ const INTENTS = [
       en: [{ label: "View TriageAI case", href: "/work/triageai", type: "navigate" }],
       fr: [{ label: "Voir le cas TriageAI", href: "/fr/work/triageai", type: "navigate" }],
       pt: [{ label: "Ver case TriageAI", href: "/work/triageai", type: "navigate" }]
+    },
+    followUps: {
+      en: ["Tell me about Relay case study", "What is your background?", "How can I contact Breno?"],
+      fr: ["Parlez-moi de l'étude Relay", "Quel est votre parcours ?", "Comment contacter Breno ?"],
+      pt: ["Conte sobre o case Relay", "Qual é a sua trajetória?", "Como falar com o Breno?"]
     }
   },
   {
@@ -178,6 +203,11 @@ const INTENTS = [
         { label: "Ver história completa", href: "/about", type: "navigate" },
         { label: "Ir para seção Sobre", href: "#about", type: "anchor" }
       ]
+    },
+    followUps: {
+      en: ["Explain your 3-pillar Way of Working", "What are your hard & soft skills?", "Download Breno's resume"],
+      fr: ["Expliquez votre démarche en 3 piliers", "Quelles sont vos compétences clés ?", "Télécharger le CV"],
+      pt: ["Como funciona sua metodologia em 3 pilares?", "Quais são suas habilidades técnicas?", "Baixar currículo do Breno"]
     }
   },
   {
@@ -199,6 +229,11 @@ const INTENTS = [
         { label: "Ver mapa de competências", href: "#capabilities", type: "anchor" },
         { label: "Ver laboratório de sistemas", href: "/labs", type: "navigate" }
       ]
+    },
+    followUps: {
+      en: ["Tell me about your React & Next.js practice", "Explain your Way of Working", "Download resume (PDF)"],
+      fr: ["Parlez-moi de votre pratique React & Next.js", "Expliquez votre démarche de travail", "Télécharger le CV"],
+      pt: ["Como é sua prática com React e Next.js?", "Como é o seu modo de trabalhar?", "Baixar currículo em PDF"]
     }
   },
   {
@@ -206,7 +241,12 @@ const INTENTS = [
     keywords: ["language", "languages", "idioma", "idiomas", "linguas", "français", "ingles", "english", "portugues", "espanol", "langues"],
     en: "Breno is genuinely multilingual across 4 languages:\n\n• **Portuguese**: Native\n• **Spanish**: Fluent\n• **French**: Professional / Fluent\n• **English**: Professional working\n\nThis multilingual capability comes from years of international operations and allows him to design products naturally suited for localization and international teams.",
     fr: "Breno maîtrise 4 langues professionnelles :\n\n• **Portugais** : Langue maternelle\n• **Espagnol** : Courant\n• **Français** : Professionnel / Courant\n• **Anglais** : Professionnel de travail\n\nCette expérience multilingue est issue d'années d'opérations internationales et enrichit directement son approche de l'internationalisation logicielle.",
-    pt: "O Breno é fluente em 4 idiomas:\n\n• **Português**: Nativo\n• **Espanhol**: Fluente\n• **Francês**: Profissional / Fluente\n• **Inglês**: Profissional de trabalho\n\nEssa vivência multilíngue veio de anos em operações internacionais e se reflete diretamente na facilidade de desenhar produtos para audiências globais."
+    pt: "O Breno é fluente em 4 idiomas:\n\n• **Português**: Nativo\n• **Espanhol**: Fluente\n• **Francês**: Profissional / Fluente\n• **Inglês**: Profissional de trabalho\n\nEssa vivência multilíngue veio de anos em operações internacionais e se reflete diretamente na facilidade de desenhar produtos para audiências globais.",
+    followUps: {
+      en: ["How does multilingual ops impact your UI work?", "Tell me about Relay", "How to contact Breno?"],
+      fr: ["Quel impact a le multilingue sur vos interfaces ?", "Parlez-moi du projet Relay", "Comment contacter Breno ?"],
+      pt: ["Como o ambiente multilíngue afeta seu design?", "Conte sobre o Relay", "Como entrar em contato?"]
+    }
   },
   {
     id: "contact",
@@ -230,6 +270,11 @@ const INTENTS = [
         { label: "Enviar e-mail direto", href: "mailto:sampayobreno@gmail.com", type: "external" },
         { label: "Ver LinkedIn", href: "https://www.linkedin.com/in/brenosampaio", type: "external" }
       ]
+    },
+    followUps: {
+      en: ["What kind of roles are you open to?", "Download Breno's resume", "Explain your Way of Working"],
+      fr: ["Quels types de postes recherchez-vous ?", "Télécharger le CV", "Expliquez votre démarche"],
+      pt: ["Que tipo de vagas você está buscando?", "Baixar currículo do Breno", "Como você trabalha?"]
     }
   },
   {
@@ -242,6 +287,11 @@ const INTENTS = [
       en: [{ label: "Download Resume (PDF)", href: "/breno-sampaio-resume-en.pdf", type: "download" }],
       fr: [{ label: "Télécharger le CV (PDF)", href: "/breno-sampaio-resume-en.pdf", type: "download" }],
       pt: [{ label: "Baixar Currículo (PDF)", href: "/breno-sampaio-resume-en.pdf", type: "download" }]
+    },
+    followUps: {
+      en: ["What are your core skills?", "Tell me about the Relay case", "How to contact Breno?"],
+      fr: ["Quelles sont vos compétences clés ?", "Parlez-moi de l'étude Relay", "Comment contacter Breno ?"],
+      pt: ["Quais são suas habilidades principais?", "Conte sobre o case Relay", "Como falar com o Breno?"]
     }
   }
 ];
@@ -295,9 +345,11 @@ export function getAssistantKnowledgeResult(query, lang = "en") {
     const match = item.keywords.some((k) => lower.includes(k));
     if (match) {
       const actionsForLang = item.actions ? (item.actions[targetLang] || item.actions[lang] || item.actions.en || []) : [];
+      const followUpsForLang = item.followUps ? (item.followUps[targetLang] || item.followUps[lang] || item.followUps.en || []) : [];
       return {
         reply: item[targetLang] || item[lang] || item.en,
-        actions: actionsForLang
+        actions: actionsForLang,
+        followUps: followUpsForLang
       };
     }
   }
@@ -309,6 +361,11 @@ export function getAssistantKnowledgeResult(query, lang = "en") {
         { label: "Sa démarche de travail", href: "#approach", type: "anchor" },
         { label: "Projet Relay", href: "/fr/work/relay", type: "navigate" },
         { label: "Contacter Breno", href: "#contact", type: "anchor" }
+      ],
+      followUps: [
+        "Comment travaillez-vous ? (Démarche)",
+        "Parlez-moi de l'étude Relay",
+        "Quelles sont vos compétences clés ?"
       ]
     };
   }
@@ -319,6 +376,11 @@ export function getAssistantKnowledgeResult(query, lang = "en") {
         { label: "Como o Breno trabalha", href: "#approach", type: "anchor" },
         { label: "Ver case Relay", href: "/work/relay", type: "navigate" },
         { label: "Formulário de Contato", href: "#contact", type: "anchor" }
+      ],
+      followUps: [
+        "Como você trabalha? (Way of Working)",
+        "Conte sobre o case Relay",
+        "Quais são suas principais habilidades?"
       ]
     };
   }
@@ -329,6 +391,11 @@ export function getAssistantKnowledgeResult(query, lang = "en") {
       { label: "How Breno works", href: "#approach", type: "anchor" },
       { label: "Relay case study", href: "/work/relay", type: "navigate" },
       { label: "Contact Breno", href: "#contact", type: "anchor" }
+    ],
+    followUps: [
+      "How do you work? (Way of Working)",
+      "Tell me about Relay case study",
+      "What are your core skills?"
     ]
   };
 }
