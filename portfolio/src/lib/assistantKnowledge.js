@@ -211,21 +211,24 @@ const INTENTS = [
   {
     id: "contact",
     keywords: ["contact", "hire", "email", "linkedin", "github", "talk", "contato", "contratar", "falar", "message", "recruteur", "recruiter"],
-    en: "You can reach Breno directly via:\n\n• **Email**: [sampayobreno@gmail.com](mailto:sampayobreno@gmail.com)\n• **LinkedIn**: [linkedin.com/in/brenosampaio](https://www.linkedin.com/in/brenosampaio)\n• **GitHub**: [github.com/sampayobreno-spec](https://github.com/sampayobreno-spec)\n\nHe is located in **Valencia, Spain** and is open to Product Design and Prototyping roles across Europe and remote teams.",
-    fr: "Vous pouvez contacter Breno directement par :\n\n• **Courriel** : [sampayobreno@gmail.com](mailto:sampayobreno@gmail.com)\n• **LinkedIn** : [linkedin.com/in/brenosampaio](https://www.linkedin.com/in/brenosampaio)\n• **GitHub** : [github.com/sampayobreno-spec](https://github.com/sampayobreno-spec)\n\nIl réside à **Valence en Espagne** et est ouvert aux opportunités en Product Design et prototypage en Europe ou à distance.",
-    pt: "Você pode falar com o Breno diretamente pelos canais:\n\n• **E-mail**: [sampayobreno@gmail.com](mailto:sampayobreno@gmail.com)\n• **LinkedIn**: [linkedin.com/in/brenosampaio](https://www.linkedin.com/in/brenosampaio)\n• **GitHub**: [github.com/sampayobreno-spec](https://github.com/sampayobreno-spec)\n\nEle mora em **Valência, Espanha** e está disponível para vagas e projetos de Product Design e Prototipagem na Europa e em regime remoto.",
+    en: "You can reach Breno directly via:\n\n• **Email**: sampayobreno@gmail.com\n• **LinkedIn**: linkedin.com/in/brenosampaio\n• **GitHub**: github.com/sampayobreno-spec\n\nHe is located in **Valencia, Spain** and is open to Product Design and Prototyping roles across Europe and remote teams.",
+    fr: "Vous pouvez contacter Breno directement par :\n\n• **Courriel** : sampayobreno@gmail.com\n• **LinkedIn** : linkedin.com/in/brenosampaio\n• **GitHub** : github.com/sampayobreno-spec\n\nIl réside à **Valence en Espagne** et est ouvert aux opportunités en Product Design et prototypage en Europe ou à distance.",
+    pt: "Você pode falar com o Breno diretamente pelos canais:\n\n• **E-mail**: sampayobreno@gmail.com\n• **LinkedIn**: linkedin.com/in/brenosampaio\n• **GitHub**: github.com/sampayobreno-spec\n\nEle mora em **Valência, Espanha** e está disponível para vagas e projetos de Product Design e Prototipagem na Europa e em regime remoto.",
     actions: {
       en: [
         { label: "Go to Contact Form", href: "#contact", type: "anchor" },
-        { label: "Send Email directly", href: "mailto:sampayobreno@gmail.com", type: "external" }
+        { label: "Send Email directly", href: "mailto:sampayobreno@gmail.com", type: "external" },
+        { label: "View LinkedIn", href: "https://www.linkedin.com/in/brenosampaio", type: "external" }
       ],
       fr: [
         { label: "Aller au formulaire de contact", href: "#contact", type: "anchor" },
-        { label: "Envoyer un e-mail", href: "mailto:sampayobreno@gmail.com", type: "external" }
+        { label: "Envoyer un e-mail", href: "mailto:sampayobreno@gmail.com", type: "external" },
+        { label: "Voir LinkedIn", href: "https://www.linkedin.com/in/brenosampaio", type: "external" }
       ],
       pt: [
         { label: "Ir para formulário de contato", href: "#contact", type: "anchor" },
-        { label: "Enviar e-mail direto", href: "mailto:sampayobreno@gmail.com", type: "external" }
+        { label: "Enviar e-mail direto", href: "mailto:sampayobreno@gmail.com", type: "external" },
+        { label: "Ver LinkedIn", href: "https://www.linkedin.com/in/brenosampaio", type: "external" }
       ]
     }
   },
