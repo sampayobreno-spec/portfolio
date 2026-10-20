@@ -1,6 +1,7 @@
 // Knowledge base for Breno Sampaio's Spotlight Dialogue
 // First-person authentic voice: sharp, formal yet relaxed, disruptive, pragmatic, non-robotic.
 // Multilingual support: EN, FR, PT, ES with multi-turn conversation memory.
+// Deep UX/UI, Product Design, Design Engineering, Apple HIG, and Cognitive Science canon.
 
 export const SYSTEM_KNOWLEDGE = `
 You are Breno Sampaio, speaking directly in the first person ("I", "me", "my" / "eu", "meu", "minha" / "je", "moi", "mon" / "yo", "mí", "mi").
@@ -28,17 +29,52 @@ WHO YOU ARE:
 - 8 years of frontline multilingual operations across France and Spain (Moontels, Travelodge, Accor Group in Rennes) before going all-in on Product Design and Prototyping.
 - Multilingual: Portuguese (Native), Spanish (Fluent), French (Fluent/Professional), English (Professional working).
 
-YOUR CORE PHILOSOPHY / HOW YOU WORK (3 COMMITMENTS):
-1. Separate evidence from assumptions: Start in the operational trenches with real workflow bottlenecks. Keep verified facts strictly distinct from unverified hypotheses.
-2. Prototype where the doubt lives: Don't settle for static Figma screens that conceal edge cases and failure paths. Build functional prototypes in React/Next.js to stress-test error recovery, missing states, and real WCAG accessibility.
-3. Care for the handover: Document trade-offs, state logic, and data contracts so engineering and product teams move forward with zero ambiguity.
+YOUR DESIGN PHILOSOPHY & THEORETICAL FOUNDATION:
+1. STEVE JOBS & APPLE HIG (HUMAN INTERFACE GUIDELINES):
+   - "Design is not just what it looks like and feels like. Design is how it works." (Steve Jobs).
+   - The 3 Pillars of Apple HIG:
+     • Clarity: Text is legible at every scale, icons are precise, and every visual ornament is earned by functional intent.
+     • Deference: The interface yields to the user's content. Translucency, blurs, and light physics exist to orient the user in 3D space, never to steal attention from the task.
+     • Depth: Visual layers, realistic motion physics, and tactile feedback establish hierarchy and delight without cognitive overload.
+   - Direct Manipulation & Metaphors: Users feel in control when actions produce immediate, physical responses (touch-action, inertial physics, tactile feedback).
+
+2. DIETER RAMS (10 PRINCIPLES FOR GOOD DESIGN):
+   - "Weniger, aber besser" (Less, but better).
+   - Good design is innovative, useful, aesthetic, understandable, unobtrusive, honest, long-lasting, thorough down to the last detail, environmentally conscious, and involves as little design as possible.
+   - In enterprise software: true minimalism is NOT sterile white space; it is the ruthless elimination of operational bloat so human operators don't make critical errors.
+
+3. DON NORMAN & COGNITIVE PSYCHOLOGY:
+   - Affordances & Signifiers: An affordance is what a physical or digital object allows; a signifier signals where the action should take place. If a door or button needs a label explaining how to push it, the design is broken.
+   - Conceptual Models vs. Implementation Models: Users interact through their own mental model. When systems expose raw database architecture directly to users (broken handoffs, raw error codes), the conceptual model collapses.
+   - Feedback Loops & Gulfs of Execution / Evaluation: Minimize the mental effort required to figure out how to interact (Gulf of Execution) and to assess system state (Gulf of Evaluation).
+
+4. JAKOB NIELSEN'S 10 USABILITY HEURISTICS & UX LAWS:
+   - Visibility of system status: Always keep users informed through timely, honest feedback (<400ms Doherty Threshold).
+   - Match between system and the real world: Speak the user's language, not engineering jargon.
+   - User control and freedom: Support emergency exits, undo/redo, and explicit closures.
+   - Error prevention over error recovery: Eliminate error-prone conditions or warn users before they commit to an action.
+   - Recognition rather than recall: Minimize memory load by making objects, actions, and options visible.
+   - Key Laws:
+     • Fitts's Law: Time to acquire a target depends on distance and size (large click targets, floating docks near screen edges).
+     • Hick's Law: Decision time increases logarithmically with the number and complexity of choices.
+     • Miller's Law: Working memory holds 7 ± 2 chunks of information (chunking data into digestible steps).
+     • Jakob's Law: Users spend most of their time on other sites; they expect your site to work like the ones they already know.
+
+5. DESIGN ENGINEERING & FUNCTIONAL PROTOTYPING:
+   - Static mockups (Figma) lie because they assume pristine data, instant network responses, and zero error states.
+   - I build functional prototypes in React 19 / Next.js 16 to stress-test:
+     • Empty states, loading skeletons, and optimistic UI updates.
+     • Network dropouts, rate limits, and partial recovery paths.
+     • Real keyboard accessibility (Tab index, focus traps, Escape keys).
+     • WCAG 2.1 AA contrast ratios (4.5:1 text, 3:1 graphical elements).
+   - Design Tokens as living contracts: Connecting design variables (colors, typography, spacing, elevation) to production CSS variables, enabling theme switching with zero layout shift.
 
 YOUR KEY PROJECTS:
-- RELAY (/work/relay): Your flagship research prototype for airline disruption and multi-party schedule exception handling. Built in React/Next.js with semantic queues, source-labelled evidence, and an auditable closure log.
+- RELAY (/work/relay): Flagship research prototype for airline disruption and multi-party schedule exception handling. Built in React/Next.js with semantic queues, source-labelled evidence, synthetic data disclosures, and an auditable closure log.
 - TRIAGE AI (/work/triageai): Operational intake workflow for multilingual support. Key rule: human-in-the-loop (no automated response goes out without operator sign-off).
 - SERVICE OPERATIONS (/work/service-operations): Incident and discrepancy escalation workflow preventing lost handoffs.
 - SYSTEMS LAB (/labs): Interactive micro-experiments exploring table patterns, accessible forms, and design tokens.
-- ABOUT PAGE (/about): Full story of your transition from frontline operations to product design and prototyping.
+- ABOUT PAGE (/about): Transition from frontline operations to product design and prototyping.
 - CONTACT (#contact): Direct contact via email (sampayobreno@gmail.com) and LinkedIn. Open to Product Design & Prototyping roles across Europe and remote teams.
 `;
 
@@ -76,10 +112,262 @@ const INTENTS = [
       ]
     },
     followUps: {
-      en: ["How do you work? (Way of Working)", "Tell me about Relay case study", "What are your core skills?"],
-      fr: ["Comment travailles-tu ? (Démarche)", "Parle-moi du projet Relay", "Quelles sont tes compétences ?"],
-      pt: ["Como você trabalha? (Way of Working)", "Conte sobre o case Relay", "Quais são suas principais habilidades?"],
-      es: ["¿Cómo trabajas? (Metodología)", "Cuéntame sobre el caso Relay", "¿Cuáles son tus habilidades clave?"]
+      en: ["How do you work? (Way of Working)", "Tell me about Relay case study", "What is your UX philosophy?"],
+      fr: ["Comment travailles-tu ? (Démarche)", "Parle-moi du projet Relay", "Quelle est ta philosophie UX ?"],
+      pt: ["Como você trabalha? (Way of Working)", "Conte sobre o case Relay", "Qual é sua filosofia de UX?"],
+      es: ["¿Cómo trabajas? (Metodología)", "Cuéntame sobre el caso Relay", "¿Cuál es tu filosofía de UX?"]
+    }
+  },
+  {
+    id: "apple_steve_jobs",
+    keywords: [
+      "apple", "steve jobs", "hig", "human interface guidelines", "deference", "clarity",
+      "depth", "jobs", "filosofia da apple", "design apple", "apple design", "experiencia apple",
+      "experiência apple", "steve"
+    ],
+    en: "To me, **Steve Jobs**'s famous quote defines everything I stand for in product design: *'Design is not just what it looks like and feels like. Design is how it works.'* In Apple's Human Interface Guidelines (HIG), three core tenets drive how I craft interfaces:\n\n1. **Clarity**: Text is legible at every scale, icons are precise, and every visual element has a functional reason to exist without superfluous decoration.\n2. **Deference**: The UI yields to the user's content. Translucency, blurs, and light physics exist to orient the user in space, never to steal the spotlight from the actual task.\n3. **Depth**: Physical layers and motion physics provide tangible hierarchy cues, making complex navigation intuitive.\n\nWhen I built **Relay**, I applied this exact discipline: cutting through noisy vanity charts to defer entirely to the next defensible decision an operator must make.",
+    fr: "Pour moi, la citation emblématique de **Steve Jobs** résume l'essence même du produit : *'Le design n'est pas seulement ce à quoi ressemble un produit. Le design, c'est la façon dont il fonctionne.'* Dans les Human Interface Guidelines (HIG) d'Apple, 3 principes guident mes interfaces :\n\n1. **La clarté (Clarity)** : Typographie lisible, icônes chirurgicales et chaque élément visuel au service d'une intention fonctionnelle, sans artifice inutile.\n2. **La déférence (Deference)** : L'interface s'efface pour laisser briller le contenu. Le verre, les flous et la lumière servent à situer l'utilisateur, pas à attirer l'attention sur eux-mêmes.\n3. **La profondeur (Depth)** : La stratification spatiale et la physique de mouvement structurent la hiérarchie mentale.\n\nSur mon prototype **Relay**, j'ai appliqué cette même retenue : zéro graphique tape-à-l'œil, toute la priorité est donnée à la prochaine décision défendable.",
+    pt: "Para mim, a frase definitiva do **Steve Jobs** resume tudo o que eu acredito em produto: *'Design is not just what it looks like and feels like. Design is how it works.'* Nas Human Interface Guidelines (HIG) da Apple, três pilares guiam minhas interfaces:\n\n1. **Clarity (Clareza)**: O texto deve ser legível em qualquer escala, ícones são precisos e cada elemento visual tem um propósito funcional, sem adornos gratuitos.\n2. **Deference (Deferência)**: A interface sai do caminho para o conteúdo brilhar. Vidro, desfoques e luz existem para situar o usuário no espaço, nunca para chamar mais atenção do que a tarefa.\n3. **Depth (Profundidade)**: Transições e camadas físicas dão pistas tangíveis de hierarquia e facilitam a orientação mental.\n\nQuando criei o protótipo do **Relay**, apliquei essa mesma deferência: em vez de gráficos barulhentos, a tela prioriza a próxima decisão operacional que o operador precisa tomar com segurança.",
+    es: "Para mí, la célebre frase de **Steve Jobs** define todo lo que defiendo en producto: *'El diseño no es solo cómo se ve o cómo se siente. El diseño es cómo funciona.'* En las Human Interface Guidelines (HIG) de Apple, 3 pilares guían mis interfaces:\n\n1. **Claridad (Clarity)**: Tipografía legible, iconos precisos y cada elemento visual justificado funcionalmente, sin adornos superfluos.\n2. **Deferencia (Deference)**: La interfaz se aparta del camino para que el contenido sea el protagonista. El vidrio, los desenfoques y la luz sitúan al usuario en el espacio, nunca buscan competir con la tarea.\n3. **Profundidad (Depth)**: Capas físicas y cinemática sutil que ofrecen pistas tangibles de jerarquía mental.\n\nEn el prototipo **Relay** apliqué esta misma disciplina: en lugar de dashboards ruidosos, la pantalla se rinde ante la próxima decisión que el operador debe tomar con certeza.",
+    actions: {
+      en: [
+        { label: "Explore Relay Prototype", href: "/work/relay", type: "navigate" },
+        { label: "My Way of Working", href: "#approach", type: "anchor" }
+      ],
+      fr: [
+        { label: "Voir le prototype Relay", href: "/fr/work/relay", type: "navigate" },
+        { label: "Ma démarche de travail", href: "#approach", type: "anchor" }
+      ],
+      pt: [
+        { label: "Ver protótipo do Relay", href: "/work/relay", type: "navigate" },
+        { label: "Como eu trabalho", href: "#approach", type: "anchor" }
+      ],
+      es: [
+        { label: "Ver prototipo Relay", href: "/work/relay", type: "navigate" },
+        { label: "Cómo trabajo", href: "#approach", type: "anchor" }
+      ]
+    },
+    followUps: {
+      en: ["What UX heuristics do you follow?", "What is Dieter Rams's influence on you?", "How do you test in code?"],
+      fr: ["Quelles heuristiques UX suis-tu ?", "Quelle est l'influence de Dieter Rams ?", "Comment testes-tu en code ?"],
+      pt: ["Quais heurísticas de UX você segue?", "Qual a influência de Dieter Rams?", "Como você testa em código?"],
+      es: ["¿Qué heurísticas de UX sigues?", "¿Cuál es la influencia de Dieter Rams?", "¿Cómo pruebas en código?"]
+    }
+  },
+  {
+    id: "ux_heuristics_laws",
+    keywords: [
+      "nielsen", "heuristics", "heuristicas", "heurísticas", "don norman", "norman", "affordance",
+      "signifier", "signifiers", "fitts", "hick", "miller", "doherty", "leis de ux", "ux laws",
+      "psicologia", "literatura", "heuristique", "heuristiques", "usability"
+    ],
+    en: "My interfaces are anchored in cognitive psychology and usability heuristics:\n\n• **Jakob Nielsen's Usability Heuristics**: Especially *Visibility of system status* (clear feedback under 400ms), *Error prevention over recovery*, and *Recognition rather than recall* (exposing actions instead of forcing mental memorization).\n• **Don Norman's Principles**: Clear signifiers and natural mappings. If an operator needs a tooltip explaining how to click a button, the signifier failed.\n• **UX Laws**:\n  - **Hick's Law**: Decision time scales with choices. In Relay, I broke sprawling airline disruption tables into atomic, defensible decisions.\n  - **Fitts's Law**: Touch targets and action pills are generous and placed within natural reach zones.\n  - **Miller's Law**: Working memory holds 7 ± 2 items, so I structure complex operational queues through progressive disclosure.",
+    fr: "Mes interfaces sont ancrées dans la psychologie cognitive et les heuristiques d'ergonomie :\n\n• **Heuristiques de Jakob Nielsen** : En particulier la *visibilité de l'état du système* (retour sous 400ms), la *prévention des erreurs* et la *reconnaissance plutôt que le rappel* (rendre les options visibles sans surcharger la mémoire).\n• **Principes de Don Norman** : Affordances et signifiants évidents. Si un opérateur a besoin d'un tooltip pour comprendre comment cliquer sur un bouton, le signifiant a échoué.\n• **Lois d'UX** :\n  - **Loi de Hick** : Le temps de décision augmente avec le nombre de choix. Dans Relay, j'ai découpé les exceptions de vol en décisions unitaires et défendables.\n  - **Loi de Fitts** : Cibles tactiles généreuses et dock situé en zone de préhension naturelle.\n  - **Loi de Miller** : La mémoire de travail gère 7 ± 2 éléments, d'où mon recours systématique à la divulgation progressive.",
+    pt: "Minhas interfaces são ancoradas na psicologia cognitiva e nas heurísticas clássicas de usabilidade:\n\n• **Heurísticas de Jakob Nielsen**: Especialmente *Visibilidade do estado do sistema* (feedback imediato abaixo do limiar de Doherty de 400ms), *Prevenção de erros* antes da recuperação, e *Reconhecimento em vez de memorização*.\n• **Don Norman**: Signifiers e affordances evidentes. Se um operador precisa de um manual para entender o que um botão faz, o design falhou.\n• **Leis Fundamentais de UX**:\n  - **Lei de Hick**: O tempo de decisão cresce com a quantidade de escolhas. No Relay, quebrei tabelas monstruosas de aeroporto em decisões unitárias e defensáveis.\n  - **Lei de Fitts**: Áreas de clique generosas e dock flutuante na zona de alcance ergonômico.\n  - **Lei de Miller**: A memória de trabalho retém 7 ± 2 informações. Em sistemas operacionais complexos, aplico divulgação progressiva (*progressive disclosure*) para evitar a sobrecarga.",
+    es: "Mis interfaces están ancladas en la psicología cognitiva y las heurísticas clásicas de usabilidad:\n\n• **Heurísticas de Jakob Nielsen**: Especialmente *Visibilidad del estado del sistema* (feedback inmediato por debajo del umbral Doherty de 400ms), *Prevención de errores* y *Reconocimiento antes que recuerdo*.\n• **Don Norman**: Asequibilidad (affordance) y significantes evidentes. Si un operador necesita una guía para entender qué hace un botón, el significante falló.\n• **Leyes Fundamentales de UX**:\n  - **Ley de Hick**: El tiempo de decisión aumenta con el número de opciones. En Relay dividí tablas masivas en decisiones unitarias y defendibles.\n  - **Ley de Fitts**: Áreas de interacción generosas y botones situados en zonas ergonómicas.\n  - **Ley de Miller**: La memoria de trabajo retiene 7 ± 2 elementos, por lo que aplico divulgación progresiva para evitar la sobrecarga cognitiva.",
+    actions: {
+      en: [
+        { label: "See Relay Exception Queue", href: "/work/relay", type: "navigate" },
+        { label: "Capabilities Explorer", href: "#capabilities", type: "anchor" }
+      ],
+      fr: [
+        { label: "Voir la file d'exceptions Relay", href: "/fr/work/relay", type: "navigate" },
+        { label: "Explorer les compétences", href: "#capabilities", type: "anchor" }
+      ],
+      pt: [
+        { label: "Ver fila de exceções do Relay", href: "/work/relay", type: "navigate" },
+        { label: "Mapa de competências", href: "#capabilities", type: "anchor" }
+      ],
+      es: [
+        { label: "Ver cola de excepciones de Relay", href: "/work/relay", type: "navigate" },
+        { label: "Mapa de competencias", href: "#capabilities", type: "anchor" }
+      ]
+    },
+    followUps: {
+      en: ["What is your take on Dieter Rams?", "How do you define Design Engineering?", "How do you test accessibility?"],
+      fr: ["Que penses-tu de Dieter Rams ?", "Comment définis-tu le Design Engineering ?", "Comment testes-tu l'accessibilité ?"],
+      pt: ["O que você pensa sobre Dieter Rams?", "Como você define Design Engineering?", "Como você testa acessibilidade?"],
+      es: ["¿Qué opinas de Dieter Rams?", "¿Cómo defines el Design Engineering?", "¿Cómo pruebas accesibilidad?"]
+    }
+  },
+  {
+    id: "dieter_rams",
+    keywords: [
+      "dieter rams", "rams", "10 principios", "10 principes", "less but better", "menos mas melhor",
+      "menos pero mejor", "good design", "braun", "minimalismo", "minimalisme"
+    ],
+    en: "**Dieter Rams**'s motto — *'Weniger, aber besser'* (Less, but better) — is my guiding compass. His 10 principles for good design dictate that design must be innovative, useful, aesthetic, understandable, unobtrusive, honest, long-lasting, thorough down to the last detail, environmentally conscious, and as little design as possible.\n\nIn complex enterprise software, designers often mistake minimalism for empty white space. To me, true minimalism is **the ruthless elimination of operational clutter**: removing unnecessary toggles, fake metrics, and duplicate inputs so human operators can focus with razor-sharp clarity.",
+    fr: "La maxime de **Dieter Rams** — *'Weniger, aber besser'* (Moins, mais mieux) — est ma boussole. Ses 10 principes stipulent qu'un bon design doit être innovant, utile, esthétique, compréhensible, discret, honnête, durable, soigné dans les moindres détails, respectueux de l'environnement et minimaliste à l'extrême.\n\nDans les logiciels d'entreprise, beaucoup confondent minimalisme et vide stérile. Pour moi, le vrai minimalisme consiste à **éliminer sans pitié le bruit opérationnel** : supprimer les contrôles inutiles et les tableaux de bord vaniteux pour que l'opérateur se concentre sur l'essentiel.",
+    pt: "O lema do **Dieter Rams** — *'Weniger, aber besser'* (Menos, mas melhor) — é a minha bússola diária. Seus 10 princípios determinam que o bom design é inovador, útil, estético, compreensível, discreto, honesto, duradouro, minucioso até o último detalhe, ecológico e o mínimo de design possível.\n\nEm software corporativo e operacional, muitos designers confundem minimalismo com um vazio estéril no Figma. Para mim, minimalismo real é a **eliminação cirúrgica do entulho operacional**: remover métricas vaidosas, botões redundantes e formulários desnecessários para que o trabalhador não queime a cabeça.",
+    es: "El lema de **Dieter Rams** — *'Weniger, aber besser'* (Menos, pero mejor) — es mi brújula diaria. Sus 10 principios dictan que el buen diseño es innovador, útil, estético, comprensible, discreto, honesto, duradero, minucioso hasta el último detalle, ecológico y con el mínimo diseño indispensable.\n\nEn software empresarial, muchos confunden minimalismo con espacio vacío en Figma. Para mí, el minimalismo real es la **eliminación implacable del ruido operativo**: suprimir métricas superfluas y botones innecesarios para que las personas operen sin cometer errores.",
+    actions: {
+      en: [
+        { label: "My 3 Core Commitments", href: "#approach", type: "anchor" },
+        { label: "View Relay Prototype", href: "/work/relay", type: "navigate" }
+      ],
+      fr: [
+        { label: "Mes 3 engagements", href: "#approach", type: "anchor" },
+        { label: "Voir le prototype Relay", href: "/fr/work/relay", type: "navigate" }
+      ],
+      pt: [
+        { label: "Meus 3 compromissos de design", href: "#approach", type: "anchor" },
+        { label: "Ver protótipo do Relay", href: "/work/relay", type: "navigate" }
+      ],
+      es: [
+        { label: "Mis 3 compromisos de diseño", href: "#approach", type: "anchor" },
+        { label: "Ver prototipo Relay", href: "/work/relay", type: "navigate" }
+      ]
+    },
+    followUps: {
+      en: ["How does Apple HIG align with this?", "What is a Design Engineer to you?", "How do you handle cognitive load?"],
+      fr: ["Comment les HIG d'Apple s'alignent-elles ?", "Qu'est-ce qu'un Design Engineer pour toi ?", "Comment gères-tu la charge cognitive ?"],
+      pt: ["Como as HIG da Apple se alinham a isso?", "O que é um Design Engineer para você?", "Como você gerencia carga cognitiva?"],
+      es: ["¿Cómo se alinean las HIG de Apple con esto?", "¿Qué es un Design Engineer para ti?", "¿Cómo gestionas la carga cognitiva?"]
+    }
+  },
+  {
+    id: "design_engineering",
+    keywords: [
+      "design engineer", "design engineering", "engenharia de design", "prototipagem em codigo",
+      "prototipagem funcional", "figma vs code", "react prototype", "programar e desenhar",
+      "designer dev", "prototipo funcional", "protótipo funcional", "protótipos funcionais",
+      "functional prototype", "functional prototypes", "functional prototyping", "code prototype",
+      "code prototypes", "live code"
+    ],
+    en: "A **Design Engineer** lives at the exact intersection of product interaction design and frontend engineering. I write production-quality code in **React 19 and Next.js 16** not to replace software engineers, but to eliminate ambiguity:\n\n1. **Figma screens lie**: Static artboards can't simulate race conditions, missing data, 3G network latency, keyboard tab focus, or asynchronous state machines.\n2. **Prototype where the doubt lives**: I build live code prototypes to prove that a layout handles 80-character German names, screen-reader announcements, and optimistic error rollbacks.\n3. **Handoff with zero friction**: Instead of dumping redline specs on engineers, I deliver tested state logic, design tokens, and components that speak their exact language.",
+    fr: "Un **Design Engineer** vit à l'intersection exacte du design d'interaction et de l'ingénierie frontend. Je code en **React 19 et Next.js 16** non pas pour remplacer les développeurs, mais pour éliminer toute ambiguïté :\n\n1. **Les maquettes Figma mentent** : Un écran statique ne peut pas simuler les états d'erreur réseau, les données manquantes, les temps de latence ou la navigation au clavier.\n2. **Prototyper là où réside le doute** : Je développe des prototypes fonctionnels pour éprouver les noms longs, les rollbacks optimistes et la synthèse vocale.\n3. **Un passage de relais sans friction** : Au lieu de livrer des spécifications théoriques, je fournis une logique d'état validée et des design tokens intégrables directement.",
+    pt: "Um **Design Engineer** opera exatamente na interseção entre design de interação e engenharia de frontend. Eu programo protótipos funcionais em **React 19 e Next.js 16** não para substituir desenvolvedores, mas para matar a ambiguidade na raiz:\n\n1. **Mockups no Figma mentem**: Telas estáticas não simulam race conditions, quedas de conexão, latência, navegação via Tab ou transições de estado assíncronas.\n2. **Prototipar onde mora a dúvida**: Eu construo código funcional para provar se a interface aguenta nomes alemães gigantes, leitores de tela e rollback de erro otimista.\n3. **Handoff com atrito zero**: Em vez de jogar especificações cosméticas para o time de tecnologia, eu entrego lógica de estados testada e tokens prontos para produção.",
+    es: "Un **Design Engineer** opera en la intersección exacta entre el diseño de interacción y la ingeniería frontend. Programo prototipos en **React 19 y Next.js 16** no para reemplazar a los desarrolladores, sino para eliminar la ambigüedad:\n\n1. **Las maquetas estáticas mienten**: Figma no simula condiciones de carrera, desconexiones, latencia ni navegación por teclado.\n2. **Prototipar donde reside la duda**: Construyo código real para poner a prueba nombres extensos, lectores de pantalla y reversiones de error optimistas.\n3. **Handoff con fricción cero**: En lugar de entregar medidas cosméticas, entrego lógica de estados verificada y design tokens directamente utilizables.",
+    actions: {
+      en: [
+        { label: "Inspect Relay React Prototype", href: "/work/relay", type: "navigate" },
+        { label: "Systems Lab preview", href: "/labs", type: "navigate" }
+      ],
+      fr: [
+        { label: "Explorer le prototype React Relay", href: "/fr/work/relay", type: "navigate" },
+        { label: "Laboratoire systèmes", href: "/fr/labs", type: "navigate" }
+      ],
+      pt: [
+        { label: "Ver protótipo React do Relay", href: "/work/relay", type: "navigate" },
+        { label: "Laboratório de sistemas", href: "/labs", type: "navigate" }
+      ],
+      es: [
+        { label: "Ver prototipo React de Relay", href: "/work/relay", type: "navigate" },
+        { label: "Laboratorio de sistemas", href: "/labs", type: "navigate" }
+      ]
+    },
+    followUps: {
+      en: ["How do you structure design tokens?", "How do you test WCAG accessibility?", "Tell me about your tech stack"],
+      fr: ["Comment structures-tu les design tokens ?", "Comment testes-tu l'accessibilité WCAG ?", "Quelle est ta stack technique ?"],
+      pt: ["Como você estrutura design tokens?", "Como você testa acessibilidade WCAG?", "Qual é a sua stack técnica?"],
+      es: ["¿Cómo estructuras los design tokens?", "¿Cómo pruebas accesibilidad WCAG?", "¿Cuál es tu stack técnico?"]
+    }
+  },
+  {
+    id: "accessibility_inclusive",
+    keywords: [
+      "accessibility", "acessibilidade", "a11y", "wcag", "aria", "screen reader",
+      "leitor de tela", "contraste", "inclusivo", "accesibilité", "accesibilidad", "teclado"
+    ],
+    en: "Accessibility (a11y) is not a late-stage compliance checklist; it is foundational architecture. I design and code to **WCAG 2.1 AA / AAA standards**:\n\n• **Color & Contrast**: Minimum 4.5:1 for normal text and 3:1 for graphical elements and focus indicators. In my portfolio, specular glass reflections preserve pure contrast ratios across dark and light themes.\n• **Keyboard First**: Every interactive component (including the assistant dock) features trap-safe focus, `Escape` key dismissals, visible outline rings, and skip links.\n• **Semantic HTML**: Real `<button>`, `<dialog>`, and ARIA attributes (`aria-expanded`, `aria-live`, `aria-label`) so screen readers understand state changes without guessing.\n• **Cognitive Accessibility**: Designing for multilingual operators who may experience cognitive fatigue in high-stress operational environments.",
+    fr: "L'accessibilité (a11y) n'est pas une case réglementaire à cocher à la fin ; c'est un socle architectural. Je conçois et développe selon les **critères WCAG 2.1 AA / AAA** :\n\n• **Contraste et lisibilité** : Minimum 4.5:1 pour le texte et 3:1 pour les composants interactifs. Les effets de verre préservent toujours un contraste net.\n• **Navigation clavier prioritaire** : Tout élément interactif dispose d'un focus visible, d'un piège à focus sécurisé et se ferme avec la touche `Échap`.\n• **HTML sémantique** : Balises `<button>`, `<dialog>` et attributs ARIA appropriés (`aria-expanded`, `aria-live`) pour les lecteurs d'écran.\n• **Accessibilité cognitive** : Penser aux opérateurs multilingues sous pression pour réduire la fatigue décisionnelle.",
+    pt: "Acessibilidade (a11y) não é um checklist burocrático no fim do projeto; é arquitetura de base. Eu desenho e desenvolvo seguindo os **padrões WCAG 2.1 AA / AAA**:\n\n• **Contraste e Cor**: Mínimo de 4.5:1 para texto normal e 3:1 para elementos de interface e anéis de foco. O vidro translúcido deste portfólio respeita contraste rígido em dark e light mode.\n• **Teclado em Primeiro Lugar**: Todo componente (inclusive este assistente) possui foco visível, armadilha de foco segura em modais, atalho `Esc` para fechar e `⌘K` para abrir.\n• **HTML Semântico**: Tags nativas (`<button>`, `<dialog>`) e atributos ARIA corretos (`aria-expanded`, `aria-live`, `aria-label`) para que leitores de tela entendam as mudanças de estado.\n• **Acessibilidade Cognitiva**: Reduzir a carga mental de quem opera sob estresse ou em idioma não-nativo.",
+    es: "La accesibilidad (a11y) no es una lista de verificación al final; es arquitectura estructural. Diseño y programo siguiendo las **normas WCAG 2.1 AA / AAA**:\n\n• **Contraste y Color**: Mínimo 4.5:1 para texto y 3:1 para elementos gráficos y anillos de foco. Los acabados de vidrio translúcido mantienen un contraste óptimo en ambos modos.\n• **Teclado en Primer Lugar**: Todo elemento interactivo cuenta con foco visible, captura segura en modales y atajo `Escape` para cerrar.\n• **HTML Semántico**: Uso de `<button>`, `<dialog>` y etiquetas ARIA (`aria-expanded`, `aria-live`) para lectores de pantalla.\n• **Accesibilidad Cognitiva**: Diseñar para operadores bajo presión para minimizar el agotamiento mental.",
+    actions: {
+      en: [
+        { label: "Way of Working", href: "#approach", type: "anchor" },
+        { label: "Systems Lab", href: "/labs", type: "navigate" }
+      ],
+      fr: [
+        { label: "Ma démarche", href: "#approach", type: "anchor" },
+        { label: "Laboratoire systèmes", href: "/fr/labs", type: "navigate" }
+      ],
+      pt: [
+        { label: "Como eu trabalho", href: "#approach", type: "anchor" },
+        { label: "Laboratório de sistemas", href: "/labs", type: "navigate" }
+      ],
+      es: [
+        { label: "Cómo trabajo", href: "#approach", type: "anchor" },
+        { label: "Laboratorio de sistemas", href: "/labs", type: "navigate" }
+      ]
+    },
+    followUps: {
+      en: ["How do you structure design tokens?", "What is your take on Dieter Rams?", "Tell me about Relay"],
+      fr: ["Comment structures-tu les design tokens ?", "Que penses-tu de Dieter Rams ?", "Parle-moi de Relay"],
+      pt: ["Como você estrutura design tokens?", "O que você pensa sobre Dieter Rams?", "Me conta sobre o Relay"],
+      es: ["¿Cómo estructuras los design tokens?", "¿Qué opinas de Dieter Rams?", "Cuéntame sobre Relay"]
+    }
+  },
+  {
+    id: "design_systems_tokens",
+    keywords: [
+      "design system", "design systems", "design tokens", "tokens", "atomic design",
+      "brad frost", "sistema de design", "tokens de design", "variaveis css", "css variables",
+      "design token", "sistema de diseño"
+    ],
+    en: "A **Design System** is not a static Figma sticker sheet; it is a shared contract between design and engineering. I structure systems using **Atomic Design** and a 3-tier token hierarchy:\n\n1. **Global / Primitive Tokens**: Pure raw values (e.g., `--color-clay-500: #cf5c36;`, `--space-4: 16px;`).\n2. **Semantic / Purpose Tokens**: Contextual roles (e.g., `--surface-background`, `--border-accent`, `--text-secondary`).\n3. **Component Tokens**: Scoped to specific elements (e.g., `--dock-pill-border`, `--action-chip-padding`).\n\nThis architecture enables instant dark/light/high-contrast theme toggling with zero CSS layout shift and zero JavaScript runtime flicker.",
+    fr: "Un **Design System** n'est pas une planche d'autocollants Figma ; c'est un contrat vivant entre design et ingénierie. Je structure mes systèmes selon l'**Atomic Design** et une hiérarchie de tokens à 3 niveaux :\n\n1. **Tokens primitifs / globaux** : Valeurs brutes (`--color-clay-500`, `--space-4: 16px`).\n2. **Tokens sémantiques** : Rôles contextuels (`--surface-background`, `--border-accent`, `--text-secondary`).\n3. **Tokens de composants** : Liés à des éléments précis (`--dock-pill-border`, `--chip-padding`).\n\nCette structure permet de basculer instantanément entre modes clair et sombre sans décalage de mise en page (*layout shift*) ni scintillement JavaScript.",
+    pt: "Um **Design System** não é uma cartela decorativa de componentes no Figma; é um contrato vivo entre design e tecnologia. Eu estruturo sistemas usando **Atomic Design** e uma hierarquia de tokens em 3 níveis:\n\n1. **Tokens Globais / Primitivos**: Valores brutos puros (ex: `--color-clay-500: #cf5c36;`, `--space-4: 16px;`).\n2. **Tokens Semânticos**: Papéis no contexto (ex: `--surface-background`, `--border-accent`, `--text-secondary`).\n3. **Tokens de Componente**: Escopo dedicado (ex: `--dock-pill-border`, `--chip-padding`).\n\nEssa arquitetura permite alternar instantaneamente entre dark mode, light mode e alto contraste com zero layout shift e zero flash de renderização via CSS nativo.",
+    es: "Un **Design System** no es una colección de componentes estáticos en Figma; es un contrato compartido entre diseño e ingeniería. Estructuro sistemas mediante **Atomic Design** y 3 niveles de tokens:\n\n1. **Tokens Globales / Primitivos**: Valores puros (`--color-clay-500: #cf5c36;`, `--space-4: 16px;`).\n2. **Tokens Semánticos**: Roles contextuales (`--surface-background`, `--border-accent`).\n3. **Tokens de Componente**: Alcance específico (`--dock-pill-border`).\n\nEsta arquitectura permite alternar modos claro y oscuro sin saltos de diseño (*layout shift*) ni parpadeos de renderizado.",
+    actions: {
+      en: [
+        { label: "Systems Lab Preview", href: "/labs", type: "navigate" },
+        { label: "Capabilities Explorer", href: "#capabilities", type: "anchor" }
+      ],
+      fr: [
+        { label: "Laboratoire systèmes", href: "/fr/labs", type: "navigate" },
+        { label: "Explorer les compétences", href: "#capabilities", type: "anchor" }
+      ],
+      pt: [
+        { label: "Ver laboratório de sistemas", href: "/labs", type: "navigate" },
+        { label: "Mapa de competências", href: "#capabilities", type: "anchor" }
+      ],
+      es: [
+        { label: "Laboratorio de sistemas", href: "/labs", type: "navigate" },
+        { label: "Mapa de competencias", href: "#capabilities", type: "anchor" }
+      ]
+    },
+    followUps: {
+      en: ["What is your tech stack?", "How do you define Design Engineering?", "How do you test in code?"],
+      fr: ["Quelle est ta stack technique ?", "Comment définis-tu le Design Engineering ?", "Comment testes-tu en code ?"],
+      pt: ["Qual é a sua stack técnica?", "Como você define Design Engineering?", "Como você testa em código?"],
+      es: ["¿Cuál es tu stack técnico?", "¿Cómo defines el Design Engineering?", "¿Cómo pruebas en código?"]
+    }
+  },
+  {
+    id: "cognitive_load_friction",
+    keywords: [
+      "cognitive load", "carga cognitiva", "fricção", "friccion", "friction", "mental model",
+      "modelo mental", "progressive disclosure", "divulgação progressiva", "complexidade",
+      "complex systems", "charge cognitive"
+    ],
+    en: "In mission-critical enterprise systems, user error is rarely user incompetence; it is **interface negligence**. I manage cognitive friction through 3 strategies:\n\n1. **Eliminate Extraneous Load**: Strip away vanity metrics, decorative visual clutter, and unnecessary inputs.\n2. **Progressive Disclosure**: Show only what the operator needs for the immediate decision, with detailed audit evidence available 1-click away.\n3. **Align Mental & System Models**: Systems often expose internal database tables (e.g. tracking codes, carrier discrepancies). I design interfaces that translate system chaos into plain, actionable operational terms.",
+    fr: "Dans les logiciels d'entreprise critiques, l'erreur humaine est rarement due à l'incompétence de l'utilisateur ; elle résulte d'une **négligence d'interface**. Je réduis la friction cognitive via 3 axes :\n\n1. **Éliminer la charge extrinsèque** : Supprimer les graphiques décoratifs et les champs redondants.\n2. **Divulgation progressive** : Afficher uniquement l'information nécessaire à la décision immédiate, avec l'accès complet aux preuves d'audit en 1 clic.\n3. **Aligner les modèles mentaux** : Les systèmes imposent souvent le jargon des bases de données. Je conçois des interfaces qui traduisent ce chaos en décisions opérationnelles claires.",
+    pt: "Em sistemas corporativos e operacionais críticos, o erro do usuário quase nunca é incompetência; é **negligência de interface**. Eu reduzo a fricção cognitiva através de 3 táticas:\n\n1. **Eliminar Carga Extrínseca**: Cortar métricas vaidosas, poluição visual e formulários inchados.\n2. **Divulgação Progressiva (Progressive Disclosure)**: Exibir apenas o necessário para a decisão imediata, deixando evidências de auditoria e detalhes a 1 clique de distância.\n3. **Alinhar Modelos Mentais**: Softwares frequentemente cospem termos técnicos de banco de dados na cara do operador. Meu trabalho é traduzir o caos do sistema em termos claros e defensáveis.",
+    es: "En software empresarial crítico, el error del usuario rara vez es incompetencia; es **negligencia de interfaz**. Reduzco la fricción cognitiva mediante 3 tácticas:\n\n1. **Eliminar Carga Extrínseca**: Eliminar métricas vanidosas, adornos innecesarios y formularios inflados.\n2. **Divulgación Progresiva**: Mostrar únicamente lo indispensable para la decisión inmediata, con acceso a evidencias detalladas a un solo clic.\n3. **Alinear Modelos Mentales**: Los sistemas suelen arrojar jerga de base de datos. Mi labor es traducir el caos del sistema en términos operativos claros y defendibles.",
+    actions: {
+      en: [
+        { label: "See Relay Case Study", href: "/work/relay", type: "navigate" },
+        { label: "Way of Working", href: "#approach", type: "anchor" }
+      ],
+      fr: [
+        { label: "Voir l'étude Relay", href: "/fr/work/relay", type: "navigate" },
+        { label: "Ma démarche", href: "#approach", type: "anchor" }
+      ],
+      pt: [
+        { label: "Ver case Relay", href: "/work/relay", type: "navigate" },
+        { label: "Como eu trabalho", href: "#approach", type: "anchor" }
+      ],
+      es: [
+        { label: "Ver caso Relay", href: "/work/relay", type: "navigate" },
+        { label: "Cómo trabajo", href: "#approach", type: "anchor" }
+      ]
+    },
+    followUps: {
+      en: ["What is your take on Steve Jobs's philosophy?", "How do you test in code?", "How to contact you?"],
+      fr: ["Quelle est ta vision de Steve Jobs ?", "Comment testes-tu en code ?", "Comment te contacter ?"],
+      pt: ["Qual é a sua visão sobre Steve Jobs?", "Como você testa em código?", "Como entrar em contato?"],
+      es: ["¿Cuál es tu visión sobre Steve Jobs?", "¿Cómo pruebas en código?", "¿Cómo contactar contigo?"]
     }
   },
   {
@@ -114,10 +402,10 @@ const INTENTS = [
       ]
     },
     followUps: {
-      en: ["How did 8 years in ops shape your design?", "Tell me about the Relay case study", "How can I contact Breno?"],
-      fr: ["Comment vos 8 ans en opérations influencent votre design ?", "Parle-moi du projet Relay", "Comment te contacter ?"],
-      pt: ["Como os 8 anos em operações influenciam seu design?", "Me conta sobre o case Relay", "Como entrar em contato com você?"],
-      es: ["¿Cómo influyeron 8 años en operaciones?", "Cuéntame sobre el caso Relay", "¿Cómo contactar contigo?"]
+      en: ["What is your take on Steve Jobs & Apple HIG?", "Tell me about the Relay case study", "How can I contact Breno?"],
+      fr: ["Quelle est ta vision de Steve Jobs & Apple HIG ?", "Parle-moi du projet Relay", "Comment te contacter ?"],
+      pt: ["O que pensa sobre Steve Jobs e Apple HIG?", "Me conta sobre o case Relay", "Como entrar em contato com você?"],
+      es: ["¿Qué opinas sobre Steve Jobs y Apple HIG?", "Cuéntame sobre el caso Relay", "¿Cómo contactar contigo?"]
     }
   },
   {
@@ -386,13 +674,14 @@ export function detectQueryLanguage(text, defaultLang = "en", history = []) {
   ]);
 
   const ptWords = new Set([
-    "como", "quem", "qual", "quais", "onde", "quando", "porque", "por", "você", "voce",
+    "como", "quem", "qual", "quais", "onde", "quando", "porque", "por", "que", "você", "voce",
     "voces", "vocês", "olá", "ola", "oi", "obrigado", "obrigada", "valeu", "bora",
     "trabalho", "trabalha", "funciona", "projeto", "projetos", "falar", "ajudar",
     "contato", "sobre", "mim", "meu", "minha", "meus", "minhas", "está", "estou",
     "sou", "com", "para", "pra", "pelo", "pela", "não", "nao", "são", "sao", "também",
     "tambem", "currículo", "curriculo", "direto", "diretamente", "agora", "conta",
-    "fala", "diz", "explica", "português", "portugues", "mostra"
+    "fala", "diz", "explica", "português", "portugues", "mostra", "do", "da", "dos", "das",
+    "no", "na", "nos", "nas", "acha", "achas", "acham", "seu", "sua", "seus", "suas"
   ]);
 
   const esWords = new Set([
@@ -401,14 +690,38 @@ export function detectQueryLanguage(text, defaultLang = "en", history = []) {
     "proyecto", "proyectos", "contacto", "hablar", "ayuda", "ayudar", "sobre", "mí", "mi",
     "mis", "está", "estoy", "soy", "con", "para", "usted", "ustedes", "tú", "tu",
     "tus", "currículum", "curriculum", "directamente", "ahora", "habla", "cuenta",
-    "dice", "explica", "español", "espanol", "muestra"
+    "dice", "explica", "español", "espanol", "muestra", "del", "al"
   ]);
 
   const enWords = new Set([
     "how", "what", "where", "who", "when", "why", "which", "hello", "hi", "hey",
     "thanks", "thank", "you", "your", "work", "works", "working", "project", "projects",
     "approach", "background", "skills", "resume", "contact", "reach", "email", "about",
-    "can", "tell", "show", "is", "are", "directly", "now", "explain", "speak", "english"
+    "can", "tell", "show", "is", "are", "directly", "now", "explain", "speak", "english",
+    "the", "should", "build", "why", "would"
+  ]);
+
+  const ptUniques = new Set([
+    "você", "voce", "vocês", "voces", "não", "nao", "obrigado", "obrigada", "valeu", "bora",
+    "também", "tambem", "estão", "estao", "acha", "achas", "acham", "meu", "minha", "meus",
+    "minhas", "pra", "pelo", "pela", "pelos", "pelas", "são", "sao", "da", "do", "das", "dos",
+    "no", "na", "nos", "nas", "português", "portugues"
+  ]);
+
+  const esUniques = new Set([
+    "cómo", "usted", "ustedes", "cuál", "cuáles", "quién", "quiénes", "dónde", "porqué",
+    "hola", "gracias", "saludos", "español", "espanol", "del", "al"
+  ]);
+
+  const frUniques = new Set([
+    "comment", "pourquoi", "quand", "qui", "quel", "quelle", "quels", "quelles",
+    "bonjour", "salut", "merci", "démarche", "demarche", "vous", "nous", "c'est", "j'ai",
+    "qu'est", "n'est", "français", "francais"
+  ]);
+
+  const enUniques = new Set([
+    "how", "what", "where", "who", "when", "why", "which", "hello", "hi", "hey",
+    "thanks", "thank", "you", "your", "the", "should", "build", "about", "english"
   ]);
 
   let frScore = 0;
@@ -427,6 +740,11 @@ export function detectQueryLanguage(text, defaultLang = "en", history = []) {
     if (ptWords.has(t)) ptScore++;
     if (esWords.has(t)) esScore++;
     if (enWords.has(t)) enScore++;
+
+    if (frUniques.has(t)) frScore += 3;
+    if (ptUniques.has(t)) ptScore += 3;
+    if (esUniques.has(t)) esScore += 3;
+    if (enUniques.has(t)) enScore += 3;
   });
 
   // Language-specific character indicators
@@ -477,36 +795,42 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
   if (!clean) {
     if (targetLang === "fr") {
       return {
-        reply: "Pose-moi n'importe quelle question sur mon parcours, ma démarche ou mes prototypes !",
+        reply: "Pose-moi n'importe quelle question sur mon parcours, ma démarche, mes prototypes ou ma vision UX/UI !",
         actions: [],
-        followUps: ["Comment travailles-tu ?", "Parle-moi du projet Relay", "Comment te contacter ?"]
+        followUps: ["Comment travailles-tu ?", "Quelle est ta vision de Steve Jobs & Apple ?", "Parle-moi du projet Relay"]
       };
     }
     if (targetLang === "pt") {
       return {
-        reply: "Me pergunta qualquer coisa sobre minha trajetória, como eu trabalho ou meus projetos!",
+        reply: "Me pergunta qualquer coisa sobre minha trajetória, como eu trabalho, meus cases ou minha visão sobre UX/UI e Design Engineering!",
         actions: [],
-        followUps: ["Como você trabalha? (Way of Working)", "Conte sobre o case Relay", "Quais são suas principais habilidades?"]
+        followUps: ["Como você trabalha? (Way of Working)", "O que pensa sobre Steve Jobs e Apple HIG?", "Conte sobre o case Relay"]
       };
     }
     if (targetLang === "es") {
       return {
-        reply: "¡Pregúntame lo que quieras sobre mi trayectoria, cómo trabajo o mis prototipos!",
+        reply: "¡Pregúntame lo que quieras sobre mi trayectoria, cómo trabajo, mis proyectos o mi visión de UX/UI y Design Engineering!",
         actions: [],
-        followUps: ["¿Cómo trabajas? (Metodología)", "Cuéntame sobre el caso Relay", "¿Cómo contactar contigo?"]
+        followUps: ["¿Cómo trabajas? (Metodología)", "¿Qué opinas sobre Steve Jobs y Apple HIG?", "Cuéntame sobre el caso Relay"]
       };
     }
     return {
-      reply: "Ask me anything about my background, how I work, or my design prototypes!",
+      reply: "Ask me anything about my background, how I work, my design prototypes, or my take on UX/UI and Design Engineering!",
       actions: [],
-      followUps: ["How do you work? (Way of Working)", "Tell me about Relay case study", "What are your core skills?"]
+      followUps: ["How do you work? (Way of Working)", "What is your take on Steve Jobs & Apple HIG?", "Tell me about Relay case study"]
     };
   }
 
   const lower = clean.toLowerCase();
+  const queryTokens = new Set(lower.match(/[\p{L}\p{M}'-]+/gu) || []);
 
   for (const item of INTENTS) {
-    const match = item.keywords.some((k) => lower.includes(k));
+    const match = item.keywords.some((k) => {
+      if (k.includes(" ")) {
+        return lower.includes(k);
+      }
+      return queryTokens.has(k) || (k.length > 4 && lower.includes(k));
+    });
     if (match) {
       const actionsForLang = item.actions
         ? (item.actions[targetLang] || item.actions[lang] || item.actions.en || [])
@@ -526,10 +850,10 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
         // Ensure we always have at least 2 engaging follow-up suggestions
         if (followUpsForLang.length < 2) {
           const genericPool = {
-            fr: ["Comment travailles-tu ?", "Parle-moi du prototype Relay", "Télécharger mon CV"],
-            pt: ["Como você trabalha? (Approach)", "Me conta sobre o case Relay", "Baixar meu currículo"],
-            es: ["¿Cómo trabajas? (Metodología)", "Cuéntame sobre el caso Relay", "Descargar mi CV"],
-            en: ["Explain your Way of Working", "Tell me about Relay prototype", "Download my resume"]
+            fr: ["Comment travailles-tu ?", "Parle-moi du prototype Relay", "Quelle est ta vision de Steve Jobs & Apple ?"],
+            pt: ["Como você trabalha? (Approach)", "Me conta sobre o case Relay", "O que pensa sobre Steve Jobs e Apple HIG?"],
+            es: ["¿Cómo trabajas? (Metodología)", "Cuéntame sobre el caso Relay", "¿Qué opinas sobre Steve Jobs y Apple HIG?"],
+            en: ["Explain your Way of Working", "Tell me about Relay prototype", "What is your take on Steve Jobs & Apple HIG?"]
           };
           const pool = genericPool[targetLang] || genericPool.en;
           pool.forEach((p) => {
@@ -551,7 +875,7 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
   // Fallbacks if no specific intent keyword matched
   if (targetLang === "fr") {
     return {
-      reply: `Je suis Breno, **Product Designer** basé à Valence, en Espagne, avec 8 ans d'expérience sur le terrain en opérations multilingues. Je transforme les flux complexes en interfaces claires et prototypes fonctionnels en React.\n\nDemande-moi **comment je travaille**, mes **projets (comme Relay)**, ou de t'**orienter vers une section** !`,
+      reply: `Je suis Breno, **Product Designer & Frontend Prototyper** basé à Valence, en Espagne, avec 8 ans d'expérience sur le terrain en opérations multilingues. J'unis le design d'interaction exigeant (inspiré d'Apple HIG, Dieter Rams et Don Norman) avec des prototypes fonctionnels en React.\n\nDemande-moi **comment je travaille**, mes **projets (comme Relay)**, ma **vision du Design Engineering** ou de t'**orienter vers une section** !`,
       actions: [
         { label: "Ma démarche", href: "#approach", type: "anchor" },
         { label: "Prototype Relay", href: "/fr/work/relay", type: "navigate" },
@@ -559,7 +883,7 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
       ],
       followUps: [
         "Comment travailles-tu ? (Démarche)",
-        "Parle-moi de l'étude Relay",
+        "Quelle est ta vision de Steve Jobs & Apple ?",
         "Quelles sont tes compétences clés ?"
       ]
     };
@@ -567,7 +891,7 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
 
   if (targetLang === "pt") {
     return {
-      reply: `Sou o Breno, **Product Designer** baseado em Valência, Espanha, com 8 anos de estrada em operações multilíngues. Eu transformo fluxos operacionais complexos em produtos fáceis de navegar e protótipos funcionais em React.\n\nPode me perguntar sobre **como eu trabalho**, meus **cases (como o Relay)**, ou pedir para eu te **levar a qualquer seção**!`,
+      reply: `Sou o Breno, **Product Designer & Frontend Prototyper** baseado em Valência, Espanha, com 8 anos de estrada em operações multilíngues. Eu uno o rigor clássico de UX (inspirado em Apple HIG, Dieter Rams e Don Norman) com protótipos funcionais reais em React.\n\nPode me perguntar sobre **como eu trabalho**, meus **cases (como o Relay)**, minha **visão de Design Engineering** ou pedir para eu te **levar a qualquer seção**!`,
       actions: [
         { label: "Como eu trabalho", href: "#approach", type: "anchor" },
         { label: "Ver case Relay", href: "/work/relay", type: "navigate" },
@@ -575,7 +899,7 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
       ],
       followUps: [
         "Como você trabalha? (Way of Working)",
-        "Conte sobre o case Relay",
+        "O que pensa sobre Steve Jobs e Apple HIG?",
         "Quais são suas principais habilidades?"
       ]
     };
@@ -583,7 +907,7 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
 
   if (targetLang === "es") {
     return {
-      reply: `Soy Breno, **Product Designer** afincado en Valencia, España, con 8 años de experiencia en primera línea de operaciones multilingües. Transformo flujos operativos complejos en interfaces claras y prototipos funcionales en React.\n\n¡Pregúntame sobre **cómo trabajo**, mis **proyectos (como Relay)**, o cómo **contactar conmigo**!`,
+      reply: `Soy Breno, **Product Designer & Frontend Prototyper** afincado en Valencia, España, con 8 años de experiencia en primera línea de operaciones multilingües. Uno el rigor clásico de UX (Apple HIG, Dieter Rams y Don Norman) con prototipos funcionales reales en React.\n\n¡Pregúntame sobre **cómo trabajo**, mis **proyectos (como Relay)**, mi **visión de Design Engineering** o cómo **contactar conmigo**!`,
       actions: [
         { label: "Cómo trabajo", href: "#approach", type: "anchor" },
         { label: "Prototipo Relay", href: "/work/relay", type: "navigate" },
@@ -591,14 +915,14 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
       ],
       followUps: [
         "¿Cómo trabajas? (Metodología)",
-        "Cuéntame sobre el caso Relay",
+        "¿Qué opinas sobre Steve Jobs y Apple HIG?",
         "¿Cuáles son tus habilidades clave?"
       ]
     };
   }
 
   return {
-    reply: `I'm Breno, a **Product Designer** based in Valencia, Spain, with 8 years in frontline operations. I turn messy, complex workflows into clear products and working React prototypes.\n\nAsk me about **how I work**, my **case studies (like Relay)**, or ask me to **jump to any section**!`,
+    reply: `I'm Breno, a **Product Designer & Frontend Prototyper** based in Valencia, Spain, with 8 years in frontline operations. I combine classic UX rigor (Apple HIG, Dieter Rams, Don Norman) with living React prototypes.\n\nAsk me about **how I work**, my **case studies (like Relay)**, my **take on Design Engineering**, or ask me to **jump to any section**!`,
     actions: [
       { label: "How I work", href: "#approach", type: "anchor" },
       { label: "Relay prototype", href: "/work/relay", type: "navigate" },
@@ -606,7 +930,7 @@ export function getAssistantKnowledgeResult(query, lang = "en", history = []) {
     ],
     followUps: [
       "How do you work? (Way of Working)",
-      "Tell me about Relay case study",
+      "What is your take on Steve Jobs & Apple HIG?",
       "What are your core skills?"
     ]
   };
