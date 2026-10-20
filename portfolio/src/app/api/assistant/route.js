@@ -4,7 +4,7 @@ import { SYSTEM_KNOWLEDGE, getAssistantKnowledgeResult } from "@/lib/assistantKn
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { message = "", lang = "en" } = body;
+    const { message = "", lang = "en", history = [] } = body;
 
     if (!message || typeof message !== "string") {
       return NextResponse.json({ error: "Invalid message" }, { status: 400 });
@@ -13,12 +13,29 @@ export async function POST(request) {
     const geminiKey = process.env.GEMINI_API_KEY;
     const openaiKey = process.env.OPENAI_API_KEY;
 
-    // Default curated knowledge result with action pills
-    const curated = getAssistantKnowledgeResult(message, lang);
+    // Curated knowledge result with contextual follow-ups and action pills
+    const curated = getAssistantKnowledgeResult(message, lang, history);
 
-    // Live Gemini call if API key provided
+    // Live Gemini call with multi-turn conversation memory if API key provided
     if (geminiKey) {
       try {
+        const contents = [];
+        if (Array.isArray(history) && history.length > 0) {
+          history.slice(-6).forEach((turn) => {
+            if (turn && turn.text) {
+              contents.push({
+                role: turn.sender === "user" ? "user" : "model",
+                parts: [{ text: turn.text }]
+              });
+            }
+          });
+        }
+
+        contents.push({
+          role: "user",
+          parts: [{ text: message }]
+        });
+
         const response = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
           {
@@ -28,14 +45,9 @@ export async function POST(request) {
               system_instruction: {
                 parts: [{ text: SYSTEM_KNOWLEDGE }]
               },
-              contents: [
-                {
-                  role: "user",
-                  parts: [{ text: `User language context: ${lang}. User question: ${message}` }]
-                }
-              ],
+              contents,
               generationConfig: {
-                temperature: 0.3,
+                temperature: 0.35,
                 maxOutputTokens: 500
               }
             })
@@ -59,9 +71,29 @@ export async function POST(request) {
       }
     }
 
-    // Live OpenAI call if API key provided
+    // Live OpenAI call with multi-turn conversation memory if API key provided
     if (openaiKey) {
       try {
+        const chatMessages = [
+          { role: "system", content: SYSTEM_KNOWLEDGE }
+        ];
+
+        if (Array.isArray(history) && history.length > 0) {
+          history.slice(-6).forEach((turn) => {
+            if (turn && turn.text) {
+              chatMessages.push({
+                role: turn.sender === "user" ? "user" : "assistant",
+                content: turn.text
+              });
+            }
+          });
+        }
+
+        chatMessages.push({
+          role: "user",
+          content: message
+        });
+
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
           headers: {
@@ -70,11 +102,8 @@ export async function POST(request) {
           },
           body: JSON.stringify({
             model: "gpt-4o-mini",
-            messages: [
-              { role: "system", content: SYSTEM_KNOWLEDGE },
-              { role: "user", content: `Context language: ${lang}. Question: ${message}` }
-            ],
-            temperature: 0.3,
+            messages: chatMessages,
+            temperature: 0.35,
             max_tokens: 500
           })
         });
@@ -96,7 +125,7 @@ export async function POST(request) {
       }
     }
 
-    // Seamless instant curated response with rich navigation actions
+    // Seamless instant curated response with rich navigation actions & evolving follow-ups
     return NextResponse.json({
       reply: curated.reply,
       actions: curated.actions || [],
