@@ -305,16 +305,22 @@ export function AssistantDock() {
       }
     }, 40);
 
+    // Extract recent conversational history for context continuity
+    const recentHistory = messages.slice(-6).map((m) => ({
+      sender: m.sender,
+      text: m.fullText || m.text,
+    }));
+
     try {
       const res = await fetch("/api/assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: textToSend, lang }),
+        body: JSON.stringify({ message: textToSend, lang, history: recentHistory }),
       });
 
       if (!res.ok) throw new Error("API request failed");
       const data = await res.json();
-      const localResult = getAssistantKnowledgeResult(textToSend, lang);
+      const localResult = getAssistantKnowledgeResult(textToSend, lang, recentHistory);
       const replyText = data.reply || localResult.reply;
       const actions = data.actions && data.actions.length > 0 ? data.actions : localResult.actions;
       const followUps = data.followUps && data.followUps.length > 0 ? data.followUps : localResult.followUps;
@@ -374,8 +380,8 @@ export function AssistantDock() {
         }
       }, 18);
     } catch {
-      // Local fallback guarantee with action navigation
-      const fallbackResult = getAssistantKnowledgeResult(textToSend, lang);
+      // Local fallback guarantee with action navigation and history awareness
+      const fallbackResult = getAssistantKnowledgeResult(textToSend, lang, recentHistory);
       const replyText = fallbackResult.reply;
       setIsThinking(false);
 
@@ -430,7 +436,7 @@ export function AssistantDock() {
         }
       }, 18);
     }
-  }, [query, isThinking, lang, finishActiveStream]);
+  }, [query, isThinking, lang, finishActiveStream, messages]);
 
   const handleChipClick = (suggestion) => {
     handleSubmit(suggestion);
